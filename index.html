@@ -1,0 +1,948 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- FIX: viewport must never allow user-scalable=no for accessibility; added shrink-to-fit -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="Official website of singer-songwriter Morgan Wallen."
+    />
+    <title>Morgan Wallen | Official Website</title>
+
+    <link rel="icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/responsive.css" />
+
+    <style>
+      body {
+        background-color: #f0ede6;
+        background-image: url("images/bg.jpg");
+        background-attachment: fixed;
+        background-position: top center;
+        background-repeat: repeat;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      /* Fade in page content */
+      #container,
+      header,
+      main {
+        animation: pageIn 0.4s ease-in-out;
+      }
+      @keyframes pageIn {
+        from {
+          opacity: 0.95;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      /* ── Announcement Popup ── */
+      .ann-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 3000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        animation: annFadeIn 0.3s ease;
+      }
+      @keyframes annFadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .ann-popup {
+        background: url("images/bg.jpg") top center repeat;
+        border: 2px solid rgba(68, 67, 52, 0.22);
+        max-width: 520px;
+        width: 100%;
+        max-height: 82vh;
+        overflow-y: auto;
+        position: relative;
+        animation: annSlideUp 0.35s ease;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      }
+      @keyframes annSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .ann-popup-header {
+        background: #444334;
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+      .ann-popup-header-title {
+        font-family: "bebas", sans-serif;
+        font-size: 22px;
+        color: #f6e7c2;
+        letter-spacing: 0.04em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .ann-popup-close {
+        background: none;
+        border: none;
+        color: #f6e7c2;
+        font-size: 26px;
+        cursor: pointer;
+        opacity: 0.65;
+        line-height: 1;
+        transition: opacity 0.2s;
+        padding: 0;
+        flex-shrink: 0;
+        /* FIX: ensure minimum tap target */
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+      .ann-popup-close:hover {
+        opacity: 1;
+      }
+      .ann-item {
+        padding: 22px 24px;
+        border-bottom: 1px solid rgba(68, 67, 52, 0.1);
+      }
+      .ann-item:last-child {
+        border-bottom: none;
+      }
+      .ann-item-badge {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: #a9683a;
+        background: rgba(169, 104, 58, 0.1);
+        padding: 2px 8px;
+        margin-bottom: 8px;
+        font-family: "Poppins", sans-serif;
+      }
+      .ann-item-title {
+        font-family: "bebas", sans-serif;
+        font-size: 28px;
+        color: #444334;
+        line-height: 1.1;
+        margin-bottom: 8px;
+      }
+      .ann-item-body {
+        font-family: "Poppins", sans-serif;
+        font-size: 13px;
+        color: #555;
+        line-height: 1.65;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+      .ann-item-date {
+        font-family: "Poppins", sans-serif;
+        font-size: 11px;
+        color: #bbb;
+        margin-top: 8px;
+      }
+      .ann-popup-footer {
+        padding: 16px 24px;
+        border-top: 2px solid rgba(68, 67, 52, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .ann-dismiss-btn {
+        font-family: "bebas", sans-serif;
+        font-size: 20px;
+        letter-spacing: 0.04em;
+        color: #f6e7c2;
+        background: url("images/ITP_Button-Stroke-Sm.png") center/100% 100%
+          no-repeat;
+        border: none;
+        padding: 11px 28px;
+        cursor: pointer;
+        transition: opacity 0.2s;
+        min-height: 44px; /* FIX: touch target */
+      }
+      .ann-dismiss-btn:hover {
+        opacity: 0.85;
+      }
+      .ann-timer-bar {
+        height: 3px;
+        background: rgba(68, 67, 52, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+      .ann-timer-fill {
+        height: 100%;
+        background: #a9683a;
+        width: 100%;
+        transition: width linear;
+      }
+      .ann-count {
+        font-family: "Poppins", sans-serif;
+        font-size: 12px;
+        color: #888;
+      }
+
+      /* ── Responsive ann popup on small screens ── */
+      @media (max-width: 480px) {
+        .ann-popup {
+          max-height: 88vh;
+          width: 100%;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          top: auto;
+          max-width: 100%;
+          /* FIX: account for home indicator on iOS */
+          padding-bottom: env(safe-area-inset-bottom, 0);
+        }
+        .ann-overlay {
+          align-items: flex-end;
+          padding: 0;
+        }
+        .ann-item {
+          padding: 14px 16px;
+        }
+        .ann-item-title {
+          font-size: 22px;
+        }
+        .ann-popup-footer {
+          padding: 12px 16px;
+        }
+        .ann-dismiss-btn {
+          font-size: 17px;
+          padding: 9px 20px;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <div class="header-wrapper">
+      <header>
+        <div id="logo">
+          <a href="index.html"
+            ><img src="images/logo.svg" alt="Morgan Wallen"
+          /></a>
+        </div>
+        <nav id="main" aria-label="Primary navigation">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="meet-and-greet.html">Meet &amp; Greet</a></li>
+            <li><a href="private-meetup.html">Private Meet Up</a></li>
+            <li id="nav-auth-item">
+              <a href="signup.html" id="nav-login-btn">Login</a>
+            </li>
+          </ul>
+        </nav>
+        <div id="socials" aria-label="Social media links">
+          <ul>
+            <li>
+              <a
+                href="https://facebook.com/morgancwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Facebook"
+                ><i class="socicon-facebook"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Instagram"
+                ><i class="socicon-instagram"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://tiktok.com/@morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="TikTok"
+                ><i class="socicon-tiktok"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Twitter / X"
+                ><i class="socicon-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/channel/UCzIyoPv6j1MAZpDHKLGP_eA"
+                target="_blank"
+                rel="noopener"
+                aria-label="YouTube"
+                ><i class="socicon-youtube"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://music.amazon.com/artists/B00QNUADXK/morgan-wallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Amazon Music"
+                ><i class="socicon-amazon"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://geo.music.apple.com/us/artist/morgan-wallen/829142092"
+                target="_blank"
+                rel="noopener"
+                aria-label="Apple Music"
+                ><i class="socicon-apple"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM"
+                target="_blank"
+                rel="noopener"
+                aria-label="Spotify"
+                ><i class="socicon-spotify"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </header>
+      <!-- FIX: added role + aria-expanded for accessibility -->
+      <div
+        id="nav-trigger"
+        role="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        tabindex="0"
+      ></div>
+    </div>
+
+    <!-- MOBILE NAV -->
+    <div id="mobile-nav" aria-hidden="true">
+      <ul id="nav-mob">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="meet-and-greet.html">Meet &amp; Greet</a></li>
+        <li><a href="private-meetup.html">Private Meet Up</a></li>
+        <li id="mob-auth-item">
+          <a href="signup.html" id="mob-login-btn">Sign In</a>
+        </li>
+        <!-- FIX: wrapped in <li> to be valid children of <ul> -->
+        <li id="mobile-nav-socials">
+          <ul>
+            <li>
+              <a
+                href="https://facebook.com/morgancwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Facebook"
+                ><i class="socicon-facebook"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Instagram"
+                ><i class="socicon-instagram"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://tiktok.com/@morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="TikTok"
+                ><i class="socicon-tiktok"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Twitter / X"
+                ><i class="socicon-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/channel/UCzIyoPv6j1MAZpDHKLGP_eA"
+                target="_blank"
+                rel="noopener"
+                aria-label="YouTube"
+                ><i class="socicon-youtube"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://music.amazon.com/artists/B00QNUADXK/morgan-wallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Amazon Music"
+                ><i class="socicon-amazon"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://geo.music.apple.com/us/artist/morgan-wallen/829142092"
+                target="_blank"
+                rel="noopener"
+                aria-label="Apple Music"
+                ><i class="socicon-apple"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM"
+                target="_blank"
+                rel="noopener"
+                aria-label="Spotify"
+                ><i class="socicon-spotify"></i
+              ></a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- HERO -->
+    <section id="feature">
+      <div id="container">
+        <!-- FIX: order controlled by CSS flex order, not float -->
+        <div id="col-2">
+          <a
+            href="https://morganwallen.lnk.to/ImTheProblemAlbum"
+            target="_blank"
+            rel="noopener"
+          >
+            <img
+              src="images/MW-ITP_cover.png"
+              alt="I'm The Problem Album Cover"
+            />
+          </a>
+        </div>
+        <div id="col-1">
+          <div id="wordmark">
+            <img src="images/mw-imtheproblem.png" alt="I'm The Problem" />
+          </div>
+          <div id="release-info">
+            <div id="release-pre">New Album</div>
+            <div id="release-date">Out Now</div>
+          </div>
+          <div id="release-btn">
+            <a
+              href="https://morganwallen.lnk.to/ImTheProblemAlbum"
+              target="_blank"
+              rel="noopener"
+              >Listen Now</a
+            >
+          </div>
+        </div>
+        <!-- FIX: .clear only needed when floats used; harmless here but kept for compatibility -->
+        <div class="clear"></div>
+      </div>
+    </section>
+
+    <!-- AVAILABLE -->
+    <section id="avail-links">
+      <div id="container">
+        <ul>
+          <li>
+            <a
+              href="https://shop.morganwallen.com/products/im-the-problem-black-3lp"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="images/itp-blackvinyl.png" alt="Black Vinyl" />
+            </a>
+            <div id="avail-text">Vinyl (Black)</div>
+            <hr />
+            <a
+              href="https://shop.morganwallen.com/products/im-the-problem-black-3lp"
+              target="_blank"
+              rel="noopener"
+              class="avail-link"
+              >Buy Now</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://shop.morganwallen.com/products/limited-edition-exclusive-i-m-the-problem-bone-white-3lp"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="images/itp-bonevinyl.png" alt="Bone White Vinyl" />
+            </a>
+            <div id="avail-text">Vinyl (Bone)</div>
+            <hr />
+            <a
+              href="https://shop.morganwallen.com/products/limited-edition-exclusive-i-m-the-problem-bone-white-3lp"
+              target="_blank"
+              rel="noopener"
+              class="avail-link"
+              >Buy Now</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://shop.morganwallen.com/products/im-the-problem-2cd"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="images/itp-cd.png" alt="CD" />
+            </a>
+            <div id="avail-text">CD</div>
+            <hr />
+            <a
+              href="https://shop.morganwallen.com/products/im-the-problem-2cd"
+              target="_blank"
+              rel="noopener"
+              class="avail-link"
+              >Buy Now</a
+            >
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div id="container">
+        <div id="section-head"><span>About</span></div>
+        <div id="col-1">
+          <img src="images/about-images.png" alt="Morgan Wallen" />
+        </div>
+        <div id="col-2">
+          <p>
+            Morgan Wallen sets the pace in, and beyond, country music – with
+            <em
+              ><a
+                href="https://www.billboard.com/lists/morgan-wallen-im-the-problem-albm-review-songs-ranked/"
+                target="_blank"
+                rel="noopener"
+                >Billboard</a
+              ></em
+            >
+            calling him "one of the biggest stars in the music world right now."
+            With 20 No. 1 singles at Country radio, 19 <i>Billboard</i> Music
+            Awards to-date, more than 225 weeks spent atop
+            <i>Billboard's</i> Top Country Albums chart (the most in country
+            music history), the highest selling country tour under his belt and
+            more, Wallen has propelled country music to a global level in less
+            than five years.
+          </p>
+          <p>
+            Wallen's fourth studio album, <i>I'm The Problem,</i> available now
+            via Big Loud / Mercury, debuted at No. 1 globally across seven
+            countries and spent 13 non-consecutive weeks atop the
+            <i>Billboard</i> 200 albums chart. His preceding albums –
+            <i>Dangerous: The Double Album</i> and <i>One Thing At A Time</i> –
+            have remained in the top 10 of the <i>Billboard</i> 200 chart for
+            more than 100 weeks each, making him the first artist ever to
+            achieve that feat.
+          </p>
+          <p>
+            Wallen is readying his 23-stadium show
+            <i>Still The Problem Tour</i> for 2026. Kicking off April 10 with
+            two consecutive nights at U.S. Bank Stadium in Minneapolis, the run
+            will include stops at four major college football stadiums:
+            Clemson's Memorial Stadium, Florida's Ben Hill Griffin Stadium,
+            Michigan's Michigan Stadium and one night only at Alabama's Saban
+            Field at Bryant-Denny Stadium.
+          </p>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </section>
+
+    <!-- User Auth Dialog -->
+    <div
+      id="user-dialog-overlay"
+      class="udialog-overlay"
+      style="display: none"
+      onclick="closeUserDialog()"
+    ></div>
+    <div
+      id="user-dialog"
+      class="udialog"
+      style="display: none"
+      role="dialog"
+      aria-modal="true"
+      aria-label="User account"
+    >
+      <button
+        class="udialog-close"
+        onclick="closeUserDialog()"
+        aria-label="Close"
+      >
+        &times;
+      </button>
+      <div class="udialog-avatar">
+        <svg
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <circle cx="20" cy="15" r="7" fill="#a9683a" />
+          <path
+            d="M4 36c0-8.837 7.163-14 16-14s16 5.163 16 14"
+            stroke="#a9683a"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <div class="udialog-name" id="udialog-name"></div>
+      <div class="udialog-email" id="udialog-email"></div>
+      <div class="udialog-divider"></div>
+      <a href="dashboard.html" class="udialog-link" onclick="closeUserDialog()">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
+        My Dashboard
+      </a>
+      <a
+        href="meet-and-greet.html"
+        class="udialog-link"
+        onclick="closeUserDialog()"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+          />
+        </svg>
+        Meet &amp; Greet Packages
+      </a>
+      <a href="signup.html" class="udialog-link" onclick="closeUserDialog()">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+        Account Settings
+      </a>
+      <button class="udialog-signout" id="udialog-signout-btn">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <polyline points="16 17 21 12 16 7" />
+          <line x1="21" y1="12" x2="9" y2="12" />
+        </svg>
+        Sign Out
+      </button>
+    </div>
+
+    <!-- ANNOUNCEMENT POPUP -->
+    <!-- FIX: class added here so CSS .ann-overlay applies before JS sets it -->
+    <div
+      id="ann-overlay"
+      class="ann-overlay"
+      style="display: none"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Announcements"
+    >
+      <div class="ann-popup" id="ann-popup">
+        <div class="ann-popup-header">
+          <div class="ann-popup-header-title">
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#f6e7c2"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path
+                d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3z"
+              />
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </svg>
+            Announcements
+          </div>
+          <button
+            class="ann-popup-close"
+            id="ann-close-btn"
+            aria-label="Close announcements"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="ann-timer-bar">
+          <div class="ann-timer-fill" id="ann-timer-fill"></div>
+        </div>
+        <div id="ann-popup-body"></div>
+        <div class="ann-popup-footer">
+          <span class="ann-count" id="ann-count"></span>
+          <button class="ann-dismiss-btn" id="ann-dismiss-btn">
+            Got It — Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <span style="font-family: Arial">&copy;</span> 2026 Morgan Wallen. All
+      rights reserved. <a href="privacy.html">Privacy Policy</a> &nbsp;|&nbsp;
+      Website by: <a href="#">Stephen Craven</a>
+    </footer>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/nav-auth.js"></script>
+    <script src="js/chat.js"></script>
+
+    <script>
+      (function () {
+        var SURL = "https://gzzqpiwufbvoygqfxbrf.supabase.co";
+        var SANON =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6enFwaXd1ZmJ2b3lncWZ4YnJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNjA2MTcsImV4cCI6MjA4ODYzNjYxN30.OUY4ktBGKSvnO56fpLfkP13da5T_fOLBEDX7aBW7PU4";
+        var AUTO_CLOSE_MS = 8000;
+        var autoCloseTimer = null;
+
+        function esc(s) {
+          return String(s || "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+        }
+
+        function dismiss() {
+          clearTimeout(autoCloseTimer);
+          var overlay = document.getElementById("ann-overlay");
+          if (!overlay) return;
+          overlay.style.transition = "opacity .3s";
+          overlay.style.opacity = "0";
+          setTimeout(function () {
+            overlay.style.display = "none";
+            overlay.style.opacity = "";
+          }, 300);
+          sessionStorage.setItem("ann_seen", "1");
+        }
+
+        window.dismissAnnouncements = dismiss;
+
+        document.addEventListener("DOMContentLoaded", function () {
+          var closeBtn = document.getElementById("ann-close-btn");
+          var dismissBtn = document.getElementById("ann-dismiss-btn");
+          var overlay = document.getElementById("ann-overlay");
+          if (closeBtn) closeBtn.addEventListener("click", dismiss);
+          if (dismissBtn) dismissBtn.addEventListener("click", dismiss);
+          if (overlay)
+            overlay.addEventListener("click", function (e) {
+              if (e.target === this) dismiss();
+            });
+
+          /* FIX: keyboard dismiss on Escape */
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") dismiss();
+          });
+        });
+
+        async function loadAnnouncements() {
+          if (!sessionStorage.getItem("just_logged_in")) return;
+          sessionStorage.removeItem("just_logged_in");
+
+          var db = window.supabaseClient;
+          if (!db) {
+            var tries = 0;
+            await new Promise(function (resolve) {
+              var iv = setInterval(function () {
+                tries++;
+                if (window.supabaseClient || tries > 30) {
+                  clearInterval(iv);
+                  resolve();
+                }
+              }, 100);
+            });
+            db = window.supabaseClient;
+          }
+          if (!db) return;
+
+          var s = await db.auth.getSession().catch(function () {
+            return null;
+          });
+          if (!s || !s.data || !s.data.session) return;
+
+          var userId = s.data.session.user.id;
+
+          var profRes = await db
+            .from("profiles")
+            .select("membership_tier,is_admin")
+            .eq("id", userId)
+            .single()
+            .catch(function () {
+              return {};
+            });
+          var profile = (profRes && profRes.data) || {};
+
+          if (profile.is_admin) return;
+
+          var tier = profile.membership_tier || "";
+
+          var res = await db
+            .from("announcements")
+            .select("*")
+            .order("created_at", { ascending: false })
+            .limit(10)
+            .catch(function () {
+              return {};
+            });
+
+          var items = (res.data || []).filter(function (a) {
+            return a.audience === "all" || a.audience === tier;
+          });
+
+          if (!items.length) return;
+
+          var body = document.getElementById("ann-popup-body");
+          var count = document.getElementById("ann-count");
+          if (!body) return;
+
+          count.textContent =
+            items.length + " announcement" + (items.length === 1 ? "" : "s");
+
+          body.innerHTML = items
+            .map(function (a) {
+              var date = a.created_at
+                ? new Date(a.created_at).toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })
+                : "";
+              var audLabel =
+                a.audience === "all"
+                  ? "For Everyone"
+                  : (a.audience || "").charAt(0).toUpperCase() +
+                    (a.audience || "").slice(1) +
+                    " Members";
+              return (
+                '<div class="ann-item">' +
+                '<div class="ann-item-badge">' +
+                audLabel +
+                "</div>" +
+                '<div class="ann-item-title">' +
+                esc(a.title || "") +
+                "</div>" +
+                '<div class="ann-item-body">' +
+                esc(a.body || "") +
+                "</div>" +
+                (date ? '<div class="ann-item-date">' + date + "</div>" : "") +
+                "</div>"
+              );
+            })
+            .join("");
+
+          var overlay = document.getElementById("ann-overlay");
+          /* FIX: class is already on element; just show it */
+          overlay.style.display = "flex";
+          overlay.style.opacity = "0";
+          requestAnimationFrame(function () {
+            overlay.style.transition = "opacity 0.3s";
+            overlay.style.opacity = "1";
+          });
+
+          var fill = document.getElementById("ann-timer-fill");
+          if (fill) {
+            fill.style.transition = "none";
+            fill.style.width = "100%";
+            requestAnimationFrame(function () {
+              requestAnimationFrame(function () {
+                fill.style.transition = "width " + AUTO_CLOSE_MS + "ms linear";
+                fill.style.width = "0%";
+              });
+            });
+          }
+
+          autoCloseTimer = setTimeout(dismiss, AUTO_CLOSE_MS);
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(loadAnnouncements, 400);
+          });
+        } else {
+          setTimeout(loadAnnouncements, 400);
+        }
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,2388 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout | Morgan Wallen</title>
+    <link rel="icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/responsive.css" />
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #f0ede6;
+        background-image: url("images/bg.jpg");
+        background-attachment: fixed;
+        background-position: top center;
+        background-repeat: repeat;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      /* Fade in page content */
+      #container,
+      header,
+      main {
+        animation: pageIn 0.4s ease-in-out;
+      }
+      @keyframes pageIn {
+        from {
+          opacity: 0.95;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .checkout-wrapper {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+      .checkout-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "Poppins", sans-serif;
+        font-size: 13px;
+        color: #a9683a;
+        text-decoration: none;
+        margin-bottom: 32px;
+        transition: opacity 0.2s;
+      }
+      .checkout-back:hover {
+        opacity: 0.7;
+      }
+      .checkout-title {
+        font-family: "bebas", sans-serif;
+        font-size: 52px;
+        color: #444334;
+        margin: 0 0 40px;
+        line-height: 1;
+      }
+      .checkout-grid {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: 40px;
+        align-items: start;
+      }
+      /* Order Summary */
+      .order-summary {
+        background: rgba(68, 67, 52, 0.05);
+        border: 2px solid rgba(68, 67, 52, 0.15);
+        padding: 32px 28px;
+        position: sticky;
+        top: 24px;
+      }
+      .order-summary-title {
+        font-family: "bebas", sans-serif;
+        font-size: 28px;
+        color: #444334;
+        margin: 0 0 24px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid rgba(68, 67, 52, 0.12);
+      }
+      .order-item {
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(68, 67, 52, 0.1);
+      }
+      .order-item-img {
+        width: 72px;
+        height: 72px;
+        object-fit: cover;
+        flex-shrink: 0;
+        border: 1px solid rgba(68, 67, 52, 0.12);
+      }
+      .order-item-img-placeholder {
+        width: 72px;
+        height: 72px;
+        flex-shrink: 0;
+        background: rgba(68, 67, 52, 0.08);
+        border: 1px solid rgba(68, 67, 52, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .order-item-details {
+        flex: 1;
+        min-width: 0;
+      }
+      .order-item-name {
+        font-family: "bebas", sans-serif;
+        font-size: 20px;
+        color: #444334;
+        line-height: 1.2;
+        margin-bottom: 4px;
+      }
+      .order-item-sub {
+        font-family: "Poppins", sans-serif;
+        font-size: 12px;
+        color: #888;
+        line-height: 1.4;
+      }
+      .order-item-price {
+        font-family: "bebas", sans-serif;
+        font-size: 22px;
+        color: #a9683a;
+        flex-shrink: 0;
+      }
+      .order-perks {
+        margin: 10px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .order-perks li {
+        font-family: "Poppins", sans-serif;
+        font-size: 11px;
+        color: #666;
+        padding: 3px 0 3px 16px;
+        position: relative;
+      }
+      .order-perks li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #a9683a;
+        font-weight: 700;
+      }
+      .order-row {
+        display: flex;
+        justify-content: space-between;
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        color: #666;
+        padding: 6px 0;
+      }
+      .order-row.total {
+        border-top: 2px solid rgba(68, 67, 52, 0.15);
+        margin-top: 8px;
+        padding-top: 14px;
+        font-weight: 700;
+        color: #444334;
+        font-size: 15px;
+      }
+      .order-row.total .total-price {
+        font-family: "bebas", sans-serif;
+        font-size: 28px;
+        color: #a9683a;
+        line-height: 1;
+      }
+      .secure-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(68, 67, 52, 0.1);
+        font-family: "Poppins", sans-serif;
+        font-size: 12px;
+        color: #999;
+      }
+      /* Sections */
+      .section-title {
+        font-family: "bebas", sans-serif;
+        font-size: 28px;
+        color: #444334;
+        margin: 0 0 20px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid rgba(68, 67, 52, 0.12);
+      }
+      .form-section-gap {
+        margin-bottom: 32px;
+      }
+      /* Payment tabs */
+      .payment-methods {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+      }
+      .pay-method-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 20px;
+        border: 2px solid rgba(68, 67, 52, 0.2);
+        background: rgba(255, 255, 255, 0.6);
+        cursor: pointer;
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: #444334;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+        flex: 1;
+        min-width: 120px;
+        justify-content: center;
+      }
+      .pay-method-btn:hover {
+        border-color: #a9683a;
+      }
+      .pay-method-btn.active {
+        border-color: #a9683a;
+        background: rgba(169, 104, 58, 0.07);
+        color: #a9683a;
+      }
+      .pay-badge {
+        font-size: 9px;
+        font-weight: 700;
+        background: #a9683a;
+        color: #f6e7c2;
+        padding: 2px 6px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        font-family: "Poppins", sans-serif;
+      }
+      /* Coin tabs */
+      .coin-tabs {
+        display: flex;
+        margin-bottom: 24px;
+        border: 2px solid rgba(68, 67, 52, 0.2);
+      }
+      .coin-tab {
+        flex: 1;
+        padding: 12px 8px;
+        font-family: "bebas", sans-serif;
+        font-size: 20px;
+        letter-spacing: 0.04em;
+        color: #666;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          color 0.2s;
+        border-right: 1px solid rgba(68, 67, 52, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .coin-tab:last-child {
+        border-right: none;
+      }
+      .coin-tab:hover {
+        background: rgba(68, 67, 52, 0.05);
+      }
+      .coin-tab.active {
+        background: #444334;
+        color: #f6e7c2;
+      }
+      .coin-logo {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .crypto-address-block {
+        display: none;
+      }
+      .crypto-address-block.active {
+        display: block;
+      }
+      .crypto-intro {
+        background: rgba(169, 104, 58, 0.06);
+        border: 1px solid rgba(169, 104, 58, 0.25);
+        padding: 14px 18px;
+        font-family: "Poppins", sans-serif;
+        font-size: 13px;
+        color: #6b4520;
+        line-height: 1.6;
+        margin-bottom: 24px;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .crypto-coin-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+      .crypto-coin-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "bebas", sans-serif;
+        font-size: 18px;
+        color: #fff;
+        flex-shrink: 0;
+      }
+      .crypto-coin-icon.btc {
+        background: #f7931a;
+      }
+      .crypto-coin-icon.eth {
+        background: #627eea;
+      }
+      .crypto-coin-icon.usdt {
+        background: #26a17b;
+      }
+      .coin-name {
+        font-family: "bebas", sans-serif;
+        font-size: 26px;
+        color: #444334;
+        line-height: 1;
+      }
+      .coin-sub {
+        font-family: "Poppins", sans-serif;
+        font-size: 12px;
+        color: #888;
+      }
+      .crypto-amount-box {
+        background: rgba(68, 67, 52, 0.05);
+        border: 2px solid rgba(68, 67, 52, 0.13);
+        padding: 16px 20px;
+        margin-bottom: 18px;
+      }
+      .crypto-amount-label {
+        font-family: "Poppins", sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: #888;
+        margin-bottom: 6px;
+      }
+      .crypto-amount-value {
+        font-family: "bebas", sans-serif;
+        font-size: 32px;
+        color: #a9683a;
+        line-height: 1;
+      }
+      .crypto-amount-usd {
+        font-family: "Poppins", sans-serif;
+        font-size: 12px;
+        color: #888;
+        margin-top: 2px;
+      }
+      .address-label {
+        font-family: "Poppins", sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #444334;
+        margin-bottom: 8px;
+      }
+      .address-copy-row {
+        display: flex;
+        margin-bottom: 20px;
+      }
+      .address-field {
+        flex: 1;
+        padding: 13px 16px;
+        font-family: "Poppins", sans-serif;
+        font-size: 12px;
+        color: #444334;
+        background: rgba(255, 255, 255, 0.8);
+        border: 2px solid rgba(68, 67, 52, 0.2);
+        border-right: none;
+        word-break: break-all;
+        line-height: 1.5;
+        user-select: all;
+      }
+      .copy-btn {
+        padding: 0 20px;
+        font-family: "bebas", sans-serif;
+        font-size: 18px;
+        letter-spacing: 0.05em;
+        color: #f6e7c2;
+        background: #444334;
+        border: 2px solid #444334;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+      .copy-btn:hover {
+        background: #a9683a;
+        border-color: #a9683a;
+      }
+      .copy-btn.copied {
+        background: #2a7a4b;
+        border-color: #2a7a4b;
+      }
+
+      /* QR CODE */
+      .qr-section {
+        text-align: center;
+        padding: 16px;
+        background: rgba(68, 67, 52, 0.04);
+        border: 1px dashed rgba(68, 67, 52, 0.2);
+        margin-bottom: 22px;
+      }
+      .qr-img-wrap {
+        width: 140px;
+        height: 140px;
+        margin: 0 auto 10px;
+      }
+      .qr-image {
+        width: 140px;
+        height: 140px;
+        object-fit: contain;
+        display: block;
+        border: 2px solid rgba(68, 67, 52, 0.15);
+      }
+      .qr-label {
+        font-family: "Poppins", sans-serif;
+        font-size: 11px;
+        color: #999;
+      }
+
+      /* RECEIPT UPLOAD */
+      .receipt-upload-section {
+        margin-bottom: 28px;
+      }
+      .receipt-title {
+        font-family: "bebas", sans-serif;
+        font-size: 22px;
+        color: #444334;
+        margin: 0 0 6px;
+      }
+      .receipt-sub {
+        font-family: "Poppins", sans-serif;
+        font-size: 12px;
+        color: #888;
+        margin-bottom: 14px;
+      }
+      .receipt-drop {
+        border: 2px dashed rgba(68, 67, 52, 0.3);
+        padding: 32px 20px;
+        text-align: center;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+        position: relative;
+        background: rgba(255, 255, 255, 0.5);
+      }
+      .receipt-drop:hover,
+      .receipt-drop.drag-over {
+        border-color: #a9683a;
+        background: rgba(169, 104, 58, 0.04);
+      }
+      .receipt-drop input[type="file"] {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+      }
+      .receipt-drop-icon {
+        margin-bottom: 10px;
+        color: #a9683a;
+      }
+      .receipt-drop-text {
+        font-family: "Poppins", sans-serif;
+        font-size: 13px;
+        color: #666;
+      }
+      .receipt-drop-text strong {
+        color: #a9683a;
+      }
+      .receipt-drop-hint {
+        font-size: 11px;
+        color: #aaa;
+        margin-top: 4px;
+      }
+      .receipt-preview {
+        display: none;
+        margin-top: 14px;
+        padding: 12px 16px;
+        background: rgba(42, 122, 75, 0.06);
+        border: 1px solid rgba(42, 122, 75, 0.25);
+        display: none;
+        align-items: center;
+        gap: 12px;
+      }
+      .receipt-preview.show {
+        display: flex;
+      }
+      .receipt-preview-name {
+        font-family: "Poppins", sans-serif;
+        font-size: 13px;
+        color: #2a7a4b;
+        flex: 1;
+        word-break: break-all;
+      }
+      .receipt-remove {
+        background: none;
+        border: none;
+        color: #b0321e;
+        cursor: pointer;
+        font-size: 18px;
+        flex-shrink: 0;
+        line-height: 1;
+      }
+      /* Form */
+      .form-label {
+        display: block;
+        font-family: "Poppins", sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        color: #444334;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 8px;
+      }
+      .form-input {
+        width: 100%;
+        padding: 13px 16px;
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        color: #444334;
+        background: rgba(255, 255, 255, 0.7);
+        border: 2px solid rgba(68, 67, 52, 0.2);
+        outline: none;
+        transition: border-color 0.2s;
+        box-sizing: border-box;
+      }
+      .form-input:focus {
+        border-color: #a9683a;
+        background: #fff;
+      }
+      .form-input::placeholder {
+        color: #bbb;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .form-group {
+        margin-bottom: 18px;
+      }
+      .confirm-btn {
+        width: 100%;
+        padding: 18px;
+        font-family: "bebas", sans-serif;
+        font-size: 28px;
+        letter-spacing: 0.04em;
+        color: #f6e7c2;
+        background: url("images/ITP_Button-Stroke-Sm.png") center/100% 100%
+          no-repeat;
+        border: none;
+        cursor: pointer;
+        transition:
+          opacity 0.2s,
+          transform 0.1s;
+        margin-top: 8px;
+      }
+      .confirm-btn:hover {
+        opacity: 0.88;
+        transform: translateY(-1px);
+      }
+      .confirm-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+      .form-note {
+        font-family: "Poppins", sans-serif;
+        font-size: 12px;
+        color: #999;
+        text-align: center;
+        margin-top: 14px;
+        line-height: 1.6;
+      }
+      .stripe-panel {
+        display: none;
+      }
+      /* Maintenance Modal */
+      .maintenance-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 2000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .maintenance-overlay.open {
+        display: flex;
+      }
+      .maintenance-modal {
+        background: url("images/bg.jpg") top center repeat;
+        border: 2px solid rgba(68, 67, 52, 0.25);
+        padding: 44px 36px 36px;
+        max-width: 480px;
+        width: 100%;
+        position: relative;
+        text-align: center;
+        animation: mIn 0.25s ease;
+      }
+      @keyframes mIn {
+        from {
+          opacity: 0;
+          transform: translateY(-12px) scale(0.97);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      .maintenance-close {
+        position: absolute;
+        top: 14px;
+        right: 16px;
+        background: none;
+        border: none;
+        font-size: 26px;
+        cursor: pointer;
+        color: #444334;
+        line-height: 1;
+        opacity: 0.6;
+        transition: opacity 0.2s;
+      }
+      .maintenance-close:hover {
+        opacity: 1;
+      }
+      .maintenance-icon {
+        width: 64px;
+        height: 64px;
+        background: rgba(169, 104, 58, 0.12);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+      }
+      .maintenance-title {
+        font-family: "bebas", sans-serif;
+        font-size: 36px;
+        color: #444334;
+        line-height: 1;
+        margin-bottom: 16px;
+      }
+      .maintenance-msg {
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        color: #555;
+        line-height: 1.75;
+        margin-bottom: 28px;
+      }
+      .maintenance-msg strong {
+        color: #a9683a;
+      }
+      .maintenance-use-crypto {
+        display: block;
+        width: 100%;
+        padding: 16px;
+        font-family: "bebas", sans-serif;
+        font-size: 24px;
+        letter-spacing: 0.04em;
+        color: #f6e7c2;
+        background: url("images/ITP_Button-Stroke-Sm.png") center/100% 100%
+          no-repeat;
+        border: none;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+      .maintenance-use-crypto:hover {
+        opacity: 0.85;
+      }
+      /* Success */
+      .checkout-success {
+        display: none;
+        text-align: center;
+        padding: 60px 24px;
+        max-width: 560px;
+        margin: 0 auto;
+      }
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        background: rgba(169, 104, 58, 0.12);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 28px;
+      }
+      .success-title {
+        font-family: "bebas", sans-serif;
+        font-size: 54px;
+        color: #444334;
+        line-height: 1;
+        margin-bottom: 16px;
+      }
+      .success-sub {
+        font-family: "Poppins", sans-serif;
+        font-size: 15px;
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 36px;
+      }
+      .success-item-card {
+        background: rgba(68, 67, 52, 0.05);
+        border: 2px solid rgba(68, 67, 52, 0.13);
+        padding: 20px 24px;
+        text-align: left;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 32px;
+      }
+      .success-item-info .item-name {
+        font-family: "bebas", sans-serif;
+        font-size: 22px;
+        color: #444334;
+      }
+      .success-item-info .item-price {
+        font-family: "bebas", sans-serif;
+        font-size: 20px;
+        color: #a9683a;
+      }
+      .success-actions {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .success-btn-primary {
+        display: inline-block;
+        padding: 14px 32px;
+        font-family: "bebas", sans-serif;
+        font-size: 22px;
+        color: #f6e7c2;
+        background: url("images/ITP_Button-Stroke-Sm.png") center/100% 100%
+          no-repeat;
+        text-decoration: none;
+        transition: opacity 0.2s;
+      }
+      .success-btn-primary:hover {
+        opacity: 0.85;
+        color: #f6e7c2;
+      }
+      .success-btn-secondary {
+        display: inline-block;
+        padding: 14px 32px;
+        font-family: "bebas", sans-serif;
+        font-size: 22px;
+        color: #444334;
+        border: 2px solid rgba(68, 67, 52, 0.3);
+        text-decoration: none;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .success-btn-secondary:hover {
+        border-color: #a9683a;
+        color: #a9683a;
+      }
+      /* Chat bubble */
+      .chat-bubble-btn {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        width: 54px;
+        height: 54px;
+        background: #a9683a;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1000;
+        border: none;
+        box-shadow: 0 4px 16px rgba(169, 104, 58, 0.4);
+        transition: transform 0.2s;
+        display: none;
+      }
+      .chat-bubble-btn:hover {
+        transform: scale(1.08);
+      }
+      .chat-bubble-btn .chat-unread {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        width: 18px;
+        height: 18px;
+        background: #b0321e;
+        border-radius: 50%;
+        font-size: 10px;
+        font-weight: 700;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        display: none;
+      }
+      @media (max-width: 860px) {
+        .checkout-grid {
+          grid-template-columns: 1fr;
+        }
+        .order-summary {
+          position: static;
+          order: -1;
+        }
+        .checkout-title {
+          font-size: 40px;
+        }
+      }
+      @media (max-width: 560px) {
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .checkout-title {
+          font-size: 34px;
+        }
+        .checkout-wrapper {
+          padding: 32px 16px 60px;
+        }
+        .address-field {
+          font-size: 10px;
+        }
+        .coin-tab {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <div class="header-wrapper">
+      <header>
+        <div id="logo">
+          <a href="index.html"
+            ><img src="images/logo.svg" alt="Morgan Wallen"
+          /></a>
+        </div>
+        <nav id="main">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="meet-and-greet.html">Meet & Greet</a></li>
+            <li><a href="private-meetup.html">Private Meet Up</a></li>
+            <li id="nav-auth-item">
+              <a href="signup.html" id="nav-login-btn">Login</a>
+            </li>
+          </ul>
+        </nav>
+        <div id="socials">
+          <ul>
+            <li>
+              <a
+                href="https://facebook.com/morgancwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-facebook"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-instagram"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://tiktok.com/@morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-tiktok"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/channel/UCzIyoPv6j1MAZpDHKLGP_eA"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-youtube"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://music.amazon.com/artists/B00QNUADXK/morgan-wallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-amazon"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://geo.music.apple.com/us/artist/morgan-wallen/829142092"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-apple"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-spotify"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </header>
+      <div id="nav-trigger" aria-label="Toggle navigation"></div>
+    </div>
+
+    <!-- MOBILE NAV -->
+    <div id="mobile-nav">
+      <ul id="nav-mob">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="meet-and-greet.html">Meet & Greet</a></li>
+        <li><a href="private-meetup.html">Private Meet Up</a></li>
+        <li id="nav-auth-item">
+          <a href="signup.html" id="nav-login-btn">Login</a>
+        </li>
+        <div id="mobile-nav-socials">
+          <ul>
+            <li>
+              <a
+                href="https://facebook.com/morgancwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-facebook"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-instagram"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://tiktok.com/@morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-tiktok"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/channel/UCzIyoPv6j1MAZpDHKLGP_eA"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-youtube"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://music.amazon.com/artists/B00QNUADXK/morgan-wallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-amazon"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://geo.music.apple.com/us/artist/morgan-wallen/829142092"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-apple"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-spotify"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </ul>
+    </div>
+
+    <!-- MAINTENANCE MODAL -->
+    <div class="maintenance-overlay" id="maintenance-overlay">
+      <div class="maintenance-modal">
+        <button class="maintenance-close" onclick="closeMaintenanceModal()">
+          &times;
+        </button>
+        <div class="maintenance-icon">
+          <svg
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#a9683a"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+        </div>
+        <div class="maintenance-title">Under Maintenance</div>
+        <p class="maintenance-msg">
+          This payment method is currently
+          <strong>under maintenance</strong>.<br /><br />Kindly use the
+          <strong>Crypto payment method</strong> for now as we are currently
+          working on it. We are sorry for any inconvenience.
+        </p>
+        <button class="maintenance-use-crypto" onclick="switchToCrypto()">
+          Use Crypto Instead
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN CHECKOUT -->
+    <div id="checkout-main">
+      <div class="checkout-wrapper">
+        <a href="#" id="back-link" class="checkout-back">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <polyline points="15 18 9 12 15 6" /></svg
+          >&nbsp;Back
+        </a>
+        <h1 class="checkout-title">Checkout</h1>
+
+        <div class="checkout-grid">
+          <!-- LEFT -->
+          <div>
+            <!-- Payment Method -->
+            <div class="form-section-gap">
+              <div class="section-title">Payment Method</div>
+              <div class="payment-methods">
+                <button
+                  class="pay-method-btn active"
+                  id="btn-crypto"
+                  onclick="selectPayment('crypto')"
+                >
+                  <span style="font-size: 20px">₿</span> Crypto
+                  <span class="pay-badge">Recommended</span>
+                </button>
+                <button
+                  class="pay-method-btn"
+                  id="btn-stripe"
+                  onclick="selectPayment('stripe')"
+                >
+                  <span style="font-size: 20px">💳</span> Stripe
+                </button>
+              </div>
+
+              <!-- CRYPTO PANEL -->
+              <div id="crypto-panel">
+                <div class="crypto-intro">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#a9683a"
+                    stroke-width="2"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                  </svg>
+                  Send the exact amount to the address below, then upload your
+                  transaction receipt for admin approval.
+                </div>
+
+                <div class="coin-tabs">
+                  <button
+                    class="coin-tab active"
+                    id="tab-btc"
+                    onclick="selectCoin('btc')"
+                  >
+                    <span
+                      class="coin-logo"
+                      style="background: #f7931a; color: #fff"
+                      >₿</span
+                    >
+                    BTC
+                  </button>
+                  <button
+                    class="coin-tab"
+                    id="tab-eth"
+                    onclick="selectCoin('eth')"
+                  >
+                    <span
+                      class="coin-logo"
+                      style="background: #627eea; color: #fff"
+                      >Ξ</span
+                    >
+                    ETH
+                  </button>
+                  <button
+                    class="coin-tab"
+                    id="tab-usdt"
+                    onclick="selectCoin('usdt')"
+                  >
+                    <span
+                      class="coin-logo"
+                      style="background: #26a17b; color: #fff"
+                      >₮</span
+                    >
+                    USDT
+                  </button>
+                </div>
+
+                <!-- BTC -->
+                <div class="crypto-address-block active" id="block-btc">
+                  <div class="crypto-coin-header">
+                    <div class="crypto-coin-icon btc">₿</div>
+                    <div>
+                      <div class="coin-name">Bitcoin (BTC)</div>
+                      <div class="coin-sub">Bitcoin Network</div>
+                    </div>
+                  </div>
+                  <div class="crypto-amount-box">
+                    <div class="crypto-amount-label">Amount to Send</div>
+                    <div class="crypto-amount-value" id="btc-amount">—</div>
+                    <div class="crypto-amount-usd" id="btc-usd">
+                      ≈ $0.00 USD
+                    </div>
+                  </div>
+                  <div class="address-label">BTC Wallet Address</div>
+                  <div class="address-copy-row">
+                    <div class="address-field" id="btc-addr">
+                      bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+                    </div>
+                    <button
+                      class="copy-btn"
+                      id="copy-btc"
+                      onclick="copyAddress('btc')"
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <rect x="9" y="9" width="13" height="13" rx="2" />
+                        <path
+                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                        />
+                      </svg>
+                      Copy
+                    </button>
+                  </div>
+                  <!-- BTC QR CODE -->
+                  <div class="qr-section">
+                    <div class="qr-img-wrap">
+                      <img
+                        src="images/btc.jpg"
+                        alt="BTC QR Code"
+                        class="qr-image"
+                      />
+                    </div>
+                    <div class="qr-label">
+                      Scan QR code with your wallet app
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ETH -->
+                <div class="crypto-address-block" id="block-eth">
+                  <div class="crypto-coin-header">
+                    <div class="crypto-coin-icon eth">Ξ</div>
+                    <div>
+                      <div class="coin-name">Ethereum (ETH)</div>
+                      <div class="coin-sub">ERC-20 Network</div>
+                    </div>
+                  </div>
+                  <div class="crypto-amount-box">
+                    <div class="crypto-amount-label">Amount to Send</div>
+                    <div class="crypto-amount-value" id="eth-amount">—</div>
+                    <div class="crypto-amount-usd" id="eth-usd">
+                      ≈ $0.00 USD
+                    </div>
+                  </div>
+                  <div class="address-label">ETH Wallet Address</div>
+                  <div class="address-copy-row">
+                    <div class="address-field" id="eth-addr">
+                      0x71C7656EC7ab88b098defB751B7401B5f6d8976F
+                    </div>
+                    <button
+                      class="copy-btn"
+                      id="copy-eth"
+                      onclick="copyAddress('eth')"
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <rect x="9" y="9" width="13" height="13" rx="2" />
+                        <path
+                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                        />
+                      </svg>
+                      Copy
+                    </button>
+                  </div>
+                  <!-- ETH QR CODE -->
+                  <div class="qr-section">
+                    <div class="qr-img-wrap">
+                      <img
+                        src="images/eth.jpg"
+                        alt="ETH QR Code"
+                        class="qr-image"
+                      />
+                    </div>
+                    <div class="qr-label">
+                      Scan QR code with your wallet app
+                    </div>
+                  </div>
+                </div>
+
+                <!-- USDT -->
+                <div class="crypto-address-block" id="block-usdt">
+                  <div class="crypto-coin-header">
+                    <div class="crypto-coin-icon usdt">₮</div>
+                    <div>
+                      <div class="coin-name">Tether (USDT)</div>
+                      <div class="coin-sub">TRC-20 / ERC-20 Network</div>
+                    </div>
+                  </div>
+                  <div class="crypto-amount-box">
+                    <div class="crypto-amount-label">Amount to Send</div>
+                    <div class="crypto-amount-value" id="usdt-amount">—</div>
+                    <div class="crypto-amount-usd" id="usdt-usd">
+                      ≈ $0.00 USD
+                    </div>
+                  </div>
+                  <div class="address-label">USDT Wallet Address</div>
+                  <div class="address-copy-row">
+                    <div class="address-field" id="usdt-addr">
+                      TJYeasTPa6gpEEfxHFGTiMqL3Bcz9m1hWA
+                    </div>
+                    <button
+                      class="copy-btn"
+                      id="copy-usdt"
+                      onclick="copyAddress('usdt')"
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <rect x="9" y="9" width="13" height="13" rx="2" />
+                        <path
+                          d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                        />
+                      </svg>
+                      Copy
+                    </button>
+                  </div>
+                  <!-- USDT QR CODE -->
+                  <div class="qr-section">
+                    <div class="qr-img-wrap">
+                      <img
+                        src="images/usdt.jpg"
+                        alt="USDT QR Code"
+                        class="qr-image"
+                      />
+                    </div>
+                    <div class="qr-label">
+                      Scan QR code with your wallet app
+                    </div>
+                  </div>
+                </div>
+
+                <!-- RECEIPT UPLOAD -->
+                <div class="receipt-upload-section">
+                  <div class="receipt-title">Upload Transaction Receipt</div>
+                  <div class="receipt-sub">
+                    After sending payment, upload a screenshot or PDF of your
+                    transaction as proof. The admin will verify and approve your
+                    order.
+                  </div>
+                  <div class="receipt-drop" id="receipt-drop">
+                    <input
+                      type="file"
+                      id="receipt-file"
+                      accept="image/*,.pdf"
+                      onchange="handleReceiptFile(this.files[0])"
+                    />
+                    <div class="receipt-drop-icon">
+                      <svg
+                        width="32"
+                        height="32"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                      >
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="17 8 12 3 7 8" />
+                        <line x1="12" y1="3" x2="12" y2="15" />
+                      </svg>
+                    </div>
+                    <div class="receipt-drop-text">
+                      <strong>Click to upload</strong> or drag & drop your
+                      receipt here
+                    </div>
+                    <div class="receipt-drop-hint">PNG, JPG, PDF · Max 5MB</div>
+                  </div>
+                  <div class="receipt-preview" id="receipt-preview">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#2a7a4b"
+                      stroke-width="2"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <span class="receipt-preview-name" id="receipt-filename"
+                      >receipt.png</span
+                    >
+                    <button
+                      class="receipt-remove"
+                      onclick="removeReceipt()"
+                      title="Remove"
+                    >
+                      &times;
+                    </button>
+                  </div>
+                </div>
+
+                <ol class="crypto-steps">
+                  <li>
+                    Copy the wallet address above or scan the QR code with your
+                    crypto wallet app.
+                  </li>
+                  <li>
+                    Send <strong>the exact amount</strong> shown — do not round
+                    up or down.
+                  </li>
+                  <li>
+                    Take a screenshot of the completed transaction and
+                    <strong>upload it above</strong>.
+                  </li>
+                  <li>
+                    Fill in your details below and click
+                    <strong>"Submit Order"</strong>. Admin will approve within
+                    24h.
+                  </li>
+                </ol>
+              </div>
+              <!-- /crypto-panel -->
+
+              <div class="stripe-panel" id="stripe-panel">
+                <div
+                  style="
+                    text-align: center;
+                    padding: 40px 20px;
+                    background: rgba(68, 67, 52, 0.04);
+                    border: 2px dashed rgba(68, 67, 52, 0.18);
+                  "
+                >
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#ccc"
+                    stroke-width="1.5"
+                    style="display: block; margin: 0 auto 12px"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                  </svg>
+                  <p
+                    style="
+                      font-family: &quot;Poppins&quot;, sans-serif;
+                      font-size: 14px;
+                      color: #999;
+                      margin: 0;
+                    "
+                  >
+                    Stripe payments are currently unavailable.<br />Please use
+                    the Crypto option above.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Your Details -->
+            <div class="form-section-gap">
+              <div class="section-title">Your Details</div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="first-name">First Name</label
+                  ><input
+                    class="form-input"
+                    type="text"
+                    id="first-name"
+                    placeholder="Morgan"
+                    autocomplete="given-name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="last-name">Last Name</label
+                  ><input
+                    class="form-input"
+                    type="text"
+                    id="last-name"
+                    placeholder="Wallen"
+                    autocomplete="family-name"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email"
+                  >Email for Order Confirmation</label
+                ><input
+                  class="form-input"
+                  type="email"
+                  id="email"
+                  placeholder="you@email.com"
+                  autocomplete="email"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="tx-hash"
+                  >Transaction Hash / ID
+                  <span style="color: #bbb; font-weight: 400"
+                    >(optional but recommended)</span
+                  ></label
+                ><input
+                  class="form-input"
+                  type="text"
+                  id="tx-hash"
+                  placeholder="e.g. 0xabc123…"
+                />
+              </div>
+            </div>
+
+            <button
+              class="confirm-btn"
+              id="submit-btn"
+              onclick="submitCheckout()"
+            >
+              Submit Order for Approval
+            </button>
+            <p class="form-note">
+              🔒 Your receipt is stored securely. Admin will verify and confirm
+              within 24 hours.<br />By continuing you agree to our
+              <a href="privacy.html" style="color: #a9683a">Privacy Policy</a>.
+            </p>
+          </div>
+
+          <!-- RIGHT: ORDER SUMMARY -->
+          <div>
+            <div class="order-summary">
+              <div class="order-summary-title">Order Summary</div>
+              <div class="order-item">
+                <div
+                  class="order-item-img-placeholder"
+                  id="order-item-img-wrap"
+                >
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#a9683a"
+                    stroke-width="1.5"
+                  >
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <polyline points="21,15 16,10 5,21" />
+                  </svg>
+                </div>
+                <div class="order-item-details">
+                  <div class="order-item-name" id="order-item-name">
+                    Loading…
+                  </div>
+                  <div class="order-item-sub" id="order-item-sub"></div>
+                  <ul class="order-perks" id="order-perks"></ul>
+                </div>
+                <div class="order-item-price" id="order-item-price">—</div>
+              </div>
+              <div>
+                <div class="order-row">
+                  <span>Subtotal</span><span id="subtotal-val">—</span>
+                </div>
+                <div class="order-row" id="shipping-row" style="display: none">
+                  <span>Shipping</span><span>$9.99</span>
+                </div>
+                <div class="order-row">
+                  <span>Tax (8%)</span><span id="tax-val">—</span>
+                </div>
+                <div class="order-row total">
+                  <span>Total</span
+                  ><span class="total-price" id="total-val">—</span>
+                </div>
+              </div>
+              <div class="secure-badge">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#a9683a"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="11" width="18" height="11" rx="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg
+                >Secured by Blockchain Technology
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="checkout-success" id="checkout-success">
+      <div class="success-icon">
+        <svg
+          width="38"
+          height="38"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#a9683a"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      </div>
+      <div class="success-title">Order Submitted!</div>
+      <p class="success-sub">
+        Your order and payment receipt have been submitted successfully.<br />The
+        admin will review and confirm your payment — usually within 24 hours.<br />You'll
+        receive an email confirmation once approved.
+      </p>
+      <div class="success-item-card">
+        <div id="success-img-wrap">
+          <div
+            style="
+              width: 60px;
+              height: 60px;
+              background: rgba(68, 67, 52, 0.08);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <svg
+              width="26"
+              height="26"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#a9683a"
+              stroke-width="1.5"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+        </div>
+        <div class="success-item-info">
+          <div class="item-name" id="success-item-name"></div>
+          <div class="item-price" id="success-item-price"></div>
+        </div>
+      </div>
+      <div class="success-actions">
+        <a href="index.html" class="success-btn-primary">Back to Home</a>
+        <a href="private-meetup.html" class="success-btn-secondary"
+          >Continue Shopping</a
+        >
+      </div>
+    </div>
+
+    <!-- CHAT BUBBLE (shown when logged in) -->
+    <button class="chat-bubble-btn" id="chat-bubble" onclick="toggleChat()">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#fff"
+        stroke-width="2"
+        stroke-linecap="round"
+      >
+        <path
+          d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+        />
+      </svg>
+      <span class="chat-unread" id="chat-unread">0</span>
+    </button>
+
+    <!-- CHAT WINDOW -->
+    <div
+      id="chat-widget"
+      style="
+        display: none;
+        position: fixed;
+        bottom: 92px;
+        right: 28px;
+        width: 340px;
+        max-height: 460px;
+        z-index: 999;
+        background: #f5f3ee;
+        border: 2px solid rgba(68, 67, 52, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+        display: flex;
+        flex-direction: column;
+      "
+    >
+      <div
+        style="
+          background: #444334;
+          padding: 14px 16px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        "
+      >
+        <span
+          style="
+            font-family: &quot;bebas&quot;, sans-serif;
+            font-size: 20px;
+            color: #f6e7c2;
+            letter-spacing: 0.04em;
+          "
+          >Support Chat</span
+        >
+        <button
+          onclick="toggleChat()"
+          style="
+            background: none;
+            border: none;
+            color: #f6e7c2;
+            font-size: 22px;
+            cursor: pointer;
+            opacity: 0.7;
+            line-height: 1;
+          "
+        >
+          &times;
+        </button>
+      </div>
+      <div
+        id="chat-messages"
+        style="
+          flex: 1;
+          overflow-y: auto;
+          padding: 14px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          min-height: 220px;
+          max-height: 300px;
+        "
+      ></div>
+      <div
+        style="
+          padding: 12px;
+          border-top: 1px solid rgba(68, 67, 52, 0.12);
+          display: flex;
+          gap: 8px;
+        "
+      >
+        <input
+          type="text"
+          id="chat-input"
+          placeholder="Type a message…"
+          style="
+            flex: 1;
+            padding: 9px 12px;
+            border: 2px solid rgba(68, 67, 52, 0.2);
+            font-family: &quot;Poppins&quot;, sans-serif;
+            font-size: 13px;
+            outline: none;
+            color: #444334;
+          "
+          onkeydown="if (event.key === 'Enter') sendChatMsg();"
+        />
+        <button
+          onclick="sendChatMsg()"
+          style="
+            padding: 9px 16px;
+            background: #a9683a;
+            border: none;
+            color: #fff;
+            font-family: &quot;bebas&quot;, sans-serif;
+            font-size: 18px;
+            cursor: pointer;
+            letter-spacing: 0.04em;
+          "
+        >
+          Send
+        </button>
+      </div>
+    </div>
+
+    <!-- User Auth Dialog -->
+    <div
+      id="user-dialog-overlay"
+      class="udialog-overlay"
+      style="display: none"
+      onclick="closeUserDialog()"
+    ></div>
+    <div id="user-dialog" class="udialog" style="display: none">
+      <button
+        class="udialog-close"
+        onclick="closeUserDialog()"
+        aria-label="Close"
+      >
+        &times;
+      </button>
+      <div class="udialog-avatar">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="15" r="7" fill="#a9683a" />
+          <path
+            d="M4 36c0-8.837 7.163-14 16-14s16 5.163 16 14"
+            stroke="#a9683a"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <div class="udialog-name" id="udialog-name"></div>
+      <div class="udialog-email" id="udialog-email"></div>
+      <div class="udialog-divider"></div>
+      <a href="dashboard.html" class="udialog-link" onclick="closeUserDialog()"
+        ><svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
+        My Dashboard</a
+      >
+      <a
+        href="meet-and-greet.html"
+        class="udialog-link"
+        onclick="closeUserDialog()"
+        ><svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+          />
+        </svg>
+        Meet &amp; Greet Packages</a
+      >
+      <a href="signup.html" class="udialog-link" onclick="closeUserDialog()"
+        ><svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+        Account Settings</a
+      >
+      <button class="udialog-signout" id="udialog-signout-btn">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <polyline points="16 17 21 12 16 7" />
+          <line x1="21" y1="12" x2="9" y2="12" />
+        </svg>
+        Sign Out
+      </button>
+    </div>
+
+    <footer>
+      <span style="font-family: Arial">&copy;</span> 2026 Morgan Wallen. All
+      rights reserved. <a href="privacy.html">Privacy Policy</a> &nbsp;|&nbsp;
+      Website by: <a href="#">Stephen Craven</a>
+    </footer>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/nav-auth.js"></script>
+    <script>
+      var SUPABASE_URL = "https://gzzqpiwufbvoygqfxbrf.supabase.co";
+      var SUPABASE_ANON =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6enFwaXd1ZmJ2b3lncWZ4YnJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNjA2MTcsImV4cCI6MjA4ODYzNjYxN30.OUY4ktBGKSvnO56fpLfkP13da5T_fOLBEDX7aBW7PU4";
+      var db =
+        window.supabaseClient ||
+        supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
+          auth: {
+            autoRefreshToken: true,
+            persistSession: true,
+            detectSessionInUrl: true,
+          },
+        });
+      window.supabaseClient = db;
+
+      var PRODUCTS = {
+        "membership-standard": {
+          name: "Standard Membership",
+          sub: "One-time payment · Lifetime access",
+          price: 299.0,
+          image: null,
+          perks: [
+            "Newsletter & updates",
+            "Early access announcements",
+            "Member community access",
+          ],
+          backUrl: "membership.html",
+          physical: false,
+          type: "membership",
+        },
+        "membership-premium": {
+          name: "Premium Membership",
+          sub: "Billed monthly · Cancel anytime",
+          price: 499.0,
+          image: null,
+          perks: [
+            "Everything in Standard",
+            "Priority merch access",
+            "Exclusive digital content",
+            "Member-only live streams",
+          ],
+          backUrl: "membership.html",
+          physical: false,
+          type: "membership",
+        },
+        "membership-vip": {
+          name: "VIP Membership",
+          sub: "Billed monthly · Cancel anytime",
+          price: 699.0,
+          image: null,
+          perks: [
+            "Everything in Premium",
+            "Ticket presale access",
+            "Exclusive merch drops",
+            "Behind-the-scenes content",
+            "Monthly digital download",
+          ],
+          backUrl: "membership.html",
+          physical: false,
+          type: "membership",
+        },
+        "vinyl-black": {
+          name: "I'm The Problem – Black Vinyl 3LP",
+          sub: "Vinyl · Ships 5–7 days",
+          price: 49.99,
+          image: "images/itp-blackvinyl.png",
+          perks: [],
+          backUrl: "marketplace.html",
+          physical: true,
+          type: "product",
+        },
+        "vinyl-bone": {
+          name: "I'm The Problem – Bone White Vinyl 3LP",
+          sub: "Limited Edition",
+          price: 59.99,
+          image: "images/itp-bonevinyl.png",
+          perks: [],
+          backUrl: "marketplace.html",
+          physical: true,
+          type: "product",
+        },
+        "cd-itp": {
+          name: "I'm The Problem – 2CD",
+          sub: "CD · Ships 3–5 days",
+          price: 19.99,
+          image: "images/itp-cd.png",
+          perks: [],
+          backUrl: "marketplace.html",
+          physical: true,
+          type: "product",
+        },
+        "cd-otat": {
+          name: "One Thing At A Time",
+          sub: "CD · Ships 3–5 days",
+          price: 14.99,
+          image: "images/cover-onethingatatime.jpg",
+          perks: [],
+          backUrl: "marketplace.html",
+          physical: true,
+          type: "product",
+        },
+        "cd-dangerous": {
+          name: "Dangerous: The Double Album",
+          sub: "CD · Ships 3–5 days",
+          price: 14.99,
+          image: "images/cover-dangerous.jpg",
+          perks: [],
+          backUrl: "marketplace.html",
+          physical: true,
+          type: "product",
+        },
+      };
+      var WALLETS = {
+        btc: "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+        eth: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
+        usdt: "TJYeasTPa6gpEEfxHFGTiMqL3Bcz9m1hWA",
+      };
+      var RATES = { btc: 67500, eth: 3450, usdt: 1.0 };
+      var totalUSD = 0;
+      var receiptFile = null;
+      var currentUser = null;
+      var chatOpen = false;
+      var chatChannel = null;
+
+      /* ── BOOT ── */
+      (async function () {
+        try {
+          var pr = await db.from("membership_prices").select("tier,price");
+          if (pr.data)
+            pr.data.forEach(function (r) {
+              if (PRODUCTS["membership-" + r.tier])
+                PRODUCTS["membership-" + r.tier].price = parseFloat(r.price);
+            });
+        } catch (e) {}
+
+        try {
+          var sr = await db
+            .from("site_settings")
+            .select("key,value")
+            .in("key", ["wallet_btc", "wallet_eth", "wallet_usdt"]);
+          if (sr.data)
+            sr.data.forEach(function (r) {
+              if (r.key === "wallet_btc") WALLETS.btc = r.value;
+              if (r.key === "wallet_eth") WALLETS.eth = r.value;
+              if (r.key === "wallet_usdt") WALLETS.usdt = r.value;
+            });
+        } catch (e) {}
+
+        try {
+          var s = await db.auth.getSession();
+          if (s.data && s.data.session) {
+            currentUser = s.data.session.user;
+            initChat();
+          }
+        } catch (e) {}
+
+        var params = new URLSearchParams(window.location.search);
+        var id = params.get("item");
+        var p = PRODUCTS[id];
+        document.getElementById("back-link").href = p
+          ? p.backUrl
+          : "index.html";
+        if (!p) {
+          document.getElementById("order-item-name").textContent =
+            "Item not found";
+          return;
+        }
+
+        if (p.image)
+          document.getElementById("order-item-img-wrap").innerHTML =
+            '<img class="order-item-img" src="' +
+            p.image +
+            '" alt="' +
+            p.name +
+            '">';
+        document.getElementById("order-item-name").textContent = p.name;
+        document.getElementById("order-item-sub").textContent = p.sub;
+        var ul = document.getElementById("order-perks");
+        p.perks.forEach(function (k) {
+          var li = document.createElement("li");
+          li.textContent = k;
+          ul.appendChild(li);
+        });
+
+        var tax = p.price * 0.08,
+          ship = p.physical ? 9.99 : 0;
+        totalUSD = p.price + tax + ship;
+        document.getElementById("order-item-price").textContent =
+          "$" + p.price.toFixed(2);
+        document.getElementById("subtotal-val").textContent =
+          "$" + p.price.toFixed(2);
+        document.getElementById("tax-val").textContent = "$" + tax.toFixed(2);
+        document.getElementById("total-val").textContent =
+          "$" + totalUSD.toFixed(2);
+        if (p.physical)
+          document.getElementById("shipping-row").style.display = "flex";
+
+        document.getElementById("btc-amount").textContent =
+          (totalUSD / RATES.btc).toFixed(6) + " BTC";
+        document.getElementById("eth-amount").textContent =
+          (totalUSD / RATES.eth).toFixed(5) + " ETH";
+        document.getElementById("usdt-amount").textContent =
+          (totalUSD / RATES.usdt).toFixed(2) + " USDT";
+        ["btc", "eth", "usdt"].forEach(function (c) {
+          document.getElementById(c + "-usd").textContent =
+            "≈ $" + totalUSD.toFixed(2) + " USD";
+          document.getElementById(c + "-addr").textContent = WALLETS[c];
+        });
+        document.getElementById("success-item-name").textContent = p.name;
+        document.getElementById("success-item-price").textContent =
+          "$" + p.price.toFixed(2);
+        if (p.image)
+          document.getElementById("success-img-wrap").innerHTML =
+            '<img src="' +
+            p.image +
+            '" alt="" style="width:60px;height:60px;object-fit:cover">';
+      })();
+
+      /* ── COIN / PAYMENT SELECTORS ── */
+      function selectCoin(c) {
+        ["btc", "eth", "usdt"].forEach(function (x) {
+          document
+            .getElementById("tab-" + x)
+            .classList.toggle("active", x === c);
+          document
+            .getElementById("block-" + x)
+            .classList.toggle("active", x === c);
+        });
+      }
+      function selectPayment(m) {
+        if (m === "stripe") {
+          document.getElementById("maintenance-overlay").classList.add("open");
+          return;
+        }
+        document.getElementById("btn-crypto").classList.add("active");
+        document.getElementById("btn-stripe").classList.remove("active");
+        document.getElementById("crypto-panel").style.display = "block";
+        document.getElementById("stripe-panel").style.display = "none";
+      }
+      function closeMaintenanceModal() {
+        document.getElementById("maintenance-overlay").classList.remove("open");
+        document.getElementById("btn-stripe").classList.remove("active");
+        document.getElementById("btn-crypto").classList.add("active");
+      }
+      function switchToCrypto() {
+        closeMaintenanceModal();
+        document.getElementById("crypto-panel").style.display = "block";
+        document.getElementById("stripe-panel").style.display = "none";
+      }
+      document
+        .getElementById("maintenance-overlay")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeMaintenanceModal();
+        });
+
+      /* ── RECEIPT UPLOAD ── */
+      var drop = document.getElementById("receipt-drop");
+      drop.addEventListener("dragover", function (e) {
+        e.preventDefault();
+        drop.classList.add("drag-over");
+      });
+      drop.addEventListener("dragleave", function () {
+        drop.classList.remove("drag-over");
+      });
+      drop.addEventListener("drop", function (e) {
+        e.preventDefault();
+        drop.classList.remove("drag-over");
+        if (e.dataTransfer.files[0]) handleReceiptFile(e.dataTransfer.files[0]);
+      });
+
+      function handleReceiptFile(f) {
+        if (!f) return;
+        if (f.size > 5 * 1024 * 1024) {
+          alert("File too large. Maximum 5MB.");
+          return;
+        }
+        receiptFile = f;
+        document.getElementById("receipt-filename").textContent = f.name;
+        document.getElementById("receipt-preview").classList.add("show");
+      }
+      function removeReceipt() {
+        receiptFile = null;
+        document.getElementById("receipt-file").value = "";
+        document.getElementById("receipt-preview").classList.remove("show");
+      }
+
+      /* ── COPY ── */
+      function copyAddress(coin) {
+        var addr = WALLETS[coin],
+          btn = document.getElementById("copy-" + coin);
+        var ic =
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+        var ck =
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
+        function done() {
+          btn.classList.add("copied");
+          btn.innerHTML = ck + " Copied!";
+          setTimeout(function () {
+            btn.classList.remove("copied");
+            btn.innerHTML = ic + " Copy";
+          }, 2500);
+        }
+        navigator.clipboard
+          ? navigator.clipboard.writeText(addr).then(done)
+          : (function () {
+              var t = document.createElement("textarea");
+              t.value = addr;
+              t.style = "position:fixed;opacity:0";
+              document.body.appendChild(t);
+              t.select();
+              document.execCommand("copy");
+              document.body.removeChild(t);
+              done();
+            })();
+      }
+
+      /* ── SUBMIT ── */
+      async function submitCheckout() {
+        var fn = document.getElementById("first-name").value.trim(),
+          ln = document.getElementById("last-name").value.trim(),
+          em = document.getElementById("email").value.trim(),
+          tx = document.getElementById("tx-hash").value.trim();
+        if (!fn || !ln) {
+          alert("Please enter your full name.");
+          return;
+        }
+        if (!em || em.indexOf("@") < 0) {
+          alert("Please enter a valid email address.");
+          return;
+        }
+
+        var params = new URLSearchParams(window.location.search);
+        var itemId = params.get("item");
+        var p = PRODUCTS[itemId];
+        if (!p) {
+          alert("Invalid item.");
+          return;
+        }
+
+        var activeCoin = "btc";
+        ["btc", "eth", "usdt"].forEach(function (c) {
+          if (document.getElementById("tab-" + c).classList.contains("active"))
+            activeCoin = c;
+        });
+
+        var btn = document.getElementById("submit-btn");
+        btn.disabled = true;
+        btn.textContent = "Submitting…";
+
+        try {
+          var receiptUrl = null;
+
+          if (receiptFile && currentUser) {
+            var ext = receiptFile.name.split(".").pop();
+            var path = currentUser.id + "/" + Date.now() + "." + ext;
+            var up = await db.storage
+              .from("receipts")
+              .upload(path, receiptFile, {
+                cacheControl: "3600",
+                upsert: false,
+              });
+            if (up.error) {
+              alert("Receipt upload failed: " + up.error.message);
+              btn.disabled = false;
+              btn.textContent = "Submit Order for Approval";
+              return;
+            }
+            var urlRes = db.storage.from("receipts").getPublicUrl(path);
+            receiptUrl = urlRes.data.publicUrl;
+          }
+
+          var orderData = {
+            user_id: currentUser ? currentUser.id : null,
+            item_name: p.name,
+            item_key: itemId,
+            item_type: p.type,
+            amount_usd: totalUSD,
+            crypto_method: activeCoin,
+            crypto_amount: document.getElementById(activeCoin + "-amount")
+              .textContent,
+            wallet_address: WALLETS[activeCoin],
+            tx_hash: tx || null,
+            receipt_url: receiptUrl,
+            status: "pending",
+          };
+          var ins = await db.from("orders").insert(orderData);
+          if (ins.error) {
+            alert("Order submission failed: " + ins.error.message);
+            btn.disabled = false;
+            btn.textContent = "Submit Order for Approval";
+            return;
+          }
+
+          document.getElementById("checkout-main").style.display = "none";
+          document.getElementById("checkout-success").style.display = "block";
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } catch (e) {
+          alert("Something went wrong: " + (e.message || "Please try again."));
+          btn.disabled = false;
+          btn.textContent = "Submit Order for Approval";
+        }
+      }
+
+      /* ── CHAT ── */
+      function initChat() {
+        document.getElementById("chat-bubble").style.display = "flex";
+        chatChannel = db
+          .channel("chat-" + currentUser.id)
+          .on(
+            "postgres_changes",
+            {
+              event: "INSERT",
+              schema: "public",
+              table: "chat_messages",
+              filter: "user_id=eq." + currentUser.id,
+            },
+            function (payload) {
+              if (payload.new.sender_role === "admin") {
+                appendChatMsg(payload.new.message, "admin");
+                if (!chatOpen) {
+                  var badge = document.getElementById("chat-unread");
+                  badge.style.display = "flex";
+                  badge.textContent = (parseInt(badge.textContent) || 0) + 1;
+                }
+              }
+            },
+          )
+          .subscribe();
+        loadChatHistory();
+      }
+
+      async function loadChatHistory() {
+        var res = await db
+          .from("chat_messages")
+          .select("*")
+          .eq("user_id", currentUser.id)
+          .order("created_at", { ascending: true })
+          .limit(50);
+        var box = document.getElementById("chat-messages");
+        box.innerHTML = "";
+        (res.data || []).forEach(function (m) {
+          appendChatMsg(m.message, m.sender_role, false);
+        });
+        box.scrollTop = box.scrollHeight;
+      }
+
+      function appendChatMsg(msg, role, scroll) {
+        var box = document.getElementById("chat-messages");
+        var isAdmin = role === "admin";
+        var div = document.createElement("div");
+        div.style.cssText =
+          "display:flex;flex-direction:column;align-items:" +
+          (isAdmin ? "flex-start" : "flex-end");
+        div.innerHTML =
+          '<div style="max-width:80%;padding:8px 12px;background:' +
+          (isAdmin ? "#fff" : "#a9683a") +
+          ";color:" +
+          (isAdmin ? "#444334" : "#fff") +
+          ';font-family:Poppins,sans-serif;font-size:13px;line-height:1.4;border:1px solid rgba(68,67,52,.12)">' +
+          (isAdmin
+            ? '<strong style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#a9683a;display:block;margin-bottom:3px">Support</strong>'
+            : "") +
+          escHtml(msg) +
+          "</div>";
+        box.appendChild(div);
+        if (scroll !== false) box.scrollTop = box.scrollHeight;
+      }
+
+      async function sendChatMsg() {
+        var input = document.getElementById("chat-input");
+        var msg = input.value.trim();
+        if (!msg || !currentUser) return;
+        input.value = "";
+        appendChatMsg(msg, "user");
+        await db.from("chat_messages").insert({
+          user_id: currentUser.id,
+          sender_role: "user",
+          message: msg,
+        });
+      }
+
+      function toggleChat() {
+        chatOpen = !chatOpen;
+        var w = document.getElementById("chat-widget");
+        w.style.display = chatOpen ? "flex" : "none";
+        if (chatOpen) {
+          var badge = document.getElementById("chat-unread");
+          badge.style.display = "none";
+          badge.textContent = "0";
+          var box = document.getElementById("chat-messages");
+          setTimeout(function () {
+            box.scrollTop = box.scrollHeight;
+          }, 50);
+        }
+      }
+
+      function escHtml(s) {
+        return s
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+    </script>
+  </body>
+</html>

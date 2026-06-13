@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Sign In | Morgan Wallen</title>
+    <meta
+      name="description"
+      content="Sign in or create a Morgan Wallen account for presales, memberships and exclusive content."
+    />
+    <link rel="icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/responsive.css">
+    
+  </head>
+  <body>
+    <!-- HEADER -->
+    <div class="header-wrapper">
+      <header>
+        <div id="logo">
+          <a href="index.html"
+            ><img src="images/logo.svg" alt="Morgan Wallen"
+          /></a>
+        </div>
+        <nav id="main" aria-label="Primary navigation">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="meet-and-greet.html">Meet &amp; Greet</a></li>
+            <li><a href="private-meetup.html">Private Meet Up</a></li>
+            <li id="nav-auth-item">
+              <a href="signup.html" id="nav-login-btn">Login</a>
+            </li>
+          </ul>
+        </nav>
+        <div id="socials" aria-label="Social media links">
+          <ul>
+            <li>
+              <a
+                href="https://facebook.com/morgancwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Facebook"
+                ><i class="socicon-facebook"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Instagram"
+                ><i class="socicon-instagram"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://tiktok.com/@morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="TikTok"
+                ><i class="socicon-tiktok"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Twitter / X"
+                ><i class="socicon-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/channel/UCzIyoPv6j1MAZpDHKLGP_eA"
+                target="_blank"
+                rel="noopener"
+                aria-label="YouTube"
+                ><i class="socicon-youtube"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://music.amazon.com/artists/B00QNUADXK/morgan-wallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Amazon Music"
+                ><i class="socicon-amazon"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://geo.music.apple.com/us/artist/morgan-wallen/829142092"
+                target="_blank"
+                rel="noopener"
+                aria-label="Apple Music"
+                ><i class="socicon-apple"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM"
+                target="_blank"
+                rel="noopener"
+                aria-label="Spotify"
+                ><i class="socicon-spotify"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </header>
+      <div
+        id="nav-trigger"
+        role="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        tabindex="0"
+      ></div>
+    </div>
+
+    <!-- MOBILE NAV -->
+    <div id="mobile-nav" aria-hidden="true">
+      <ul id="nav-mob">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="meet-and-greet.html">Meet &amp; Greet</a></li>
+        <li><a href="private-meetup.html">Private Meet Up</a></li>
+        <li id="mob-auth-item">
+          <a href="signup.html" id="mob-login-btn">Login</a>
+        </li>
+        <li id="mobile-nav-socials">
+          <ul>
+            <li>
+              <a
+                href="https://facebook.com/morgancwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Facebook"
+                ><i class="socicon-facebook"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Instagram"
+                ><i class="socicon-instagram"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://tiktok.com/@morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="TikTok"
+                ><i class="socicon-tiktok"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Twitter / X"
+                ><i class="socicon-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/channel/UCzIyoPv6j1MAZpDHKLGP_eA"
+                target="_blank"
+                rel="noopener"
+                aria-label="YouTube"
+                ><i class="socicon-youtube"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://music.amazon.com/artists/B00QNUADXK/morgan-wallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Amazon Music"
+                ><i class="socicon-amazon"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://geo.music.apple.com/us/artist/morgan-wallen/829142092"
+                target="_blank"
+                rel="noopener"
+                aria-label="Apple Music"
+                ><i class="socicon-apple"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM"
+                target="_blank"
+                rel="noopener"
+                aria-label="Spotify"
+                ><i class="socicon-spotify"></i
+              ></a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- PAGE CONTENT -->
+    <div id="container" class="page">
+      <h2 class="page-title">Account</h2>
+
+      <!-- Signed-in state (hidden until JS shows it) -->
+      <div id="signout-section" style="display: none">
+        <div class="signout-bar">
+          <p>Signed in as <strong id="user-email"></strong></p>
+          <button class="signout-btn" id="signout-btn">Sign Out</button>
+        </div>
+        <a href="dashboard.html" class="manage-link"
+          >Go to your dashboard &rarr;</a
+        >
+      </div>
+
+      <!-- Auth forms (hidden when signed in) -->
+      <div id="auth-forms" class="signup-form">
+        <div class="auth-tabs">
+          <button
+            class="auth-tab active"
+            id="tab-signin"
+            onclick="switchTab('signin')"
+          >
+            Sign In
+          </button>
+          <button
+            class="auth-tab"
+            id="tab-signup"
+            onclick="switchTab('signup')"
+          >
+            Create Account
+          </button>
+        </div>
+
+        <!-- ── Sign In panel ── -->
+        <div id="panel-signin" class="auth-panel active">
+          <p class="auth-intro">
+            Welcome back. Sign in to access your membership, presale tickets,
+            exclusive content and order history.
+          </p>
+          <div class="form-group">
+            <label for="si-email">Email Address</label>
+            <input
+              type="email"
+              id="si-email"
+              placeholder="you@example.com"
+              autocomplete="email"
+            />
+          </div>
+          <div class="form-group">
+            <label for="si-pass">Password</label>
+            <input
+              type="password"
+              id="si-pass"
+              placeholder="••••••••"
+              autocomplete="current-password"
+            />
+          </div>
+          <div class="submit-btn">
+            <button type="button" id="signin-btn" onclick="doSignIn()">
+              Sign In
+            </button>
+          </div>
+          <div class="auth-msg" id="signin-msg"></div>
+          <p class="auth-divider">
+            No account yet?
+            <a
+              href="#"
+              onclick="
+                switchTab('signup');
+                return false;
+              "
+              >Create one &rarr;</a
+            >
+          </p>
+        </div>
+
+        <!-- ── Create Account panel ── -->
+        <div id="panel-signup" class="auth-panel">
+          <p class="auth-intro">
+            Join the Morgan Wallen community. Get early access to new music,
+            tour presales, exclusive merch and membership perks.
+          </p>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input
+                type="text"
+                id="fname"
+                placeholder="First Name"
+                autocomplete="given-name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input
+                type="text"
+                id="lname"
+                placeholder="Last Name"
+                autocomplete="family-name"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="su-email">Email Address</label>
+            <input
+              type="email"
+              id="su-email"
+              placeholder="you@example.com"
+              autocomplete="email"
+            />
+          </div>
+          <div class="form-group">
+            <label for="zip">Zip / Postal Code</label>
+            <input
+              type="text"
+              id="zip"
+              placeholder="Zip / Postal Code"
+              autocomplete="postal-code"
+            />
+          </div>
+          <div class="form-group">
+            <label for="su-pass">Password</label>
+            <input
+              type="password"
+              id="su-pass"
+              placeholder="Create a strong password (min 6 chars)"
+              autocomplete="new-password"
+            />
+          </div>
+          <div class="submit-btn">
+            <button type="button" id="signup-btn" onclick="doSignUp()">
+              Create Account
+            </button>
+          </div>
+          <div class="auth-msg" id="signup-msg"></div>
+          <p class="auth-divider">
+            Already have an account?
+            <a
+              href="#"
+              onclick="
+                switchTab('signin');
+                return false;
+              "
+              >Sign in &rarr;</a
+            >
+          </p>
+        </div>
+      </div>
+      <!-- /#auth-forms -->
+    </div>
+
+    <!-- User Auth Dialog (used by nav-auth.js) -->
+    <div
+      id="user-dialog-overlay"
+      class="udialog-overlay"
+      style="display: none"
+      onclick="closeUserDialog()"
+    ></div>
+    <div
+      id="user-dialog"
+      class="udialog"
+      style="display: none"
+      role="dialog"
+      aria-modal="true"
+      aria-label="User account"
+    >
+      <button
+        class="udialog-close"
+        onclick="closeUserDialog()"
+        aria-label="Close"
+      >
+        &times;
+      </button>
+      <div class="udialog-avatar">
+        <svg
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <circle cx="20" cy="15" r="7" fill="#a9683a" />
+          <path
+            d="M4 36c0-8.837 7.163-14 16-14s16 5.163 16 14"
+            stroke="#a9683a"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <div class="udialog-name" id="udialog-name"></div>
+      <div class="udialog-email" id="udialog-email"></div>
+      <div class="udialog-divider"></div>
+      <a href="dashboard.html" class="udialog-link" onclick="closeUserDialog()">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
+        My Dashboard
+      </a>
+      <a
+        href="meet-and-greet.html"
+        class="udialog-link"
+        onclick="closeUserDialog()"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+          />
+        </svg>
+        Manage Meet &amp; Greet
+      </a>
+      <button class="udialog-signout" id="udialog-signout-btn">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <polyline points="16 17 21 12 16 7" />
+          <line x1="21" y1="12" x2="9" y2="12" />
+        </svg>
+        Sign Out
+      </button>
+    </div>
+
+    <footer>
+      <span style="font-family: Arial">&copy;</span> 2026 Morgan Wallen. All
+      rights reserved. <a href="privacy.html">Privacy Policy</a> &nbsp;|&nbsp;
+      Website by: <a href="#">Stephen Craven</a>
+    </footer>
+
+    <!--
+      LOAD ORDER — critical:
+      1. main.js        (jQuery-based UI)
+      2. Supabase CDN   (sets global `supabase`)
+      3. supabase-auth.js  (auth logic — needs supabase global)
+      4. nav-auth.js    (nav widget — reuses window.supabaseClient)
+      5. chat.js        (support chat widget)
+    -->
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-auth.js"></script>
+    <script src="js/nav-auth.js"></script>
+    <script src="js/chat.js"></script>
+
+    <!-- Enter key submits sign-in form -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var siPass = document.getElementById("si-pass");
+        if (siPass) {
+          siPass.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") doSignIn();
+          });
+        }
+        var suPass = document.getElementById("su-pass");
+        if (suPass) {
+          suPass.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") doSignUp();
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

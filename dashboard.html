@@ -1,0 +1,1048 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>My Dashboard | Morgan Wallen</title>
+    <style>
+      /* Add this to the very start of your CSS or inline in <head> */
+      html,
+      body {
+        background-color: #f0ede6;
+        background-image: url("../images/bg.jpg");
+        background-attachment: fixed;
+      }
+
+      /* Prevent flash */
+      @media (max-width: 900px) {
+        body {
+          background-attachment: scroll !important;
+        }
+      }
+    </style>
+    <link rel="icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/responsive.css" />
+
+    <style>
+      /* ── Dashboard layout ── */
+      .dash-wrapper {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 160px 24px 80px;
+      }
+      .dash-greeting {
+        margin-bottom: 36px;
+      }
+      .dash-greeting-title {
+        font-family: "bebas", sans-serif;
+        font-size: 52px;
+        color: #444334;
+        line-height: 1;
+        margin: 0 0 6px;
+      }
+      .dash-greeting-sub {
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        color: #888;
+      }
+
+      /* Membership banner */
+      .dash-membership-banner {
+        background: #444334;
+        padding: 24px 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 36px;
+        flex-wrap: wrap;
+      }
+      .dmb-tier {
+        font-family: "bebas", sans-serif;
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #a9683a;
+        margin-bottom: 4px;
+      }
+      .dmb-name {
+        font-family: "bebas", sans-serif;
+        font-size: 32px;
+        color: #f6e7c2;
+        line-height: 1;
+      }
+      .dmb-since {
+        font-family: "Poppins", sans-serif;
+        font-size: 12px;
+        color: rgba(246, 231, 194, 0.5);
+        margin-top: 4px;
+      }
+      .dmb-btn {
+        display: inline-block;
+        padding: 12px 28px;
+        font-family: "bebas", sans-serif;
+        font-size: 20px;
+        letter-spacing: 0.04em;
+        color: #f6e7c2;
+        background: url("images/ITP_Button-Stroke-Sm.png") center/100% 100%
+          no-repeat;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: opacity 0.2s;
+        flex-shrink: 0;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+      }
+      .dmb-btn:hover {
+        opacity: 0.85;
+        color: #f6e7c2;
+      }
+
+      /* Section title */
+      .dash-section-title {
+        font-family: "bebas", sans-serif;
+        font-size: 30px;
+        color: #444334;
+        margin: 0 0 16px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid rgba(68, 67, 52, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      /* Orders table */
+      .orders-table-wrap {
+        background: #fff;
+        border: 2px solid rgba(68, 67, 52, 0.1);
+        margin-bottom: 36px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 600px;
+      }
+      th {
+        text-align: left;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: #999;
+        padding: 12px 16px;
+        border-bottom: 2px solid rgba(68, 67, 52, 0.08);
+        background: rgba(68, 67, 52, 0.02);
+        white-space: nowrap;
+      }
+      td {
+        padding: 13px 16px;
+        font-size: 13px;
+        color: #444334;
+        border-bottom: 1px solid rgba(68, 67, 52, 0.06);
+        vertical-align: middle;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      /* Status badges */
+      .badge {
+        display: inline-block;
+        padding: 3px 10px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        border-radius: 2px;
+      }
+      .b-pending {
+        background: rgba(255, 165, 0, 0.15);
+        color: #996600;
+      }
+      .b-confirmed {
+        background: rgba(42, 122, 75, 0.14);
+        color: #1e6b3a;
+      }
+      .b-rejected {
+        background: rgba(176, 50, 30, 0.12);
+        color: #a02010;
+      }
+      .b-btc {
+        background: rgba(247, 147, 26, 0.15);
+        color: #8a4e00;
+      }
+      .b-eth {
+        background: rgba(98, 126, 234, 0.15);
+        color: #2a3a90;
+      }
+      .b-usdt {
+        background: rgba(38, 161, 123, 0.15);
+        color: #0f5e42;
+      }
+
+      .receipt-link {
+        color: #a9683a;
+        font-size: 12px;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+      .no-receipt {
+        font-size: 11px;
+        color: #ccc;
+      }
+
+      .admin-note-box {
+        background: rgba(169, 104, 58, 0.07);
+        border-left: 3px solid #a9683a;
+        padding: 8px 12px;
+        font-size: 12px;
+        color: #6b4520;
+        font-family: "Poppins", sans-serif;
+        margin-top: 4px;
+        line-height: 1.5;
+      }
+
+      .dash-empty {
+        text-align: center;
+        padding: 48px 24px;
+        color: #bbb;
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+      }
+      .dash-empty svg {
+        display: block;
+        margin: 0 auto 12px;
+        opacity: 0.35;
+      }
+
+      /* Quick links */
+      .quick-links {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-bottom: 36px;
+      }
+      .quick-link-card {
+        background: #fff;
+        border: 2px solid rgba(68, 67, 52, 0.1);
+        padding: 20px 18px;
+        text-decoration: none;
+        transition:
+          border-color 0.2s,
+          transform 0.15s;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .quick-link-card:hover {
+        border-color: #a9683a;
+        transform: translateY(-2px);
+      }
+      .qlc-icon {
+        width: 42px;
+        height: 42px;
+        background: rgba(169, 104, 58, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .qlc-label {
+        font-family: "bebas", sans-serif;
+        font-size: 20px;
+        color: #444334;
+        line-height: 1;
+      }
+      .qlc-sub {
+        font-size: 11px;
+        color: #888;
+        margin-top: 2px;
+        font-family: "Poppins", sans-serif;
+      }
+
+      /* Sign out bar */
+      .dash-signout-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 20px;
+        background: rgba(68, 67, 52, 0.05);
+        border: 2px solid rgba(68, 67, 52, 0.1);
+        margin-bottom: 36px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .dash-signout-bar p {
+        font-family: "Poppins", sans-serif;
+        font-size: 13px;
+        color: #666;
+        margin: 0;
+      }
+      .dash-signout-btn {
+        font-family: "bebas", sans-serif;
+        font-size: 18px;
+        letter-spacing: 0.04em;
+        color: #b0321e;
+        background: none;
+        border: 2px solid rgba(176, 50, 30, 0.3);
+        padding: 6px 18px;
+        cursor: pointer;
+        transition: all 0.2s;
+        min-height: 44px;
+      }
+      .dash-signout-btn:hover {
+        background: #b0321e;
+        color: #fff;
+        border-color: #b0321e;
+      }
+
+      /* Loading skeleton */
+      .skel {
+        height: 14px;
+        background: linear-gradient(
+          90deg,
+          rgba(68, 67, 52, 0.06) 25%,
+          rgba(68, 67, 52, 0.12) 50%,
+          rgba(68, 67, 52, 0.06) 75%
+        );
+        background-size: 200% 100%;
+        animation: skel 1.4s infinite;
+        border-radius: 2px;
+      }
+      @keyframes skel {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+
+      @media (max-width: 700px) {
+        .quick-links {
+          grid-template-columns: 1fr 1fr;
+        }
+        .dash-greeting-title {
+          font-size: 40px;
+        }
+        .dash-wrapper {
+          padding: 120px 16px 60px;
+        }
+      }
+      @media (max-width: 480px) {
+        .quick-links {
+          grid-template-columns: 1fr;
+        }
+        .dash-wrapper {
+          padding: 100px 12px 50px;
+        }
+        .dash-greeting-title {
+          font-size: 34px;
+        }
+        .dash-section-title {
+          font-size: 24px;
+        }
+        .dash-membership-banner {
+          padding: 16px;
+        }
+        .dmb-name {
+          font-size: 26px;
+        }
+        .dmb-btn {
+          font-size: 17px;
+          padding: 10px 18px;
+        }
+      }
+      @media (max-width: 360px) {
+        .dash-wrapper {
+          padding: 90px 10px 40px;
+        }
+        .dash-greeting-title {
+          font-size: 28px;
+        }
+        .dash-signout-bar {
+          padding: 10px 12px;
+        }
+        .dash-signout-btn {
+          font-size: 16px;
+          padding: 5px 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <div class="header-wrapper">
+      <header>
+        <div id="logo">
+          <a href="index.html"
+            ><img src="images/logo.svg" alt="Morgan Wallen"
+          /></a>
+        </div>
+        <nav id="main" aria-label="Primary navigation">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="meet-and-greet.html">Meet &amp; Greet</a></li>
+            <li><a href="private-meetup.html">Private Meet Up</a></li>
+            <li id="nav-auth-item">
+              <a href="signup.html" id="nav-login-btn">Login</a>
+            </li>
+          </ul>
+        </nav>
+        <div id="socials" aria-label="Social media links">
+          <ul>
+            <li>
+              <a
+                href="https://facebook.com/morgancwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Facebook"
+                ><i class="socicon-facebook"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Instagram"
+                ><i class="socicon-instagram"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://tiktok.com/@morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="TikTok"
+                ><i class="socicon-tiktok"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Twitter / X"
+                ><i class="socicon-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/channel/UCzIyoPv6j1MAZpDHKLGP_eA"
+                target="_blank"
+                rel="noopener"
+                aria-label="YouTube"
+                ><i class="socicon-youtube"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://music.amazon.com/artists/B00QNUADXK/morgan-wallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Amazon Music"
+                ><i class="socicon-amazon"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://geo.music.apple.com/us/artist/morgan-wallen/829142092"
+                target="_blank"
+                rel="noopener"
+                aria-label="Apple Music"
+                ><i class="socicon-apple"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM"
+                target="_blank"
+                rel="noopener"
+                aria-label="Spotify"
+                ><i class="socicon-spotify"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </header>
+      <div
+        id="nav-trigger"
+        role="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        tabindex="0"
+      ></div>
+    </div>
+
+    <!-- MOBILE NAV -->
+    <div id="mobile-nav" aria-hidden="true">
+      <ul id="nav-mob">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="meet-and-greet.html">Meet &amp; Greet</a></li>
+        <li><a href="private-meetup.html">Private Meet Up</a></li>
+        <li id="mob-auth-item">
+          <a href="signup.html" id="mob-login-btn">Login</a>
+        </li>
+        <li id="mobile-nav-socials">
+          <ul>
+            <li>
+              <a
+                href="https://facebook.com/morgancwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Facebook"
+                ><i class="socicon-facebook"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Instagram"
+                ><i class="socicon-instagram"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://tiktok.com/@morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="TikTok"
+                ><i class="socicon-tiktok"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Twitter / X"
+                ><i class="socicon-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/channel/UCzIyoPv6j1MAZpDHKLGP_eA"
+                target="_blank"
+                rel="noopener"
+                aria-label="YouTube"
+                ><i class="socicon-youtube"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://music.amazon.com/artists/B00QNUADXK/morgan-wallen"
+                target="_blank"
+                rel="noopener"
+                aria-label="Amazon Music"
+                ><i class="socicon-amazon"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://geo.music.apple.com/us/artist/morgan-wallen/829142092"
+                target="_blank"
+                rel="noopener"
+                aria-label="Apple Music"
+                ><i class="socicon-apple"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM"
+                target="_blank"
+                rel="noopener"
+                aria-label="Spotify"
+                ><i class="socicon-spotify"></i
+              ></a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- DASHBOARD CONTENT -->
+    <div class="dash-wrapper">
+      <!-- Greeting -->
+      <div class="dash-greeting">
+        <div class="dash-greeting-title" id="dash-name">Welcome Back</div>
+        <div class="dash-greeting-sub" id="dash-email">
+          Loading your account…
+        </div>
+      </div>
+
+      <!-- Signed-in bar -->
+      <div class="dash-signout-bar">
+        <p>Signed in as <strong id="dash-email-bar">—</strong></p>
+        <button class="dash-signout-btn" id="dash-signout-btn">Sign Out</button>
+      </div>
+
+      <!-- Membership banner -->
+      <div class="dash-membership-banner" id="membership-banner">
+        <div class="dmb-left">
+          <div class="dmb-tier" id="dmb-tier-label">Meet &amp; Greet</div>
+          <div class="dmb-name" id="dmb-tier-name">
+            <div class="skel" style="width: 160px; height: 28px"></div>
+          </div>
+          <div class="dmb-since" id="dmb-since"></div>
+        </div>
+        <a href="meet-and-greet.html" class="dmb-btn" id="dmb-cta"
+          >Upgrade Plan</a
+        >
+      </div>
+
+      <!-- Quick links -->
+      <div class="quick-links">
+        <a href="private-meetup.html" class="quick-link-card">
+          <div class="qlc-icon">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#a9683a"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <path d="M16 10a4 4 0 0 1-8 0" />
+            </svg>
+          </div>
+          <div>
+            <div class="qlc-label">Shop</div>
+            <div class="qlc-sub">Browse the marketplace</div>
+          </div>
+        </a>
+        <a href="meet-and-greet.html" class="quick-link-card">
+          <div class="qlc-icon">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#a9683a"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+          </div>
+          <div>
+            <div class="qlc-label">Meet &amp; Greet</div>
+            <div class="qlc-sub">View or upgrade your plan</div>
+          </div>
+        </a>
+        <a href="contact.html" class="quick-link-card">
+          <div class="qlc-icon">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#a9683a"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path
+                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+              />
+            </svg>
+          </div>
+          <div>
+            <div class="qlc-label">Support</div>
+            <div class="qlc-sub">Chat or contact us</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Orders -->
+      <div class="dash-section-title">
+        My Orders
+        <span
+          id="orders-count"
+          style="
+            font-family: &quot;Poppins&quot;, sans-serif;
+            font-size: 13px;
+            color: #888;
+            font-weight: 400;
+          "
+        ></span>
+      </div>
+
+      <div class="orders-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Amount</th>
+              <th>Method</th>
+              <th>Receipt</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Note from Support</th>
+            </tr>
+          </thead>
+          <tbody id="orders-tbody">
+            <tr>
+              <td colspan="7" style="text-align: center; padding: 32px">
+                <div class="skel" style="width: 60%; margin: 0 auto 10px"></div>
+                <div class="skel" style="width: 40%; margin: 0 auto"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- User Auth Dialog -->
+    <div
+      id="user-dialog-overlay"
+      class="udialog-overlay"
+      style="display: none"
+      onclick="closeUserDialog()"
+    ></div>
+    <div
+      id="user-dialog"
+      class="udialog"
+      style="display: none"
+      role="dialog"
+      aria-modal="true"
+      aria-label="User account"
+    >
+      <button
+        class="udialog-close"
+        onclick="closeUserDialog()"
+        aria-label="Close"
+      >
+        &times;
+      </button>
+      <div class="udialog-avatar">
+        <svg
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <circle cx="20" cy="15" r="7" fill="#a9683a" />
+          <path
+            d="M4 36c0-8.837 7.163-14 16-14s16 5.163 16 14"
+            stroke="#a9683a"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <div class="udialog-name" id="udialog-name"></div>
+      <div class="udialog-email" id="udialog-email"></div>
+      <div class="udialog-divider"></div>
+      <a href="dashboard.html" class="udialog-link" onclick="closeUserDialog()">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
+        My Dashboard
+      </a>
+      <a
+        href="meet-and-greet.html"
+        class="udialog-link"
+        onclick="closeUserDialog()"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+          />
+        </svg>
+        Meet &amp; Greet Packages
+      </a>
+      <button class="udialog-signout" id="udialog-signout-btn">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <polyline points="16 17 21 12 16 7" />
+          <line x1="21" y1="12" x2="9" y2="12" />
+        </svg>
+        Sign Out
+      </button>
+    </div>
+
+    <footer>
+      <span style="font-family: Arial">&copy;</span> 2026 Morgan Wallen. All
+      rights reserved. <a href="privacy.html">Privacy Policy</a> &nbsp;|&nbsp;
+      Website by: <a href="#">Stephen Craven</a>
+    </footer>
+
+    <!-- LOAD ORDER: main.js → Supabase CDN → nav-auth.js → dashboard inline script → chat.js -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/nav-auth.js"></script>
+    <script src="js/chat.js"></script>
+
+    <script>
+      (async function () {
+        "use strict";
+
+        var SURL = "https://gzzqpiwufbvoygqfxbrf.supabase.co";
+        var SANON =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6enFwaXd1ZmJ2b3lncWZ4YnJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNjA2MTcsImV4cCI6MjA4ODYzNjYxN30.OUY4ktBGKSvnO56fpLfkP13da5T_fOLBEDX7aBW7PU4";
+
+        /* Re-use singleton client */
+        var db =
+          window.supabaseClient ||
+          supabase.createClient(SURL, SANON, {
+            auth: { autoRefreshToken: true, persistSession: true },
+          });
+        window.supabaseClient = db;
+
+        /* ── Guard: must be logged in ── */
+        var sessionRes = await db.auth.getSession().catch(function () {
+          return {};
+        });
+        if (!sessionRes.data || !sessionRes.data.session) {
+          window.location.href = "signup.html";
+          return;
+        }
+        var user = sessionRes.data.session.user;
+
+        /* ── Fetch profile ── */
+        var profRes = await db
+          .from("profiles")
+          .select(
+            "first_name, last_name, email, membership_tier, membership_since, is_admin, is_banned",
+          )
+          .eq("id", user.id)
+          .single()
+          .catch(function () {
+            return {};
+          });
+        var profile = (profRes && profRes.data) || {};
+
+        /* ── Guard: banned ── */
+        if (profile.is_banned) {
+          await db.auth.signOut();
+          window.location.href = "signup.html";
+          return;
+        }
+
+        /* ── Guard: admins go to admin panel ── */
+        if (profile.is_admin) {
+          window.location.href = "admin.html";
+          return;
+        }
+
+        /* ── Populate greeting ── */
+        var firstName = profile.first_name || "";
+        var lastName = profile.last_name || "";
+        var email = profile.email || user.email || "";
+
+        document.getElementById("dash-name").textContent =
+          "Welcome, " + (firstName || "back") + " \uD83D\uDC4B";
+        document.getElementById("dash-email").textContent = email;
+        document.getElementById("dash-email-bar").textContent = email;
+
+        /* ── Membership banner ── */
+        var tier = profile.membership_tier;
+        var since = profile.membership_since;
+        var tierNames = {
+          standard: "Standard Member",
+          premium: "Premium Member",
+          vip: "VIP Member",
+        };
+
+        if (tier) {
+          document.getElementById("dmb-tier-label").textContent =
+            "Your Meet & Greet";
+          document.getElementById("dmb-tier-name").textContent =
+            tierNames[tier] || tier;
+          document.getElementById("dmb-cta").textContent = "Manage Plan";
+          if (since) {
+            document.getElementById("dmb-since").textContent =
+              "Member since " +
+              new Date(since).toLocaleDateString("en-US", {
+                month: "long",
+                year: "numeric",
+              });
+          }
+        } else {
+          document.getElementById("dmb-tier-label").textContent =
+            "No Meet & Greet Package";
+          document.getElementById("dmb-tier-name").innerHTML =
+            '<span style="font-size:18px;color:rgba(246,231,194,.6);font-family:Poppins,sans-serif;font-weight:400">Join to get exclusive perks, presales &amp; more</span>';
+          document.getElementById("dmb-cta").textContent = "Get Meet & Greet";
+          document.getElementById("dmb-since").textContent = "";
+        }
+
+        /* ── Load orders ── */
+        var ordersRes = await db
+          .from("orders")
+          .select("*")
+          .eq("user_id", user.id)
+          .order("created_at", { ascending: false })
+          .catch(function () {
+            return { data: [] };
+          });
+        var orders = ordersRes.data || [];
+
+        document.getElementById("orders-count").textContent =
+          orders.length + " order" + (orders.length === 1 ? "" : "s");
+
+        var tbody = document.getElementById("orders-tbody");
+
+        if (!orders.length) {
+          tbody.innerHTML =
+            '<tr><td colspan="7"><div class="dash-empty">' +
+            '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>' +
+            'No orders yet. <a href="private-meetup.html" style="color:#a9683a">Browse the marketplace &rarr;</a>' +
+            "</div></td></tr>";
+        } else {
+          tbody.innerHTML = orders
+            .map(function (o) {
+              var receiptHtml = o.receipt_url
+                ? '<a class="receipt-link" href="' +
+                  o.receipt_url +
+                  '" target="_blank" rel="noopener">View ↗</a>'
+                : '<span class="no-receipt">—</span>';
+              var noteHtml = o.admin_note
+                ? '<div class="admin-note-box">💬 ' +
+                  _esc(o.admin_note) +
+                  "</div>"
+                : '<span class="no-receipt">—</span>';
+              var cryptoCls = (o.crypto_method || "btc").toLowerCase();
+              var statusMap = {
+                pending: "⏳ Pending",
+                confirmed: "✅ Confirmed",
+                rejected: "❌ Rejected",
+              };
+              var statusCls = {
+                pending: "b-pending",
+                confirmed: "b-confirmed",
+                rejected: "b-rejected",
+              };
+              return (
+                "<tr>" +
+                "<td><strong>" +
+                _esc(o.item_name || "—") +
+                "</strong></td>" +
+                "<td>$" +
+                Number(o.amount_usd || 0).toFixed(2) +
+                "</td>" +
+                "<td>" +
+                (o.crypto_method
+                  ? '<span class="badge b-' +
+                    cryptoCls +
+                    '">' +
+                    o.crypto_method.toUpperCase() +
+                    "</span>"
+                  : "—") +
+                "</td>" +
+                "<td>" +
+                receiptHtml +
+                "</td>" +
+                '<td><span class="badge ' +
+                (statusCls[o.status] || "b-pending") +
+                '">' +
+                (statusMap[o.status] || o.status || "Pending") +
+                "</span></td>" +
+                '<td style="white-space:nowrap">' +
+                _fmtDate(o.created_at) +
+                "</td>" +
+                "<td>" +
+                noteHtml +
+                "</td>" +
+                "</tr>"
+              );
+            })
+            .join("");
+        }
+
+        /* ── Sign out button ── */
+        document
+          .getElementById("dash-signout-btn")
+          .addEventListener("click", async function () {
+            await db.auth.signOut().catch(function () {});
+            window.location.href = "signup.html";
+          });
+
+        /* ── Subscribe to order status changes (live updates) ── */
+        db.channel("user-orders-" + user.id)
+          .on(
+            "postgres_changes",
+            {
+              event: "UPDATE",
+              schema: "public",
+              table: "orders",
+              filter: "user_id=eq." + user.id,
+            },
+            function () {
+              window.location.reload();
+            },
+          )
+          .subscribe();
+
+        /* ── Helpers ── */
+        function _esc(s) {
+          return String(s || "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+        }
+        function _fmtDate(d) {
+          if (!d) return "—";
+          return new Date(d).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | Morgan Wallen</title>
+    <meta
+      name="description"
+      content="Get in touch with the Morgan Wallen team."
+    />
+    <link rel="icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/responsive.css" />
+
+    <style>
+      /* ── Contact page extras ── */
+
+      body {
+        background-color: #f0ede6;
+        background-image: url("images/bg.jpg");
+        background-attachment: fixed;
+        background-position: top center;
+        background-repeat: repeat;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      /* Fade in page content */
+      #container,
+      header,
+      main {
+        animation: pageIn 0.4s ease-in-out;
+      }
+      @keyframes pageIn {
+        from {
+          opacity: 0.95;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .contact-intro {
+        max-width: 620px;
+        font-size: 15px;
+        line-height: 1.75;
+        color: #5a5849;
+        margin: 0 0 40px 0;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        max-width: 900px;
+      }
+
+      .contact-block h3 {
+        font-family: "bebas", Arial, sans-serif;
+        font-size: 36px;
+        color: #444334;
+        margin: 0 0 14px 0;
+        background: url("images/ITP_Stroke-4.png") bottom left no-repeat;
+        background-size: 100% 60%;
+        padding: 0 0 14px 0;
+        display: inline-block;
+      }
+
+      .contact-block p {
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        line-height: 1.75;
+        color: #5a5849;
+        margin: 0 0 10px 0;
+      }
+
+      .contact-block a {
+        color: #a9683a;
+        border-bottom: 1px dashed #a9683a;
+      }
+      .contact-block a:hover {
+        border-bottom-style: solid;
+      }
+
+      .contact-form .form-group {
+        margin: 0 0 20px 0;
+      }
+
+      .contact-form label {
+        display: block;
+        font-family: "bebas", Arial, sans-serif;
+        font-size: 20px;
+        margin: 0 0 6px 0;
+        color: #444334;
+      }
+
+      .contact-form input[type="text"],
+      .contact-form input[type="email"],
+      .contact-form textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #444334;
+        background: transparent;
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        color: #444334;
+        outline: none;
+        transition: border-color 0.2s;
+        resize: vertical;
+      }
+
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        border-color: #a9683a;
+      }
+
+      .contact-form textarea {
+        min-height: 130px;
+      }
+
+      .contact-form .submit-btn {
+        margin-top: 6px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .contact-form .submit-btn button {
+        color: #f6e7c2;
+        padding: 18px 0;
+        display: block;
+        width: 100%;
+        background: url("images/ITP_Button-Stroke-Sm.png") !important;
+        background-size: 100% 100% !important;
+        border: none;
+        cursor: pointer;
+        font-family: "bebas", Arial, sans-serif;
+        font-size: 30px;
+        transition: opacity 0.2s;
+      }
+
+      .contact-form .submit-btn button:hover {
+        opacity: 0.85;
+      }
+
+      .contact-msg {
+        margin-top: 12px;
+        font-size: 13px;
+        color: #888;
+        min-height: 18px;
+        font-family: "Poppins", sans-serif;
+      }
+      .contact-msg.success {
+        color: #2e7b3e;
+      }
+      .contact-msg.error {
+        color: #b0321e;
+      }
+
+      .social-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 10px;
+      }
+
+      .social-links a {
+        font-family: "bebas", Arial, sans-serif;
+        font-size: 22px;
+        color: #444334;
+        border: 1px solid #444334;
+        padding: 4px 18px;
+        transition:
+          color 0.2s,
+          background 0.2s;
+        border-bottom: 1px solid #444334 !important;
+      }
+
+      .social-links a:hover {
+        color: #f6e7c2;
+        background: url("images/ITP_Stroke-6c.png");
+        background-size: 100% 100%;
+      }
+
+      @media (max-width: 768px) {
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <div class="header-wrapper">
+      <header>
+        <div id="logo">
+          <a href="index.html"
+            ><img src="images/logo.svg" alt="Morgan Wallen"
+          /></a>
+        </div>
+
+        <nav id="main">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+            <li><a href="meet-and-greet.html">Meet & Greet</a></li>
+            <li><a href="private-meetup.html">Private Meet Up</a></li>
+            <li id="nav-auth-item">
+              <a href="signup.html" id="nav-login-btn">Login</a>
+            </li>
+          </ul>
+        </nav>
+
+        <div id="socials">
+          <ul>
+            <li>
+              <a
+                href="https://facebook.com/morgancwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-facebook"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-instagram"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://tiktok.com/@morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-tiktok"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/channel/UCzIyoPv6j1MAZpDHKLGP_eA"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-youtube"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://music.amazon.com/artists/B00QNUADXK/morgan-wallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-amazon"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://geo.music.apple.com/us/artist/morgan-wallen/829142092"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-apple"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-spotify"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </header>
+      <div id="nav-trigger" aria-label="Toggle navigation"></div>
+    </div>
+
+    <!-- MOBILE NAV -->
+    <div id="mobile-nav">
+      <ul id="nav-mob">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="meet-and-greet.html">Meet & Greet</a></li>
+        <li><a href="private-meetup.html">Private Meet Up</a></li>
+        <li id="mob-auth-item">
+          <a href="signup.html" id="mob-login-btn">Sign In</a>
+        </li>
+        <div id="mobile-nav-socials">
+          <ul>
+            <li>
+              <a
+                href="https://facebook.com/morgancwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-facebook"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-instagram"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://tiktok.com/@morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-tiktok"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/channel/UCzIyoPv6j1MAZpDHKLGP_eA"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-youtube"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://music.amazon.com/artists/B00QNUADXK/morgan-wallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-amazon"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://geo.music.apple.com/us/artist/morgan-wallen/829142092"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-apple"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-spotify"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </ul>
+    </div>
+
+    <div id="container" class="page">
+      <h2 class="page-title">Contact</h2>
+
+      <p class="contact-intro">
+        Have a question or inquiry? Reach out below. For the fastest response,
+        use the form and we'll get back to you as soon as possible.
+      </p>
+
+      <div class="contact-grid">
+        <!-- Left: Info -->
+        <div class="contact-block">
+          <h3>Get In Touch</h3>
+          <p>
+            <strong>General Inquiries</strong><br />
+            <a href="info.morganwallenwmgt@gmail.com"
+              >info.morganwallenwmgt@gmail.com</a
+            >
+          </p>
+
+          <p>
+            <strong>Press &amp; Media</strong><br />
+            <a href="info.morganwallenwmgt@gmail.com"
+              >press@info.morganwallenwmgt@gmail.com</a
+            >
+          </p>
+
+          <p>
+            <strong>Booking</strong><br />
+            <a href="info.morganwallenwmgt@gmail.com"
+              >booking@info.morganwallenwmgt@gmail.com</a
+            >
+          </p>
+
+          <p style="margin-top: 30px"><strong>Follow Morgan</strong></p>
+          <div class="social-links">
+            <a
+              href="https://instagram.com/morganwallen"
+              target="_blank"
+              rel="noopener"
+              >Instagram</a
+            >
+            <a
+              href="https://tiktok.com/@morganwallen"
+              target="_blank"
+              rel="noopener"
+              >TikTok</a
+            >
+            <a
+              href="https://facebook.com/morgancwallen"
+              target="_blank"
+              rel="noopener"
+              >Facebook</a
+            >
+            <a
+              href="https://twitter.com/morganwallen"
+              target="_blank"
+              rel="noopener"
+              >X / Twitter</a
+            >
+            <a
+              href="https://www.youtube.com/channel/UCzIyoPv6j1MAZpDHKLGP_eA"
+              target="_blank"
+              rel="noopener"
+              >YouTube</a
+            >
+          </div>
+        </div>
+
+        <!-- Right: Form -->
+        <div class="contact-form">
+          <div class="form-group">
+            <label for="c-name">Your Name</label>
+            <input
+              type="text"
+              id="c-name"
+              placeholder="Full Name"
+              autocomplete="name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="c-email">Email Address</label>
+            <input
+              type="email"
+              id="c-email"
+              placeholder="you@example.com"
+              autocomplete="email"
+            />
+          </div>
+          <div class="form-group">
+            <label for="c-subject">Subject</label>
+            <input
+              type="text"
+              id="c-subject"
+              placeholder="What's this about?"
+            />
+          </div>
+          <div class="form-group">
+            <label for="c-message">Message</label>
+            <textarea
+              id="c-message"
+              placeholder="Write your message here…"
+            ></textarea>
+          </div>
+          <div class="submit-btn">
+            <button type="button" id="contact-btn" onclick="sendContact()">
+              Send Message
+            </button>
+          </div>
+          <div class="contact-msg" id="contact-msg"></div>
+        </div>
+      </div>
+      <!-- /.contact-grid -->
+    </div>
+
+    <!-- User Auth Dialog -->
+    <div
+      id="user-dialog-overlay"
+      class="udialog-overlay"
+      style="display: none"
+      onclick="closeUserDialog()"
+    ></div>
+    <div id="user-dialog" class="udialog" style="display: none">
+      <button
+        class="udialog-close"
+        onclick="closeUserDialog()"
+        aria-label="Close"
+      >
+        &times;
+      </button>
+      <div class="udialog-avatar">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="15" r="7" fill="#a9683a" />
+          <path
+            d="M4 36c0-8.837 7.163-14 16-14s16 5.163 16 14"
+            stroke="#a9683a"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <div class="udialog-name" id="udialog-name"></div>
+      <div class="udialog-email" id="udialog-email"></div>
+      <div class="udialog-divider"></div>
+      <a href="dashboard.html" class="udialog-link" onclick="closeUserDialog()"
+        ><svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
+        My Dashboard</a
+      >
+      <a
+        href="meet-and-greet.html"
+        class="udialog-link"
+        onclick="closeUserDialog()"
+        ><svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+          />
+        </svg>
+        Meet &amp; Greet Packages</a
+      >
+      <a href="signup.html" class="udialog-link" onclick="closeUserDialog()"
+        ><svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+        Account Settings</a
+      >
+      <button class="udialog-signout" id="udialog-signout-btn">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <polyline points="16 17 21 12 16 7" />
+          <line x1="21" y1="12" x2="9" y2="12" />
+        </svg>
+        Sign Out
+      </button>
+    </div>
+    <footer>
+      <span style="font-family: Arial">&copy;</span> 2026 Morgan Wallen. All
+      rights reserved. <a href="privacy.html">Privacy Policy</a> &nbsp;|&nbsp;
+      Website by: <a href="#">Stephen Craven</a>
+    </footer>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/nav-auth.js"></script>
+    <script src="js/chat.js"></script>
+    <script type="module">
+      import { supabase } from "./js/supabase-config.js";
+
+      window.sendContact = async function () {
+        var name = document.getElementById("c-name").value.trim();
+        var email = document.getElementById("c-email").value.trim();
+        var subject = document.getElementById("c-subject").value.trim();
+        var message = document.getElementById("c-message").value.trim();
+        var msgEl = document.getElementById("contact-msg");
+        var btn = document.getElementById("contact-btn");
+
+        if (!name || !email || !message) {
+          msgEl.textContent = "Please fill in all required fields.";
+          msgEl.className = "contact-msg error";
+          return;
+        }
+
+        btn.disabled = true;
+        msgEl.textContent = "Sending…";
+        msgEl.className = "contact-msg";
+
+        try {
+          const { error } = await supabase.from("contact_messages").insert([
+            {
+              name,
+              email,
+              subject,
+              message,
+              created_at: new Date().toISOString(),
+            },
+          ]);
+          if (error) throw error;
+          msgEl.textContent = "✓ Message sent! We'll be in touch soon.";
+          msgEl.className = "contact-msg success";
+          document.getElementById("c-name").value = "";
+          document.getElementById("c-email").value = "";
+          document.getElementById("c-subject").value = "";
+          document.getElementById("c-message").value = "";
+        } catch (e) {
+          msgEl.textContent =
+            e.message || "Something went wrong. Please try again.";
+          msgEl.className = "contact-msg error";
+        }
+        btn.disabled = false;
+      };
+    </script>
+  </body>
+</html>

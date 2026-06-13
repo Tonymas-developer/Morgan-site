@@ -1,0 +1,1715 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Private Meet Up | Morgan Wallen</title>
+    <meta
+      name="description"
+      content="Book your exclusive Private Meet Up experience with Morgan Wallen."
+    />
+    <link rel="icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/responsive.css">
+    
+
+    <style>
+
+      body {
+    background-color: #f0ede6;
+    background-image: url('images/bg.jpg');
+    background-attachment: fixed;
+    background-position: top center;
+    background-repeat: repeat;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  /* Fade in page content */
+  #container, header, main {
+    animation: pageIn 0.4s ease-in-out;
+  }
+  @keyframes pageIn {
+    from { opacity: 0.95; }
+    to { opacity: 1; }
+  }
+      /* ── Booking Modal ── */
+      #booking-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 9998;
+      }
+      #booking-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        background: #1a1a1a;
+        border: 1px solid #444;
+        border-radius: 14px;
+        padding: 2.2rem 2rem;
+        width: min(460px, 92vw);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      #booking-modal h3 {
+        margin: 0 0 0.3rem;
+        color: #fff;
+        font-size: 1.25rem;
+        font-weight: 700;
+      }
+      #booking-modal .bm-price {
+        font-size: 1.8rem;
+        font-weight: 800;
+        margin-bottom: 1.4rem;
+      }
+      #booking-modal label {
+        display: block;
+        color: #aaa;
+        font-size: 0.82rem;
+        margin-bottom: 0.3rem;
+        margin-top: 0.9rem;
+      }
+      #booking-modal input,
+      #booking-modal select {
+        width: 100%;
+        padding: 0.65rem 0.85rem;
+        border-radius: 7px;
+        border: 1px solid #444;
+        background: #111;
+        color: #fff;
+        font-size: 0.95rem;
+        box-sizing: border-box;
+      }
+      #booking-modal input:focus,
+      #booking-modal select:focus {
+        outline: none;
+        border-color: #888;
+      }
+      .bm-actions {
+        display: flex;
+        gap: 0.8rem;
+        margin-top: 1.6rem;
+      }
+      .bm-actions button {
+        flex: 1;
+        padding: 0.8rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.97rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+      .bm-actions button:hover {
+        opacity: 0.88;
+      }
+      #bm-cancel {
+        background: #333;
+        color: #ccc;
+      }
+      #bm-confirm {
+        color: #fff;
+      }
+      #bm-close-x {
+        position: absolute;
+        top: 1rem;
+        right: 1.1rem;
+        background: none;
+        border: none;
+        color: #888;
+        font-size: 1.4rem;
+        cursor: pointer;
+        line-height: 1;
+      }
+      #bm-close-x:hover {
+        color: #fff;
+      }
+
+      /* ── Step indicator ── */
+      .bm-steps {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        margin-bottom: 1.6rem;
+      }
+      .bm-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+      .bm-step-dot {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 2px solid #444;
+        background: #111;
+        color: #666;
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      }
+      .bm-step-dot.active {
+        border-color: var(--accent, #888);
+        background: var(--accent, #888);
+        color: #fff;
+      }
+      .bm-step-dot.done {
+        border-color: #3cba54;
+        background: #3cba54;
+        color: #fff;
+      }
+      .bm-step-label {
+        font-size: 0.68rem;
+        color: #666;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+      }
+      .bm-step-label.active {
+        color: var(--accent, #888);
+      }
+      .bm-step-connector {
+        width: 40px;
+        height: 2px;
+        background: #333;
+        margin: 0 4px;
+        margin-bottom: 18px;
+        transition: background 0.3s;
+      }
+      .bm-step-connector.done {
+        background: #3cba54;
+      }
+
+      /* ── Crypto Payment Screen ── */
+      #crypto-screen {
+        display: none;
+      }
+      .crypto-screen-inner {
+        animation: fadeSlideUp 0.35s ease;
+      }
+      @keyframes fadeSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .crypto-coins {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.7rem;
+        margin: 1rem 0;
+      }
+      .crypto-coin {
+        background: #111;
+        border: 2px solid #2a2a2a;
+        border-radius: 10px;
+        padding: 0.8rem 0.6rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+      }
+      .crypto-coin:hover {
+        border-color: #555;
+        background: #161616;
+      }
+      .crypto-coin.selected {
+        border-color: var(--accent, #888);
+        background: #161616;
+      }
+      .crypto-coin-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .crypto-coin-info {
+        text-align: left;
+      }
+      .crypto-coin-name {
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.1;
+      }
+      .crypto-coin-ticker {
+        font-size: 0.72rem;
+        color: #777;
+      }
+
+      /* QR / Address area */
+      .crypto-payment-box {
+        background: #111;
+        border: 1px solid #2a2a2a;
+        border-radius: 10px;
+        padding: 1.4rem;
+        text-align: center;
+        margin: 1rem 0;
+        display: none;
+      }
+      .crypto-payment-box.show {
+        display: block;
+        animation: fadeSlideUp 0.3s ease;
+      }
+      .crypto-amount-label {
+        font-size: 0.75rem;
+        color: #777;
+        margin-bottom: 4px;
+      }
+      .crypto-amount-val {
+        font-size: 1.3rem;
+        font-weight: 800;
+        margin-bottom: 0.3rem;
+      }
+      .crypto-usd-equiv {
+        font-size: 0.78rem;
+        color: #777;
+        margin-bottom: 1rem;
+      }
+      .crypto-address-label {
+        font-size: 0.72rem;
+        color: #888;
+        margin-bottom: 0.4rem;
+        text-align: left;
+      }
+      .crypto-address-wrap {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #0d0d0d;
+        border: 1px solid #333;
+        border-radius: 7px;
+        padding: 0.55rem 0.7rem;
+      }
+      .crypto-address-text {
+        font-family: "Courier New", monospace;
+        font-size: 0.72rem;
+        color: #ccc;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .crypto-copy-btn {
+        background: #222;
+        border: 1px solid #444;
+        color: #aaa;
+        border-radius: 5px;
+        padding: 4px 10px;
+        font-size: 0.72rem;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.2s;
+        flex-shrink: 0;
+      }
+      .crypto-copy-btn:hover {
+        background: #333;
+        color: #fff;
+      }
+      .crypto-copy-btn.copied {
+        border-color: #3cba54;
+        color: #3cba54;
+      }
+
+      .crypto-note {
+        font-size: 0.75rem;
+        color: #666;
+        line-height: 1.5;
+        margin-top: 0.8rem;
+        padding: 0.7rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 6px;
+        border-left: 3px solid #333;
+      }
+
+      .crypto-confirm-btn {
+        width: 100%;
+        padding: 0.85rem;
+        font-size: 0.97rem;
+        font-weight: 700;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 1rem;
+        color: #fff;
+        transition: opacity 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .crypto-confirm-btn:hover {
+        opacity: 0.88;
+      }
+      .crypto-back-btn {
+        width: 100%;
+        padding: 0.7rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        border: 1px solid #333;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 0.6rem;
+        background: transparent;
+        color: #888;
+        transition: all 0.2s;
+      }
+      .crypto-back-btn:hover {
+        border-color: #555;
+        color: #ccc;
+      }
+
+      /* ── Success Screen ── */
+      #success-screen {
+        display: none;
+        text-align: center;
+        padding: 1rem 0;
+        animation: fadeSlideUp 0.4s ease;
+      }
+      .success-icon {
+        width: 64px;
+        height: 64px;
+        background: #1a3a24;
+        border: 2px solid #3cba54;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 1.8rem;
+      }
+      .success-title {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+      .success-sub {
+        font-size: 0.88rem;
+        color: #888;
+        line-height: 1.6;
+      }
+      .success-details {
+        background: #111;
+        border: 1px solid #2a2a2a;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+        text-align: left;
+      }
+      .success-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.82rem;
+        padding: 0.35rem 0;
+        border-bottom: 1px solid #1e1e1e;
+        color: #ccc;
+      }
+      .success-row:last-child {
+        border-bottom: none;
+      }
+      .success-row span:first-child {
+        color: #777;
+      }
+      .success-close-btn {
+        width: 100%;
+        padding: 0.85rem;
+        font-size: 0.97rem;
+        font-weight: 700;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        color: #fff;
+        transition: opacity 0.2s;
+        margin-top: 0.5rem;
+      }
+      .success-close-btn:hover {
+        opacity: 0.88;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <div class="header-wrapper">
+      <header>
+        <div id="logo">
+          <a href="index.html"
+            ><img src="images/logo.svg" alt="Morgan Wallen"
+          /></a>
+        </div>
+        <nav id="main">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="meet-and-greet.html">Meet &amp; Greet</a></li>
+            <li><a href="private-meetup.html">Private Meet Up</a></li>
+            <li id="nav-auth-item">
+              <a href="signup.html" id="nav-login-btn">Login</a>
+            </li>
+          </ul>
+        </nav>
+        <div id="socials">
+          <ul>
+            <li>
+              <a
+                href="https://facebook.com/morgancwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-facebook"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-instagram"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://tiktok.com/@morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-tiktok"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/channel/UCzIyoPv6j1MAZpDHKLGP_eA"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-youtube"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://music.amazon.com/artists/B00QNUADXK/morgan-wallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-amazon"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://geo.music.apple.com/us/artist/morgan-wallen/829142092"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-apple"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-spotify"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </header>
+      <div id="nav-trigger" aria-label="Toggle navigation"></div>
+    </div>
+
+    <!-- MOBILE NAV -->
+    <div id="mobile-nav">
+      <ul id="nav-mob">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="meet-and-greet.html">Meet &amp; Greet</a></li>
+        <li><a href="private-meetup.html">Private Meet Up</a></li>
+        <li id="nav-auth-item-mob">
+          <a href="signup.html" id="nav-login-btn-mob">Login</a>
+        </li>
+        <div id="mobile-nav-socials">
+          <ul>
+            <li>
+              <a
+                href="https://facebook.com/morgancwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-facebook"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-instagram"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://tiktok.com/@morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-tiktok"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/channel/UCzIyoPv6j1MAZpDHKLGP_eA"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-youtube"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://music.amazon.com/artists/B00QNUADXK/morgan-wallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-amazon"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://geo.music.apple.com/us/artist/morgan-wallen/829142092"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-apple"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-spotify"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </ul>
+    </div>
+
+    <div id="container" class="page">
+      <h2 class="page-title">Private Meet Up</h2>
+
+      <p
+        class="page-intro"
+        style="
+          text-align: center;
+          max-width: 680px;
+          margin: 0 auto 2.5rem;
+          font-size: 1.05rem;
+          line-height: 1.7;
+          color: #171616;
+        "
+      >
+        Experience an exclusive, private moment with Morgan Wallen. These
+        limited packages offer a more personal and unforgettable experience.
+      </p>
+
+      <div
+        class="packages-grid"
+        style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 2rem;
+          max-width: 1100px;
+          margin: 0 auto;
+        "
+      >
+        <!-- SILVER -->
+        <div
+          class="pm-card"
+          style="
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+          "
+        >
+          <div
+            class="pm-badge"
+            style="
+              background: #9e9e9e;
+              color: #fff;
+              font-size: 0.72rem;
+              font-weight: 700;
+              letter-spacing: 2px;
+              text-transform: uppercase;
+              padding: 4px 14px;
+              border-radius: 20px;
+              margin-bottom: 1.2rem;
+            "
+          >
+            Silver
+          </div>
+          <div
+            class="pm-name"
+            style="
+              font-size: 1.5rem;
+              font-weight: 700;
+              color: #fff;
+              margin-bottom: 0.3rem;
+            "
+          >
+            Silver Package
+          </div>
+          <div
+            class="pm-price"
+            style="
+              font-size: 2.4rem;
+              font-weight: 800;
+              color: #9e9e9e;
+              line-height: 1;
+            "
+          >
+            $499
+          </div>
+          <div
+            class="pm-per"
+            style="font-size: 0.82rem; color: #888; margin-bottom: 1.6rem"
+          >
+            per person
+          </div>
+          <ul
+            style="
+              list-style: none;
+              padding: 0;
+              margin: 0 0 2rem;
+              width: 100%;
+              text-align: left;
+            "
+          >
+            <li
+              style="
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #2a2a2a;
+                color: #ccc;
+                font-size: 0.93rem;
+              "
+            >
+              <span style="color: #9e9e9e; margin-right: 8px">✦</span> Private
+              one-on-one time with Morgan
+            </li>
+            <li
+              style="
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #2a2a2a;
+                color: #ccc;
+                font-size: 0.93rem;
+              "
+            >
+              <span style="color: #9e9e9e; margin-right: 8px">✦</span> Personal
+              conversation (15 minutes)
+            </li>
+            <li
+              style="
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #2a2a2a;
+                color: #ccc;
+                font-size: 0.93rem;
+              "
+            >
+              <span style="color: #9e9e9e; margin-right: 8px">✦</span>
+              Professional photo session
+            </li>
+            <li
+              style="
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #2a2a2a;
+                color: #ccc;
+                font-size: 0.93rem;
+              "
+            >
+              <span style="color: #9e9e9e; margin-right: 8px">✦</span> Backstage
+              access pass
+            </li>
+            <li style="padding: 0.5rem 0; color: #ccc; font-size: 0.93rem">
+              <span style="color: #9e9e9e; margin-right: 8px">✦</span> Dedicated
+              host escort
+            </li>
+          </ul>
+          <button
+            class="buy-btn"
+            style="
+              width: 100%;
+              padding: 0.85rem;
+              font-size: 1rem;
+              font-weight: 700;
+              border: none;
+              border-radius: 8px;
+              cursor: pointer;
+              background: #9e9e9e;
+              color: #fff;
+            "
+            onclick="openBooking('Silver Private Meet Up', '499', '#9e9e9e')"
+          >
+            Book Silver
+          </button>
+        </div>
+
+        <!-- GOLD (FEATURED) -->
+        <div
+          class="pm-card pm-featured"
+          style="
+            background: #1a1a1a;
+            border: 2px solid #c9a84c;
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            transform: scale(1.03);
+          "
+        >
+          <div
+            style="
+              position: absolute;
+              top: -14px;
+              background: #c9a84c;
+              color: #1a1a1a;
+              font-size: 0.68rem;
+              font-weight: 800;
+              letter-spacing: 2px;
+              text-transform: uppercase;
+              padding: 4px 16px;
+              border-radius: 20px;
+            "
+          >
+            Most Popular
+          </div>
+          <div
+            class="pm-badge"
+            style="
+              background: #c9a84c;
+              color: #1a1a1a;
+              font-size: 0.72rem;
+              font-weight: 700;
+              letter-spacing: 2px;
+              text-transform: uppercase;
+              padding: 4px 14px;
+              border-radius: 20px;
+              margin-bottom: 1.2rem;
+            "
+          >
+            Gold
+          </div>
+          <div
+            class="pm-name"
+            style="
+              font-size: 1.5rem;
+              font-weight: 700;
+              color: #fff;
+              margin-bottom: 0.3rem;
+            "
+          >
+            Gold Package
+          </div>
+          <div
+            class="pm-price"
+            style="
+              font-size: 2.4rem;
+              font-weight: 800;
+              color: #c9a84c;
+              line-height: 1;
+            "
+          >
+            $999
+          </div>
+          <div
+            class="pm-per"
+            style="font-size: 0.82rem; color: #888; margin-bottom: 1.6rem"
+          >
+            per person
+          </div>
+          <ul
+            style="
+              list-style: none;
+              padding: 0;
+              margin: 0 0 2rem;
+              width: 100%;
+              text-align: left;
+            "
+          >
+            <li
+              style="
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #2a2a2a;
+                color: #ccc;
+                font-size: 0.93rem;
+              "
+            >
+              <span style="color: #c9a84c; margin-right: 8px">✦</span> Private
+              one-on-one time with Morgan
+            </li>
+            <li
+              style="
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #2a2a2a;
+                color: #ccc;
+                font-size: 0.93rem;
+              "
+            >
+              <span style="color: #c9a84c; margin-right: 8px">✦</span> Extended
+              conversation (30 minutes)
+            </li>
+            <li
+              style="
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #2a2a2a;
+                color: #ccc;
+                font-size: 0.93rem;
+              "
+            >
+              <span style="color: #c9a84c; margin-right: 8px">✦</span>
+              Professional photo &amp; video session
+            </li>
+            <li
+              style="
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #2a2a2a;
+                color: #ccc;
+                font-size: 0.93rem;
+              "
+            >
+              <span style="color: #c9a84c; margin-right: 8px">✦</span> VIP
+              lounge access &amp; light dinner
+            </li>
+            <li
+              style="
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #2a2a2a;
+                color: #ccc;
+                font-size: 0.93rem;
+              "
+            >
+              <span style="color: #c9a84c; margin-right: 8px">✦</span>
+              Soundcheck access
+            </li>
+            <li style="padding: 0.5rem 0; color: #ccc; font-size: 0.93rem">
+              <span style="color: #c9a84c; margin-right: 8px">✦</span> Dedicated
+              host &amp; personal security
+            </li>
+          </ul>
+          <button
+            class="buy-btn"
+            style="
+              width: 100%;
+              padding: 0.85rem;
+              font-size: 1rem;
+              font-weight: 700;
+              border: none;
+              border-radius: 8px;
+              cursor: pointer;
+              background: #c9a84c;
+              color: #1a1a1a;
+            "
+            onclick="openBooking('Gold Private Meet Up', '999', '#c9a84c')"
+          >
+            Book Gold
+          </button>
+        </div>
+
+        <!-- ELITE -->
+        <div
+          class="pm-card"
+          style="
+            background: #1a1a1a;
+            border: 1px solid #7b4fff;
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+          "
+        >
+          <div
+            class="pm-badge"
+            style="
+              background: #7b4fff;
+              color: #fff;
+              font-size: 0.72rem;
+              font-weight: 700;
+              letter-spacing: 2px;
+              text-transform: uppercase;
+              padding: 4px 14px;
+              border-radius: 20px;
+              margin-bottom: 1.2rem;
+            "
+          >
+            Elite VIP
+          </div>
+          <div
+            class="pm-name"
+            style="
+              font-size: 1.5rem;
+              font-weight: 700;
+              color: #fff;
+              margin-bottom: 0.3rem;
+            "
+          >
+            Elite Package
+          </div>
+          <div
+            class="pm-price"
+            style="
+              font-size: 2.4rem;
+              font-weight: 800;
+              color: #7b4fff;
+              line-height: 1;
+            "
+          >
+            $1,999
+          </div>
+          <div
+            class="pm-per"
+            style="font-size: 0.82rem; color: #888; margin-bottom: 1.6rem"
+          >
+            per person
+          </div>
+          <ul
+            style="
+              list-style: none;
+              padding: 0;
+              margin: 0 0 2rem;
+              width: 100%;
+              text-align: left;
+            "
+          >
+            <li
+              style="
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #2a2a2a;
+                color: #ccc;
+                font-size: 0.93rem;
+              "
+            >
+              <span style="color: #7b4fff; margin-right: 8px">✦</span> Fully
+              private experience with Morgan
+            </li>
+            <li
+              style="
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #2a2a2a;
+                color: #ccc;
+                font-size: 0.93rem;
+              "
+            >
+              <span style="color: #7b4fff; margin-right: 8px">✦</span> Extended
+              private time (60 minutes)
+            </li>
+            <li
+              style="
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #2a2a2a;
+                color: #ccc;
+                font-size: 0.93rem;
+              "
+            >
+              <span style="color: #7b4fff; margin-right: 8px">✦</span> Full
+              photo &amp; video package (edited)
+            </li>
+            <li
+              style="
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #2a2a2a;
+                color: #ccc;
+                font-size: 0.93rem;
+              "
+            >
+              <span style="color: #7b4fff; margin-right: 8px">✦</span> Private
+              VIP dinner with Morgan
+            </li>
+            <li
+              style="
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #2a2a2a;
+                color: #ccc;
+                font-size: 0.93rem;
+              "
+            >
+              <span style="color: #7b4fff; margin-right: 8px">✦</span> Full
+              backstage &amp; soundcheck access
+            </li>
+            <li style="padding: 0.5rem 0; color: #ccc; font-size: 0.93rem">
+              <span style="color: #7b4fff; margin-right: 8px">✦</span> Personal
+              security &amp; luxury transport
+            </li>
+          </ul>
+          <button
+            class="buy-btn"
+            style="
+              width: 100%;
+              padding: 0.85rem;
+              font-size: 1rem;
+              font-weight: 700;
+              border: none;
+              border-radius: 8px;
+              cursor: pointer;
+              background: #7b4fff;
+              color: #fff;
+            "
+            onclick="openBooking('Elite Private Meet Up', '1999', '#7b4fff')"
+          >
+            Book Elite
+          </button>
+        </div>
+      </div>
+
+      <p
+        class="page-note"
+        style="
+          text-align: center;
+          margin-top: 2.5rem;
+          color: #777;
+          font-size: 0.88rem;
+        "
+      >
+        All experiences are limited and subject to approval &nbsp;•&nbsp;
+        Non-refundable &nbsp;•&nbsp; Schedule confirmed after booking
+      </p>
+    </div>
+
+    <!-- ── BOOKING MODAL ── -->
+    <div id="booking-overlay" onclick="closeBooking()"></div>
+    <div id="booking-modal">
+      <button id="bm-close-x" onclick="closeBooking()" aria-label="Close">
+        &times;
+      </button>
+
+      <!-- Step Indicator -->
+      <div class="bm-steps">
+        <div class="bm-step">
+          <div class="bm-step-dot active" id="step-dot-1">1</div>
+          <div class="bm-step-label active" id="step-label-1">Details</div>
+        </div>
+        <div class="bm-step-connector" id="step-conn-1"></div>
+        <div class="bm-step">
+          <div class="bm-step-dot" id="step-dot-2">2</div>
+          <div class="bm-step-label" id="step-label-2">Payment</div>
+        </div>
+        <div class="bm-step-connector" id="step-conn-2"></div>
+        <div class="bm-step">
+          <div class="bm-step-dot" id="step-dot-3">✓</div>
+          <div class="bm-step-label" id="step-label-3">Confirmed</div>
+        </div>
+      </div>
+
+      <!-- SCREEN 1: Booking Form -->
+      <div id="form-screen">
+        <h3 id="bm-title"></h3>
+        <div class="bm-price" id="bm-price"></div>
+
+        <label for="bm-name">Full Name</label>
+        <input type="text" id="bm-name" placeholder="Your full name" />
+
+        <label for="bm-email">Email Address</label>
+        <input type="email" id="bm-email" placeholder="you@example.com" />
+
+        <label for="bm-phone">Phone Number</label>
+        <input type="tel" id="bm-phone" placeholder="+1 (555) 000-0000" />
+
+        <label for="bm-date">Preferred Date</label>
+        <input type="date" id="bm-date" />
+
+        <label for="bm-guests">Number of Guests</label>
+        <select id="bm-guests">
+          <option value="1">1 person</option>
+          <option value="2">2 people</option>
+          <option value="3">3 people</option>
+          <option value="4">4 people</option>
+        </select>
+
+        <div class="bm-actions">
+          <button id="bm-cancel" onclick="closeBooking()">Cancel</button>
+          <button id="bm-confirm" onclick="submitBooking()">
+            Continue to Payment →
+          </button>
+        </div>
+      </div>
+
+      <!-- SCREEN 2: Crypto Payment -->
+      <div id="crypto-screen">
+        <div class="crypto-screen-inner">
+          <h3
+            style="
+              margin: 0 0 0.2rem;
+              color: #fff;
+              font-size: 1.15rem;
+              font-weight: 700;
+            "
+          >
+            Choose Payment Method
+          </h3>
+          <p style="font-size: 0.82rem; color: #777; margin: 0 0 1rem">
+            Select a cryptocurrency to pay
+            <strong id="crypto-total" style="color: #fff"></strong>
+          </p>
+
+          <div class="crypto-coins">
+            <!-- BTC -->
+            <div
+              class="crypto-coin"
+              onclick="selectCoin(this, 'BTC')"
+              data-coin="BTC"
+            >
+              <div
+                class="crypto-coin-icon"
+                style="background: #f7931a20; color: #f7931a"
+              >
+                ₿
+              </div>
+              <div class="crypto-coin-info">
+                <div class="crypto-coin-name">Bitcoin</div>
+                <div class="crypto-coin-ticker">BTC</div>
+              </div>
+            </div>
+            <!-- ETH -->
+            <div
+              class="crypto-coin"
+              onclick="selectCoin(this, 'ETH')"
+              data-coin="ETH"
+            >
+              <div
+                class="crypto-coin-icon"
+                style="background: #627eea20; color: #627eea"
+              >
+                Ξ
+              </div>
+              <div class="crypto-coin-info">
+                <div class="crypto-coin-name">Ethereum</div>
+                <div class="crypto-coin-ticker">ETH</div>
+              </div>
+            </div>
+            <!-- USDT -->
+            <div
+              class="crypto-coin"
+              onclick="selectCoin(this, 'USDT')"
+              data-coin="USDT"
+            >
+              <div
+                class="crypto-coin-icon"
+                style="
+                  background: #26a17b20;
+                  color: #26a17b;
+                  font-size: 0.7rem;
+                  font-weight: 900;
+                "
+              >
+                ₮
+              </div>
+              <div class="crypto-coin-info">
+                <div class="crypto-coin-name">Tether</div>
+                <div class="crypto-coin-ticker">USDT</div>
+              </div>
+            </div>
+            <!-- USDC -->
+            <div
+              class="crypto-coin"
+              onclick="selectCoin(this, 'USDC')"
+              data-coin="USDC"
+            >
+              <div
+                class="crypto-coin-icon"
+                style="
+                  background: #2775ca20;
+                  color: #2775ca;
+                  font-size: 0.65rem;
+                  font-weight: 900;
+                "
+              >
+                USDC
+              </div>
+              <div class="crypto-coin-info">
+                <div class="crypto-coin-name">USD Coin</div>
+                <div class="crypto-coin-ticker">USDC</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment address box (no QR) -->
+          <div class="crypto-payment-box" id="crypto-payment-box">
+            <div class="crypto-amount-label">Amount to send</div>
+            <div class="crypto-amount-val" id="crypto-coin-amount"></div>
+            <div class="crypto-usd-equiv" id="crypto-usd-equiv"></div>
+            <div class="crypto-address-label">Send to this address</div>
+            <div class="crypto-address-wrap">
+              <span class="crypto-address-text" id="crypto-addr-text"></span>
+              <button
+                class="crypto-copy-btn"
+                id="crypto-copy-btn"
+                onclick="copyAddress()"
+              >
+                Copy
+              </button>
+            </div>
+            <div class="crypto-note">
+              ⏱ This address expires in
+              <strong style="color: #fff" id="crypto-timer">15:00</strong>. Send
+              the exact amount shown. Booking is confirmed automatically once
+              payment is detected.
+            </div>
+          </div>
+
+          <button
+            class="crypto-confirm-btn"
+            id="crypto-pay-btn"
+            onclick="showSuccess()"
+            style="display: none"
+          >
+            <span>I've Sent the Payment</span>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </button>
+          <button class="crypto-back-btn" onclick="goBackToForm()">
+            ← Back to Details
+          </button>
+        </div>
+      </div>
+
+      <!-- SCREEN 3: Success -->
+      <div id="success-screen">
+        <div class="success-icon">✓</div>
+        <div class="success-title">Booking Confirmed!</div>
+        <p class="success-sub">
+          Your payment is being verified. We'll send confirmation to your email
+          shortly.
+        </p>
+        <div class="success-details">
+          <div class="success-row">
+            <span>Package</span><span id="success-pkg"></span>
+          </div>
+          <div class="success-row">
+            <span>Name</span><span id="success-name"></span>
+          </div>
+          <div class="success-row">
+            <span>Email</span><span id="success-email"></span>
+          </div>
+          <div class="success-row">
+            <span>Date</span><span id="success-date"></span>
+          </div>
+          <div class="success-row">
+            <span>Total Paid</span><span id="success-total"></span>
+          </div>
+          <div class="success-row">
+            <span>Payment</span
+            ><span id="success-coin" style="font-weight: 700"></span>
+          </div>
+        </div>
+        <button
+          class="success-close-btn"
+          id="success-close-btn"
+          onclick="closeBooking()"
+        >
+          Done
+        </button>
+      </div>
+    </div>
+
+    <!-- User Auth Dialog (unchanged) -->
+    <div
+      id="user-dialog-overlay"
+      class="udialog-overlay"
+      style="display: none"
+      onclick="closeUserDialog()"
+    ></div>
+    <div id="user-dialog" class="udialog" style="display: none">
+      <button
+        class="udialog-close"
+        onclick="closeUserDialog()"
+        aria-label="Close"
+      >
+        &times;
+      </button>
+      <div class="udialog-avatar">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="15" r="7" fill="#a9683a" />
+          <path
+            d="M4 36c0-8.837 7.163-14 16-14s16 5.163 16 14"
+            stroke="#a9683a"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <div class="udialog-name" id="udialog-name"></div>
+      <div class="udialog-email" id="udialog-email"></div>
+      <div class="udialog-divider"></div>
+      <a href="dashboard.html" class="udialog-link" onclick="closeUserDialog()">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
+        My Dashboard</a
+      >
+      <a
+        href="meet-and-greet.html"
+        class="udialog-link"
+        onclick="closeUserDialog()"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+          />
+        </svg>
+        Meet &amp; Greet Packages</a
+      >
+      <a href="signup.html" class="udialog-link" onclick="closeUserDialog()">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+        Account Settings</a
+      >
+      <button class="udialog-signout" id="udialog-signout-btn">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <polyline points="16 17 21 12 16 7" />
+          <line x1="21" y1="12" x2="9" y2="12" />
+        </svg>
+        Sign Out
+      </button>
+    </div>
+
+    <footer>
+      <span style="font-family: Arial">&copy;</span> 2026 Morgan Wallen. All
+      rights reserved. <a href="privacy.html">Privacy Policy</a> &nbsp;|&nbsp;
+      Website by: <a href="#">Stephen Craven</a>
+    </footer>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/nav-auth.js"></script>
+    <script src="js/chat.js"></script>
+
+    <script>
+      /* ─────────────────────────────────────────
+         Crypto data: approximate rates & addresses
+         Replace addresses with real wallet addresses
+      ───────────────────────────────────────── */
+      const CRYPTO_DATA = {
+        BTC: {
+          rate: 0.0000152,
+          symbol: "₿",
+          color: "#f7931a",
+          address: "bc1qt44eygc43qy3k0kt7cd85jmdd7x4u07h8czhgx",
+        },
+        ETH: {
+          rate: 0.000308,
+          symbol: "Ξ",
+          color: "#627eea",
+          address: "0x02C86Ab4DC1dC54dF459748D63E820c7643749A0",
+        },
+        USDT: {
+          rate: 1.0,
+          symbol: "₮",
+          color: "#26a17b",
+          address: "0x02C86Ab4DC1dC54dF459748D63E820c7643749A0",
+        },
+      };
+
+      let currentAccent = "#888";
+      let timerInterval = null;
+      let selectedCoin = null;
+
+      /* ── Step helpers ── */
+      function setStep(n) {
+        for (let i = 1; i <= 3; i++) {
+          const dot = document.getElementById("step-dot-" + i);
+          const label = document.getElementById("step-label-" + i);
+          dot.classList.remove("active", "done");
+          label.classList.remove("active");
+          if (i < n) {
+            dot.classList.add("done");
+            if (i <= 2)
+              document.getElementById("step-conn-" + i).classList.add("done");
+          } else if (i === n) {
+            dot.classList.add("active");
+            dot.style.setProperty("--accent", currentAccent);
+            label.classList.add("active");
+          }
+        }
+        // Update step dot colors dynamically
+        document.querySelectorAll(".bm-step-dot.active").forEach((el) => {
+          el.style.background = currentAccent;
+          el.style.borderColor = currentAccent;
+        });
+        document.querySelectorAll(".bm-step-label.active").forEach((el) => {
+          el.style.color = currentAccent;
+        });
+      }
+
+      /* ── Open modal ── */
+      function openBooking(packageName, price, accentColor) {
+        currentAccent = accentColor || "#888";
+        selectedCoin = null;
+
+        document.getElementById("bm-title").textContent = packageName;
+        const priceEl = document.getElementById("bm-price");
+        priceEl.textContent = "$" + Number(price).toLocaleString();
+        priceEl.style.color = accentColor || "#fff";
+        document.getElementById("bm-confirm").style.background =
+          accentColor || "#666";
+        document.getElementById("booking-modal").dataset.package = packageName;
+        document.getElementById("booking-modal").dataset.price = price;
+
+        // Show form, hide others
+        showScreen("form");
+        setStep(1);
+
+        document.getElementById("booking-overlay").style.display = "block";
+        document.getElementById("booking-modal").style.display = "block";
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeBooking() {
+        document.getElementById("booking-overlay").style.display = "none";
+        document.getElementById("booking-modal").style.display = "none";
+        document.body.style.overflow = "";
+        clearInterval(timerInterval);
+      }
+
+      function showScreen(name) {
+        document.getElementById("form-screen").style.display =
+          name === "form" ? "block" : "none";
+        document.getElementById("crypto-screen").style.display =
+          name === "crypto" ? "block" : "none";
+        document.getElementById("success-screen").style.display =
+          name === "success" ? "block" : "none";
+      }
+
+      /* ── Form submit → go to crypto screen ── */
+      function submitBooking() {
+        const name = document.getElementById("bm-name").value.trim();
+        const email = document.getElementById("bm-email").value.trim();
+        const phone = document.getElementById("bm-phone").value.trim();
+        const date = document.getElementById("bm-date").value;
+
+        if (!name || !email || !phone || !date) {
+          alert("Please fill in all required fields.");
+          return;
+        }
+
+        const price = document.getElementById("booking-modal").dataset.price;
+        document.getElementById("crypto-total").textContent =
+          "$" + Number(price).toLocaleString();
+
+        // Reset crypto screen
+        selectedCoin = null;
+        document
+          .querySelectorAll(".crypto-coin")
+          .forEach((c) => c.classList.remove("selected"));
+        document.getElementById("crypto-payment-box").classList.remove("show");
+        document.getElementById("crypto-pay-btn").style.display = "none";
+
+        showScreen("crypto");
+        setStep(2);
+        document.getElementById("booking-modal").scrollTop = 0;
+      }
+
+      function goBackToForm() {
+        showScreen("form");
+        setStep(1);
+        clearInterval(timerInterval);
+      }
+
+      /* ── Coin selection ── */
+      function selectCoin(el, coin) {
+        document
+          .querySelectorAll(".crypto-coin")
+          .forEach((c) => c.classList.remove("selected"));
+        el.classList.add("selected");
+        el.style.borderColor = CRYPTO_DATA[coin].color;
+        selectedCoin = coin;
+
+        const price = Number(
+          document.getElementById("booking-modal").dataset.price,
+        );
+        const coinData = CRYPTO_DATA[coin];
+        const coinAmount = (price * coinData.rate).toFixed(
+          coin === "BTC" ? 8 : coin === "ETH" ? 6 : 2,
+        );
+
+        document.getElementById("crypto-coin-amount").textContent =
+          coinAmount + " " + coin;
+        document.getElementById("crypto-coin-amount").style.color =
+          coinData.color;
+        document.getElementById("crypto-usd-equiv").textContent =
+          "≈ $" + price.toLocaleString() + " USD";
+        document.getElementById("crypto-addr-text").textContent =
+          coinData.address;
+
+        document.getElementById("crypto-payment-box").classList.add("show");
+        document.getElementById("crypto-pay-btn").style.display = "flex";
+        document.getElementById("crypto-pay-btn").style.background =
+          coinData.color;
+        document.getElementById("crypto-copy-btn").classList.remove("copied");
+        document.getElementById("crypto-copy-btn").textContent = "Copy";
+
+        // Start countdown timer
+        clearInterval(timerInterval);
+        startTimer(15 * 60);
+      }
+
+      /* ── Copy address ── */
+      function copyAddress() {
+        const addr = document.getElementById("crypto-addr-text").textContent;
+        navigator.clipboard.writeText(addr).then(() => {
+          const btn = document.getElementById("crypto-copy-btn");
+          btn.textContent = "Copied!";
+          btn.classList.add("copied");
+          setTimeout(() => {
+            btn.textContent = "Copy";
+            btn.classList.remove("copied");
+          }, 2000);
+        });
+      }
+
+      /* ── Countdown timer ── */
+      function startTimer(seconds) {
+        clearInterval(timerInterval);
+        let remaining = seconds;
+        function tick() {
+          const m = String(Math.floor(remaining / 60)).padStart(2, "0");
+          const s = String(remaining % 60).padStart(2, "0");
+          const el = document.getElementById("crypto-timer");
+          if (el) el.textContent = m + ":" + s;
+          if (remaining <= 0) {
+            clearInterval(timerInterval);
+            if (el) el.textContent = "Expired";
+          }
+          remaining--;
+        }
+        tick();
+        timerInterval = setInterval(tick, 1000);
+      }
+
+      /* ── Show success ── */
+      function showSuccess() {
+        if (!selectedCoin) {
+          alert("Please select a cryptocurrency first.");
+          return;
+        }
+        clearInterval(timerInterval);
+
+        const pkg = document.getElementById("booking-modal").dataset.package;
+        const price = document.getElementById("booking-modal").dataset.price;
+        const name = document.getElementById("bm-name").value.trim();
+        const email = document.getElementById("bm-email").value.trim();
+        const date = document.getElementById("bm-date").value;
+
+        document.getElementById("success-pkg").textContent = pkg;
+        document.getElementById("success-name").textContent = name;
+        document.getElementById("success-email").textContent = email;
+        document.getElementById("success-date").textContent = date;
+        document.getElementById("success-total").textContent =
+          "$" + Number(price).toLocaleString();
+        document.getElementById("success-coin").textContent = selectedCoin;
+        document.getElementById("success-coin").style.color =
+          CRYPTO_DATA[selectedCoin].color;
+        document.getElementById("success-close-btn").style.background =
+          currentAccent;
+
+        showScreen("success");
+        setStep(3);
+        document.getElementById("booking-modal").scrollTop = 0;
+      }
+
+      /* Close on Escape */
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeBooking();
+      });
+    </script>
+  </body>
+</html>

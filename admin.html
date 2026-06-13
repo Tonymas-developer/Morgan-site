@@ -1,0 +1,4313 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Admin | Morgan Wallen</title>
+    <link rel="icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/responsive.css" />
+
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      /* body {
+        margin: 0;
+        background: #f0ede6;
+        font-family: "Poppins", sans-serif;
+        color: #333;
+      } */
+
+      body {
+        background-color: #f0ede6;
+        background-image: url("images/bg.jpg");
+        background-attachment: fixed;
+        background-position: top center;
+        background-repeat: repeat;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      /* Fade in page content */
+      #container,
+      header,
+      main {
+        animation: pageIn 0.4s ease-in-out;
+      }
+      @keyframes pageIn {
+        from {
+          opacity: 0.95;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      /* LOGIN */
+      #login-gate {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: url("images/bg.jpg") top center repeat;
+        padding: 24px;
+      }
+      .login-box {
+        background: rgba(245, 243, 238, 0.97);
+        border: 2px solid rgba(68, 67, 52, 0.18);
+        padding: 48px 40px 40px;
+        width: 100%;
+        max-width: 420px;
+        text-align: center;
+      }
+      .login-logo {
+        width: 160px;
+        margin-bottom: 28px;
+      }
+      .login-title {
+        font-family: "bebas", sans-serif;
+        font-size: 38px;
+        color: #444334;
+        margin: 0 0 4px;
+        line-height: 1;
+      }
+      .login-sub {
+        font-size: 13px;
+        color: #888;
+        margin-bottom: 28px;
+      }
+      .login-field {
+        width: 100%;
+        padding: 13px 16px;
+        border: 2px solid rgba(68, 67, 52, 0.18);
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        color: #444334;
+        background: #fff;
+        outline: none;
+        margin-bottom: 14px;
+        transition: border-color 0.2s;
+      }
+      .login-field:focus {
+        border-color: #a9683a;
+      }
+      .login-btn {
+        width: 100%;
+        padding: 16px;
+        font-family: "bebas", sans-serif;
+        font-size: 26px;
+        letter-spacing: 0.04em;
+        color: #f6e7c2;
+        background: url("images/ITP_Button-Stroke-Sm.png") center/100% 100%
+          no-repeat;
+        border: none;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+      .login-btn:hover {
+        opacity: 0.85;
+      }
+      .login-btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      .login-msg {
+        font-size: 13px;
+        margin-top: 14px;
+        min-height: 18px;
+        color: #b0321e;
+      }
+      .login-msg.ok {
+        color: #2a7a4b;
+      }
+      /* SHELL */
+      #admin-shell {
+        display: none;
+        min-height: 100vh;
+      }
+      /* TOPBAR */
+      .admin-topbar {
+        background: #444334;
+        height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 22px;
+        position: sticky;
+        top: 0;
+        z-index: 200;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+      }
+      .topbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .topbar-logo {
+        height: 30px;
+        filter: brightness(0) invert(1);
+      }
+      .topbar-title {
+        font-family: "bebas", sans-serif;
+        font-size: 22px;
+        color: #f6e7c2;
+        letter-spacing: 0.05em;
+      }
+      .topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .topbar-user {
+        font-size: 12px;
+        color: rgba(246, 231, 194, 0.65);
+      }
+      .topbar-user strong {
+        color: #f6e7c2;
+      }
+      .topbar-signout {
+        font-family: "bebas", sans-serif;
+        font-size: 15px;
+        letter-spacing: 0.04em;
+        color: #f6e7c2;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(246, 231, 194, 0.2);
+        padding: 6px 14px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .topbar-signout:hover {
+        background: rgba(255, 255, 255, 0.18);
+      }
+      /* LAYOUT */
+      .admin-body {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        min-height: calc(100vh - 58px);
+      }
+      /* SIDEBAR */
+      .admin-sidebar {
+        background: #3a3928;
+        padding: 20px 0;
+        position: sticky;
+        top: 58px;
+        height: calc(100vh - 58px);
+        overflow-y: auto;
+      }
+      .sidebar-section {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(246, 231, 194, 0.35);
+        padding: 16px 18px 6px;
+      }
+      .sidebar-link {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 10px 18px;
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(246, 231, 194, 0.7);
+        cursor: pointer;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        transition:
+          background 0.15s,
+          color 0.15s;
+        border-left: 3px solid transparent;
+      }
+      .sidebar-link:hover {
+        background: rgba(246, 231, 194, 0.07);
+        color: #f6e7c2;
+      }
+      .sidebar-link.active {
+        background: rgba(169, 104, 58, 0.3);
+        color: #f6e7c2;
+        border-left-color: #a9683a;
+      }
+      .sidebar-link svg {
+        flex-shrink: 0;
+        opacity: 0.75;
+      }
+      .sidebar-link.active svg {
+        opacity: 1;
+      }
+      /* MAIN */
+      .admin-main {
+        padding: 28px 30px;
+        background: #f0ede6;
+        overflow-y: auto;
+      }
+      .admin-section {
+        display: none;
+      }
+      .admin-section.active {
+        display: block;
+      }
+      /* PAGE HEADER */
+      .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 26px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .page-title {
+        font-family: "bebas", sans-serif;
+        font-size: 36px;
+        color: #444334;
+        margin: 0;
+        line-height: 1;
+      }
+      /* STAT CARDS */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+      .stat-card {
+        background: #fff;
+        border: 2px solid rgba(68, 67, 52, 0.08);
+        padding: 20px 18px;
+        position: relative;
+      }
+      .stat-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: #a9683a;
+      }
+      .stat-label {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: #aaa;
+        margin-bottom: 8px;
+      }
+      .stat-value {
+        font-family: "bebas", sans-serif;
+        font-size: 38px;
+        color: #444334;
+        line-height: 1;
+        margin-bottom: 2px;
+      }
+      .stat-sub {
+        font-size: 11px;
+        color: #a9683a;
+      }
+      /* TABLE */
+      .table-card {
+        background: #fff;
+        border: 2px solid rgba(68, 67, 52, 0.08);
+        margin-bottom: 22px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .table-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 18px;
+        border-bottom: 1px solid rgba(68, 67, 52, 0.08);
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .table-toolbar-title {
+        font-family: "bebas", sans-serif;
+        font-size: 20px;
+        color: #444334;
+      }
+      .admin-search {
+        padding: 8px 13px;
+        border: 2px solid rgba(68, 67, 52, 0.14);
+        font-family: "Poppins", sans-serif;
+        font-size: 13px;
+        color: #444334;
+        background: #fff;
+        outline: none;
+        width: 200px;
+        transition: border-color 0.2s;
+      }
+      .admin-search:focus {
+        border-color: #a9683a;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 700px;
+      }
+      th {
+        text-align: left;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: #999;
+        padding: 11px 14px;
+        border-bottom: 2px solid rgba(68, 67, 52, 0.08);
+        background: rgba(68, 67, 52, 0.02);
+        white-space: nowrap;
+      }
+      td {
+        padding: 12px 14px;
+        font-size: 13px;
+        color: #444334;
+        border-bottom: 1px solid rgba(68, 67, 52, 0.06);
+        vertical-align: middle;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      tr:hover td {
+        background: rgba(68, 67, 52, 0.015);
+      }
+      /* BADGES */
+      .badge {
+        display: inline-block;
+        padding: 2px 9px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        border-radius: 2px;
+      }
+      .b-standard {
+        background: rgba(68, 67, 52, 0.1);
+        color: #444334;
+      }
+      .b-premium {
+        background: rgba(169, 104, 58, 0.15);
+        color: #7a4820;
+      }
+      .b-vip {
+        background: #444334;
+        color: #f6e7c2;
+      }
+      .b-pending {
+        background: rgba(255, 165, 0, 0.15);
+        color: #996600;
+      }
+      .b-confirmed {
+        background: rgba(42, 122, 75, 0.14);
+        color: #1e6b3a;
+      }
+      .b-rejected {
+        background: rgba(176, 50, 30, 0.12);
+        color: #a02010;
+      }
+      .b-active {
+        background: rgba(42, 122, 75, 0.14);
+        color: #1e6b3a;
+      }
+      .b-banned {
+        background: rgba(176, 50, 30, 0.12);
+        color: #a02010;
+      }
+      .b-btc {
+        background: rgba(247, 147, 26, 0.15);
+        color: #8a4e00;
+      }
+      .b-eth {
+        background: rgba(98, 126, 234, 0.15);
+        color: #2a3a90;
+      }
+      .b-usdt {
+        background: rgba(38, 161, 123, 0.15);
+        color: #0f5e42;
+      }
+      .b-instock {
+        background: rgba(42, 122, 75, 0.14);
+        color: #1e6b3a;
+      }
+      .b-outofstock {
+        background: rgba(176, 50, 30, 0.12);
+        color: #a02010;
+      }
+      /* BUTTONS */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 14px;
+        font-family: "Poppins", sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: all 0.15s;
+        white-space: nowrap;
+      }
+      .btn-primary {
+        background: #444334;
+        color: #f6e7c2;
+        border-color: #444334;
+      }
+      .btn-primary:hover {
+        background: #a9683a;
+        border-color: #a9683a;
+      }
+      .btn-outline {
+        background: transparent;
+        color: #444334;
+        border-color: rgba(68, 67, 52, 0.28);
+      }
+      .btn-outline:hover {
+        border-color: #444334;
+      }
+      .btn-danger {
+        background: transparent;
+        color: #b0321e;
+        border-color: rgba(176, 50, 30, 0.28);
+      }
+      .btn-danger:hover {
+        background: #b0321e;
+        color: #fff;
+        border-color: #b0321e;
+      }
+      .btn-success {
+        background: transparent;
+        color: #2a7a4b;
+        border-color: rgba(42, 122, 75, 0.28);
+      }
+      .btn-success:hover {
+        background: #2a7a4b;
+        color: #fff;
+        border-color: #2a7a4b;
+      }
+      .btn-sm {
+        padding: 4px 10px;
+        font-size: 11px;
+      }
+      /* FORM */
+      .admin-card {
+        background: #fff;
+        border: 2px solid rgba(68, 67, 52, 0.08);
+        padding: 24px;
+        margin-bottom: 22px;
+      }
+      .admin-card-title {
+        font-family: "bebas", sans-serif;
+        font-size: 22px;
+        color: #444334;
+        margin: 0 0 18px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid rgba(68, 67, 52, 0.08);
+      }
+      .f-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .f-grid-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 14px;
+      }
+      .f-group {
+        margin-bottom: 14px;
+      }
+      .f-label {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #666;
+        margin-bottom: 6px;
+      }
+      .f-input,
+      .f-select,
+      .f-textarea {
+        width: 100%;
+        padding: 10px 13px;
+        border: 2px solid rgba(68, 67, 52, 0.18);
+        font-family: "Poppins", sans-serif;
+        font-size: 13px;
+        color: #444334;
+        background: #fff;
+        outline: none;
+        transition: border-color 0.2s;
+        box-sizing: border-box;
+      }
+      .f-input:focus,
+      .f-select:focus,
+      .f-textarea:focus {
+        border-color: #a9683a;
+      }
+      .f-textarea {
+        resize: vertical;
+        min-height: 72px;
+      }
+      /* IMAGE UPLOAD */
+      .img-upload-zone {
+        border: 2px dashed rgba(68, 67, 52, 0.25);
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        background: rgba(68, 67, 52, 0.02);
+        position: relative;
+      }
+      .img-upload-zone:hover,
+      .img-upload-zone.drag-over {
+        border-color: #a9683a;
+        background: rgba(169, 104, 58, 0.05);
+      }
+      .img-upload-zone input[type="file"] {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+      }
+      .img-upload-icon {
+        font-size: 28px;
+        margin-bottom: 8px;
+        color: #bbb;
+      }
+      .img-upload-text {
+        font-size: 12px;
+        color: #888;
+      }
+      .img-upload-text strong {
+        color: #a9683a;
+      }
+      .img-preview-wrap {
+        margin-top: 12px;
+        position: relative;
+        display: inline-block;
+      }
+      .img-preview {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border: 2px solid rgba(68, 67, 52, 0.15);
+        display: block;
+      }
+      .img-preview-remove {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        width: 22px;
+        height: 22px;
+        background: #b0321e;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        font-size: 13px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+      }
+      .img-upload-progress {
+        margin-top: 8px;
+        font-size: 11px;
+        color: #a9683a;
+        font-weight: 600;
+      }
+      .img-current-wrap {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+        padding: 8px 12px;
+        background: rgba(68, 67, 52, 0.04);
+        border: 1px solid rgba(68, 67, 52, 0.1);
+      }
+      .img-current {
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+        border: 1px solid rgba(68, 67, 52, 0.12);
+      }
+      .img-current-info {
+        font-size: 11px;
+        color: #888;
+      }
+      .img-current-info strong {
+        color: #444334;
+        display: block;
+        font-size: 12px;
+        margin-bottom: 2px;
+      }
+      /* TOGGLE */
+      .toggle-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(68, 67, 52, 0.07);
+      }
+      .toggle-row:last-child {
+        border-bottom: none;
+      }
+      .toggle-label {
+        font-weight: 600;
+        font-size: 14px;
+        color: #444334;
+      }
+      .toggle-desc {
+        font-size: 12px;
+        color: #888;
+        margin-top: 2px;
+      }
+      .toggle-sw {
+        position: relative;
+        width: 44px;
+        height: 24px;
+        flex-shrink: 0;
+      }
+      .toggle-sw input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .toggle-track {
+        position: absolute;
+        cursor: pointer;
+        inset: 0;
+        background: rgba(68, 67, 52, 0.18);
+        border-radius: 24px;
+        transition: background 0.2s;
+      }
+      .toggle-track::before {
+        content: "";
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        left: 3px;
+        bottom: 3px;
+        background: #fff;
+        border-radius: 50%;
+        transition: transform 0.2s;
+      }
+      .toggle-sw input:checked + .toggle-track {
+        background: #a9683a;
+      }
+      .toggle-sw input:checked + .toggle-track::before {
+        transform: translateX(20px);
+      }
+      /* CHARTS */
+      .charts-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        margin-bottom: 22px;
+      }
+      .chart-card {
+        background: #fff;
+        border: 2px solid rgba(68, 67, 52, 0.08);
+        padding: 18px;
+      }
+      .chart-title {
+        font-family: "bebas", sans-serif;
+        font-size: 20px;
+        color: #444334;
+        margin-bottom: 14px;
+      }
+      .chart-wrap {
+        position: relative;
+        height: 200px;
+      }
+      /* MODAL */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 500;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .modal-overlay.open {
+        display: flex;
+      }
+      .modal-box {
+        background: #f0ede6;
+        border: 2px solid rgba(68, 67, 52, 0.18);
+        padding: 28px;
+        max-width: 560px;
+        width: 100%;
+        position: relative;
+        animation: mIn 0.2s ease;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      @keyframes mIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .modal-close {
+        position: absolute;
+        top: 12px;
+        right: 14px;
+        background: none;
+        border: none;
+        font-size: 22px;
+        cursor: pointer;
+        color: #444334;
+        opacity: 0.5;
+        line-height: 1;
+      }
+      .modal-close:hover {
+        opacity: 1;
+      }
+      .modal-title {
+        font-family: "bebas", sans-serif;
+        font-size: 28px;
+        color: #444334;
+        margin: 0 0 18px;
+      }
+      /* RECEIPT */
+      .receipt-thumb {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border: 1px solid rgba(68, 67, 52, 0.15);
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+      .receipt-thumb:hover {
+        opacity: 0.8;
+      }
+      .receipt-link {
+        color: #a9683a;
+        font-size: 12px;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+      .no-receipt {
+        font-size: 11px;
+        color: #bbb;
+      }
+      /* TOAST */
+      .admin-toast {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: #444334;
+        color: #f6e7c2;
+        font-family: "Poppins", sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 13px 20px;
+        z-index: 9999;
+        display: none;
+        border-left: 4px solid #a9683a;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+        max-width: 320px;
+      }
+      .admin-toast.ok {
+        border-left-color: #2a7a4b;
+      }
+      .admin-toast.err {
+        border-left-color: #b0321e;
+      }
+      /* CHAT */
+      .chat-panel {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 0;
+        height: calc(100vh - 200px);
+        min-height: 500px;
+        background: #fff;
+        border: 2px solid rgba(68, 67, 52, 0.08);
+      }
+      .chat-user-list {
+        border-right: 2px solid rgba(68, 67, 52, 0.08);
+        overflow-y: auto;
+      }
+      .chat-user-item {
+        padding: 14px 16px;
+        cursor: pointer;
+        border-bottom: 1px solid rgba(68, 67, 52, 0.06);
+        transition: background 0.15s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .chat-user-item:hover {
+        background: rgba(68, 67, 52, 0.04);
+      }
+      .chat-user-item.active {
+        background: rgba(169, 104, 58, 0.1);
+        border-left: 3px solid #a9683a;
+      }
+      .chat-user-avatar {
+        width: 36px;
+        height: 36px;
+        background: #444334;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "bebas", sans-serif;
+        font-size: 16px;
+        color: #f6e7c2;
+        flex-shrink: 0;
+      }
+      .chat-user-name {
+        font-weight: 600;
+        font-size: 13px;
+        color: #444334;
+        line-height: 1.2;
+      }
+      .chat-user-preview {
+        font-size: 11px;
+        color: #888;
+        margin-top: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 150px;
+      }
+      .chat-user-unread {
+        min-width: 18px;
+        height: 18px;
+        background: #b0321e;
+        border-radius: 9px;
+        font-size: 10px;
+        font-weight: 700;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 4px;
+        margin-left: auto;
+        flex-shrink: 0;
+      }
+      .chat-main {
+        display: flex;
+        flex-direction: column;
+      }
+      .chat-main-header {
+        padding: 14px 18px;
+        border-bottom: 1px solid rgba(68, 67, 52, 0.08);
+        background: rgba(68, 67, 52, 0.02);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+      .chat-main-name {
+        font-family: "bebas", sans-serif;
+        font-size: 20px;
+        color: #444334;
+      }
+      .chat-main-email {
+        font-size: 12px;
+        color: #888;
+      }
+      .chat-msgs {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .chat-msg-bubble {
+        max-width: 78%;
+        padding: 9px 13px;
+        font-family: "Poppins", sans-serif;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+      .chat-msg-bubble.user {
+        align-self: flex-start;
+        background: #f0ede6;
+        color: #444334;
+        border: 1px solid rgba(68, 67, 52, 0.1);
+      }
+      .chat-msg-bubble.admin {
+        align-self: flex-end;
+        background: #444334;
+        color: #f6e7c2;
+      }
+      .chat-msg-bubble .chat-ts {
+        font-size: 10px;
+        opacity: 0.5;
+        margin-top: 3px;
+        text-align: right;
+      }
+      .chat-reply-row {
+        display: flex;
+        gap: 0;
+        border-top: 1px solid rgba(68, 67, 52, 0.08);
+        flex-shrink: 0;
+      }
+      .chat-reply-input {
+        flex: 1;
+        padding: 13px 16px;
+        border: none;
+        outline: none;
+        font-family: "Poppins", sans-serif;
+        font-size: 13px;
+        color: #444334;
+        background: #fff;
+      }
+      .chat-reply-send {
+        padding: 13px 20px;
+        background: #a9683a;
+        border: none;
+        color: #fff;
+        font-family: "bebas", sans-serif;
+        font-size: 18px;
+        cursor: pointer;
+        letter-spacing: 0.03em;
+        transition: background 0.2s;
+      }
+      .chat-reply-send:hover {
+        background: #444334;
+      }
+      .chat-no-selection {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        color: #bbb;
+        font-size: 14px;
+        font-family: "Poppins", sans-serif;
+      }
+      /* PRICE CARDS */
+      .price-card {
+        background: #fff;
+        border: 2px solid rgba(68, 67, 52, 0.08);
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 14px;
+      }
+      .price-tier-icon {
+        width: 52px;
+        height: 52px;
+        background: #444334;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "bebas", sans-serif;
+        font-size: 22px;
+        color: #f6e7c2;
+        flex-shrink: 0;
+      }
+      .price-tier-name {
+        font-family: "bebas", sans-serif;
+        font-size: 24px;
+        color: #444334;
+        line-height: 1;
+      }
+      .price-tier-billing {
+        font-size: 12px;
+        color: #888;
+      }
+      .price-input-wrap {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin-left: auto;
+      }
+      .price-currency {
+        padding: 10px 12px;
+        background: rgba(68, 67, 52, 0.08);
+        border: 2px solid rgba(68, 67, 52, 0.18);
+        border-right: none;
+        font-family: "bebas", sans-serif;
+        font-size: 22px;
+        color: #a9683a;
+      }
+      .price-input {
+        width: 120px;
+        padding: 10px 12px;
+        border: 2px solid rgba(68, 67, 52, 0.18);
+        font-family: "bebas", sans-serif;
+        font-size: 22px;
+        color: #444334;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .price-input:focus {
+        border-color: #a9683a;
+      }
+      /* PERKS */
+      .perks-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .perk-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .perk-row input {
+        flex: 1;
+        padding: 8px 12px;
+        border: 1.5px solid #e0ddd5;
+        border-radius: 8px;
+        font-size: 13px;
+        font-family: inherit;
+        color: #444334;
+        background: #faf9f6;
+      }
+      .perk-row input:focus {
+        outline: none;
+        border-color: #a9683a;
+      }
+      .perk-row .perk-remove {
+        background: none;
+        border: none;
+        color: #aaa;
+        font-size: 18px;
+        cursor: pointer;
+        padding: 0 4px;
+        line-height: 1;
+      }
+      .perk-row .perk-remove:hover {
+        color: #c0392b;
+      }
+      .perk-row .perk-handle {
+        cursor: grab;
+        color: #ccc;
+        font-size: 14px;
+        user-select: none;
+      }
+      /* PRODUCT */
+      .product-img-thumb {
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+        border: 1px solid rgba(68, 67, 52, 0.12);
+      }
+      .no-img {
+        width: 48px;
+        height: 48px;
+        background: rgba(68, 67, 52, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        color: #bbb;
+        text-align: center;
+        line-height: 1.2;
+      }
+      /* MG PRODUCT */
+      .mg-product-card {
+        background: #fff;
+        border: 2px solid rgba(68, 67, 52, 0.08);
+        padding: 18px;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .mg-product-img {
+        width: 72px;
+        height: 72px;
+        object-fit: cover;
+        border: 1px solid rgba(68, 67, 52, 0.12);
+        flex-shrink: 0;
+        background: rgba(68, 67, 52, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        color: #ccc;
+      }
+      .mg-product-img img {
+        width: 72px;
+        height: 72px;
+        object-fit: cover;
+      }
+      .mg-product-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .mg-product-name {
+        font-family: "bebas", sans-serif;
+        font-size: 20px;
+        color: #444334;
+        margin-bottom: 2px;
+      }
+      .mg-product-desc {
+        font-size: 12px;
+        color: #888;
+        margin-bottom: 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .mg-product-meta {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-size: 12px;
+      }
+      .mg-product-price {
+        font-weight: 700;
+        color: #a9683a;
+        font-size: 15px;
+      }
+      .mg-product-actions {
+        display: flex;
+        gap: 8px;
+        flex-shrink: 0;
+        align-items: center;
+      }
+      /* SPINNER */
+      .spin {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border: 2px solid rgba(246, 231, 194, 0.3);
+        border-top-color: #f6e7c2;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+        vertical-align: middle;
+        margin-left: 6px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      /* TABS */
+      .tab-bar {
+        display: flex;
+        gap: 0;
+        border-bottom: 2px solid rgba(68, 67, 52, 0.12);
+        margin-bottom: 24px;
+      }
+      .tab-btn {
+        padding: 10px 20px;
+        font-family: "bebas", sans-serif;
+        font-size: 18px;
+        letter-spacing: 0.04em;
+        color: rgba(68, 67, 52, 0.5);
+        background: none;
+        border: none;
+        cursor: pointer;
+        border-bottom: 3px solid transparent;
+        margin-bottom: -2px;
+        transition: all 0.15s;
+      }
+      .tab-btn.active {
+        color: #444334;
+        border-bottom-color: #a9683a;
+      }
+      .tab-content {
+        display: none;
+      }
+      .tab-content.active {
+        display: block;
+      }
+      /* RESPONSIVE */
+      @media (max-width: 1100px) {
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .charts-row {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 860px) {
+        .admin-body {
+          grid-template-columns: 1fr;
+        }
+        .admin-sidebar {
+          position: static;
+          height: auto;
+          overflow: visible;
+        }
+        .admin-sidebar .sidebar-link {
+          padding: 10px 12px;
+          font-size: 12px;
+        }
+        .admin-sidebar .sidebar-section {
+          padding: 12px 12px 4px;
+        }
+        .admin-main {
+          padding: 16px;
+        }
+        .f-grid,
+        .f-grid-3 {
+          grid-template-columns: 1fr;
+        }
+        .chat-panel {
+          grid-template-columns: 1fr;
+          height: auto;
+          min-height: 400px;
+          flex-direction: column;
+        }
+        .chat-user-list {
+          border-right: none;
+          border-bottom: 2px solid rgba(68, 67, 52, 0.08);
+          max-height: 220px;
+        }
+      }
+      @media (max-width: 600px) {
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+        }
+        .admin-topbar {
+          padding: 0 12px;
+          gap: 8px;
+        }
+        .topbar-user {
+          font-size: 11px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          max-width: 140px;
+        }
+        .topbar-signout {
+          font-size: 13px;
+          padding: 5px 10px;
+          white-space: nowrap;
+        }
+        .topbar-title {
+          font-size: 18px;
+        }
+        .page-title {
+          font-size: 28px;
+        }
+        .table-toolbar {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+        }
+        .admin-search {
+          width: 100%;
+        }
+        .admin-main {
+          padding: 12px;
+        }
+        .price-card {
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+        .price-input-wrap {
+          margin-left: 0;
+        }
+      }
+      @media (max-width: 480px) {
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+        .admin-topbar {
+          height: 50px;
+        }
+        .topbar-logo {
+          height: 24px;
+        }
+        .topbar-user {
+          display: none;
+        }
+        .login-box {
+          padding: 32px 20px 28px;
+        }
+        .login-title {
+          font-size: 30px;
+        }
+        .modal-box {
+          padding: 20px 16px;
+        }
+        .modal-title {
+          font-size: 22px;
+        }
+        .price-input {
+          width: 90px;
+          font-size: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- LOGIN GATE -->
+    <div id="login-gate">
+      <div class="login-box">
+        <img src="images/logo.svg" class="login-logo" alt="Morgan Wallen" />
+        <div class="login-title">Admin Panel</div>
+        <p class="login-sub">Sign in with your admin credentials</p>
+        <input
+          type="email"
+          id="adm-email"
+          class="login-field"
+          placeholder="admin@email.com"
+          autocomplete="email"
+        />
+        <input
+          type="password"
+          id="adm-pass"
+          class="login-field"
+          placeholder="Password"
+          autocomplete="current-password"
+        />
+        <button class="login-btn" id="adm-btn" onclick="adminLogin()">
+          Sign In
+        </button>
+        <div class="login-msg" id="adm-msg"></div>
+      </div>
+    </div>
+
+    <!-- ADMIN SHELL -->
+    <div id="admin-shell">
+      <div class="admin-topbar">
+        <div class="topbar-brand">
+          <img src="images/logo.svg" class="topbar-logo" alt="MW" />
+          <span class="topbar-title">Admin Panel</span>
+        </div>
+        <div class="topbar-right">
+          <span class="topbar-user"
+            >Signed in as <strong id="admin-name-display">—</strong></span
+          >
+          <button class="topbar-signout" onclick="adminSignOut()">
+            Sign Out
+          </button>
+        </div>
+      </div>
+
+      <div class="admin-body">
+        <nav class="admin-sidebar">
+          <div class="sidebar-section">Overview</div>
+          <button
+            class="sidebar-link active"
+            data-sec="dashboard"
+            onclick="showSection('dashboard', this)"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" /></svg
+            >Dashboard
+          </button>
+          <div class="sidebar-section">Management</div>
+          <button
+            class="sidebar-link"
+            data-sec="users"
+            onclick="showSection('users', this)"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
+            >Users
+          </button>
+          <button
+            class="sidebar-link"
+            data-sec="orders"
+            onclick="showSection('orders', this)"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <polyline points="9 11 12 14 22 4" />
+              <path
+                d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
+              /></svg
+            >Orders &amp; Payments
+          </button>
+          <button
+            class="sidebar-link"
+            data-sec="products"
+            onclick="showSection('products', this)"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <path d="M16 10a4 4 0 0 1-8 0" /></svg
+            >Private Meet Up
+          </button>
+          <button
+            class="sidebar-link"
+            data-sec="memberships"
+            onclick="showSection('memberships', this)"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              /></svg
+            >Meet &amp; Greet
+          </button>
+          <div class="sidebar-section">Communication</div>
+          <button
+            class="sidebar-link"
+            data-sec="chat"
+            onclick="showSection('chat', this)"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+              /></svg
+            >User Chat
+            <span
+              id="chat-unread-total"
+              style="
+                margin-left: auto;
+                background: #b0321e;
+                color: #fff;
+                font-size: 10px;
+                font-weight: 700;
+                padding: 1px 6px;
+                border-radius: 8px;
+                display: none;
+              "
+            ></span>
+          </button>
+          <button
+            class="sidebar-link"
+            data-sec="announcements"
+            onclick="showSection('announcements', this)"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3z"
+              />
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg
+            >Announcements
+          </button>
+          <div class="sidebar-section">Analytics</div>
+          <button
+            class="sidebar-link"
+            data-sec="analytics"
+            onclick="showSection('analytics', this)"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="20" x2="18" y2="10" />
+              <line x1="12" y1="20" x2="12" y2="4" />
+              <line x1="6" y1="20" x2="6" y2="14" /></svg
+            >Analytics
+          </button>
+          <div class="sidebar-section">System</div>
+          <button
+            class="sidebar-link"
+            data-sec="settings"
+            onclick="showSection('settings', this)"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"
+              /></svg
+            >Settings
+          </button>
+        </nav>
+
+        <main class="admin-main">
+          <!-- DASHBOARD -->
+          <section class="admin-section active" id="sec-dashboard">
+            <div class="page-header">
+              <h1 class="page-title">Dashboard</h1>
+              <button class="btn btn-outline btn-sm" onclick="loadDashboard()">
+                ↻ Refresh
+              </button>
+            </div>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-label">Total Users</div>
+                <div class="stat-value" id="s-users">—</div>
+                <div class="stat-sub">registered</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Active Members</div>
+                <div class="stat-value" id="s-members">—</div>
+                <div class="stat-sub">paid memberships</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Pending Orders</div>
+                <div class="stat-value" id="s-pending">—</div>
+                <div class="stat-sub">awaiting approval</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Total Revenue</div>
+                <div class="stat-value" id="s-revenue">—</div>
+                <div class="stat-sub">confirmed</div>
+              </div>
+            </div>
+            <div class="charts-row">
+              <div class="chart-card">
+                <div class="chart-title">Orders by Crypto</div>
+                <div class="chart-wrap"><canvas id="ch-crypto"></canvas></div>
+              </div>
+              <div class="chart-card">
+                <div class="chart-title">Meet &amp; Greet Tiers</div>
+                <div class="chart-wrap"><canvas id="ch-tiers"></canvas></div>
+              </div>
+            </div>
+            <div class="table-card">
+              <div class="table-toolbar">
+                <span class="table-toolbar-title">Recent Orders</span>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Item</th>
+                    <th>Amount</th>
+                    <th>Method</th>
+                    <th>Receipt</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="dash-orders">
+                  <tr>
+                    <td
+                      colspan="7"
+                      style="text-align: center; color: #aaa; padding: 20px"
+                    >
+                      Loading…
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- USERS -->
+          <section class="admin-section" id="sec-users">
+            <div class="page-header"><h1 class="page-title">Users</h1></div>
+            <div class="table-card">
+              <div class="table-toolbar">
+                <span class="table-toolbar-title">All Users</span
+                ><input
+                  class="admin-search"
+                  id="user-search"
+                  placeholder="Search name or email…"
+                  oninput="filterUsers()"
+                />
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Meet &amp; Greet</th>
+                    <th>Joined</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="users-tbody">
+                  <tr>
+                    <td
+                      colspan="6"
+                      style="text-align: center; color: #aaa; padding: 20px"
+                    >
+                      Loading…
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- ORDERS -->
+          <section class="admin-section" id="sec-orders">
+            <div class="page-header">
+              <h1 class="page-title">Orders &amp; Payments</h1>
+              <select
+                class="f-select"
+                style="width: 160px"
+                id="order-status-filter"
+                onchange="loadOrders()"
+              >
+                <option value="">All Statuses</option>
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </div>
+            <div class="table-card">
+              <div class="table-toolbar">
+                <span class="table-toolbar-title">All Orders</span
+                ><input
+                  class="admin-search"
+                  id="order-search"
+                  placeholder="Search…"
+                  oninput="filterOrders()"
+                />
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Item</th>
+                    <th>USD</th>
+                    <th>Crypto</th>
+                    <th>Tx Hash</th>
+                    <th>Receipt</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="orders-tbody">
+                  <tr>
+                    <td
+                      colspan="10"
+                      style="text-align: center; color: #aaa; padding: 20px"
+                    >
+                      Loading…
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- PRIVATE MEET UP PRODUCTS -->
+          <section class="admin-section" id="sec-products">
+            <div class="page-header">
+              <h1 class="page-title">Private Meet Up Products</h1>
+              <button class="btn btn-primary" onclick="openProductModal()">
+                + Add Product
+              </button>
+            </div>
+            <div class="table-card">
+              <div class="table-toolbar">
+                <span class="table-toolbar-title">All Products</span>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Visible</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="products-tbody">
+                  <tr>
+                    <td
+                      colspan="7"
+                      style="text-align: center; color: #aaa; padding: 20px"
+                    >
+                      Loading…
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- MEET & GREET -->
+          <section class="admin-section" id="sec-memberships">
+            <div class="page-header">
+              <h1 class="page-title">Meet &amp; Greet</h1>
+            </div>
+            <div class="tab-bar">
+              <button
+                class="tab-btn active"
+                onclick="switchMGTab('prices', this)"
+              >
+                Pricing
+              </button>
+              <button class="tab-btn" onclick="switchMGTab('perks', this)">
+                Perks
+              </button>
+              <button
+                class="tab-btn"
+                onclick="switchMGTab('mg-products', this)"
+              >
+                Products / Packages
+              </button>
+              <button class="tab-btn" onclick="switchMGTab('members', this)">
+                Active Members
+              </button>
+            </div>
+            <!-- TAB: Pricing -->
+            <div class="tab-content active" id="mgtab-prices">
+              <div class="admin-card">
+                <div class="admin-card-title">Meet &amp; Greet Pricing</div>
+                <p style="font-size: 13px; color: #888; margin: 0 0 16px">
+                  Prices are loaded from the database and go live immediately
+                  when saved.
+                </p>
+                <div id="price-editor-rows">
+                  <div class="price-card">
+                    <div class="price-tier-icon">S</div>
+                    <div>
+                      <div class="price-tier-name">Standard</div>
+                      <div class="price-tier-billing">One-time payment</div>
+                    </div>
+                    <div class="price-input-wrap">
+                      <span class="price-currency">$</span
+                      ><input
+                        class="price-input"
+                        id="price-standard"
+                        type="number"
+                        value=""
+                        min="0"
+                        placeholder="299"
+                      />
+                    </div>
+                  </div>
+                  <div class="price-card">
+                    <div class="price-tier-icon" style="background: #a9683a">
+                      P
+                    </div>
+                    <div>
+                      <div class="price-tier-name">Premium</div>
+                      <div class="price-tier-billing">Per month</div>
+                    </div>
+                    <div class="price-input-wrap">
+                      <span class="price-currency">$</span
+                      ><input
+                        class="price-input"
+                        id="price-premium"
+                        type="number"
+                        value=""
+                        min="0"
+                        placeholder="499"
+                      />
+                    </div>
+                  </div>
+                  <div class="price-card">
+                    <div class="price-tier-icon" style="background: #2a3a60">
+                      V
+                    </div>
+                    <div>
+                      <div class="price-tier-name">VIP</div>
+                      <div class="price-tier-billing">Per month</div>
+                    </div>
+                    <div class="price-input-wrap">
+                      <span class="price-currency">$</span
+                      ><input
+                        class="price-input"
+                        id="price-vip"
+                        type="number"
+                        value=""
+                        min="0"
+                        placeholder="699"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div style="margin-top: 18px">
+                  <button
+                    class="btn btn-primary"
+                    id="save-prices-btn"
+                    onclick="saveMembershipPrices()"
+                  >
+                    Save Prices — Updates Live on Site
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- TAB: Perks -->
+            <div class="tab-content" id="mgtab-perks">
+              <div class="admin-card">
+                <div class="admin-card-title">Meet &amp; Greet Perks</div>
+                <p style="font-size: 13px; color: #888; margin: 0 0 16px">
+                  Edit the bullet-point features shown on each tier card.
+                  Changes go live immediately.
+                </p>
+                <div id="perks-editor">
+                  <div class="perks-tier-block">
+                    <div
+                      style="
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        margin-bottom: 10px;
+                      "
+                    >
+                      <div class="price-tier-icon">S</div>
+                      <strong style="font-size: 14px; color: #444334"
+                        >Standard</strong
+                      >
+                    </div>
+                    <div id="perks-list-standard" class="perks-list"></div>
+                    <button
+                      class="btn btn-outline btn-sm"
+                      style="margin-top: 8px"
+                      onclick="addPerkRow('standard')"
+                    >
+                      + Add Perk
+                    </button>
+                  </div>
+                  <div class="perks-tier-block" style="margin-top: 18px">
+                    <div
+                      style="
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        margin-bottom: 10px;
+                      "
+                    >
+                      <div class="price-tier-icon" style="background: #a9683a">
+                        P
+                      </div>
+                      <strong style="font-size: 14px; color: #444334"
+                        >Premium</strong
+                      >
+                    </div>
+                    <div id="perks-list-premium" class="perks-list"></div>
+                    <button
+                      class="btn btn-outline btn-sm"
+                      style="margin-top: 8px"
+                      onclick="addPerkRow('premium')"
+                    >
+                      + Add Perk
+                    </button>
+                  </div>
+                  <div class="perks-tier-block" style="margin-top: 18px">
+                    <div
+                      style="
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        margin-bottom: 10px;
+                      "
+                    >
+                      <div class="price-tier-icon" style="background: #2a3a60">
+                        V
+                      </div>
+                      <strong style="font-size: 14px; color: #444334"
+                        >VIP</strong
+                      >
+                    </div>
+                    <div id="perks-list-vip" class="perks-list"></div>
+                    <button
+                      class="btn btn-outline btn-sm"
+                      style="margin-top: 8px"
+                      onclick="addPerkRow('vip')"
+                    >
+                      + Add Perk
+                    </button>
+                  </div>
+                </div>
+                <div style="margin-top: 18px">
+                  <button
+                    class="btn btn-primary"
+                    onclick="saveMembershipPerks()"
+                  >
+                    Save Perks — Updates Live on Site
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- TAB: Products / Packages -->
+            <div class="tab-content" id="mgtab-mg-products">
+              <div class="page-header" style="margin-bottom: 16px">
+                <span style="font-size: 13px; color: #888"
+                  >Manage packages, add-ons, or experiences offered as part of
+                  Meet &amp; Greet.</span
+                >
+                <button class="btn btn-primary" onclick="openMGProductModal()">
+                  + Add Package
+                </button>
+              </div>
+              <div id="mg-products-list">
+                <div
+                  style="
+                    padding: 20px;
+                    color: #aaa;
+                    font-size: 13px;
+                    text-align: center;
+                  "
+                >
+                  Loading…
+                </div>
+              </div>
+            </div>
+            <!-- TAB: Active Members -->
+            <div class="tab-content" id="mgtab-members">
+              <div class="table-card">
+                <div class="table-toolbar">
+                  <span class="table-toolbar-title">Active Members</span>
+                  <select
+                    class="f-select"
+                    style="width: 140px"
+                    id="mem-filter"
+                    onchange="loadMemberships()"
+                  >
+                    <option value="">All Tiers</option>
+                    <option value="standard">Standard</option>
+                    <option value="premium">Premium</option>
+                    <option value="vip">VIP</option>
+                  </select>
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Tier</th>
+                      <th>Since</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="mem-tbody">
+                    <tr>
+                      <td
+                        colspan="5"
+                        style="text-align: center; color: #aaa; padding: 20px"
+                      >
+                        Loading…
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- CHAT -->
+          <section class="admin-section" id="sec-chat">
+            <div class="page-header"><h1 class="page-title">User Chat</h1></div>
+            <div class="chat-panel">
+              <div class="chat-user-list" id="chat-user-list">
+                <div style="padding: 14px; color: #aaa; font-size: 13px">
+                  Loading conversations…
+                </div>
+              </div>
+              <div class="chat-main" id="chat-main-area">
+                <div class="chat-no-selection">
+                  ← Select a user to view their messages
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ANNOUNCEMENTS -->
+          <section class="admin-section" id="sec-announcements">
+            <div class="page-header">
+              <h1 class="page-title">Announcements</h1>
+              <button class="btn btn-primary" onclick="openAnnModal()">
+                + New
+              </button>
+            </div>
+            <div id="ann-list">
+              <div style="padding: 20px; color: #aaa; font-size: 13px">
+                Loading…
+              </div>
+            </div>
+          </section>
+
+          <!-- ANALYTICS -->
+          <section class="admin-section" id="sec-analytics">
+            <div class="page-header"><h1 class="page-title">Analytics</h1></div>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-label">Total Revenue</div>
+                <div class="stat-value" id="an-total">—</div>
+                <div class="stat-sub">confirmed orders</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">BTC Revenue</div>
+                <div class="stat-value" id="an-btc">—</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">ETH Revenue</div>
+                <div class="stat-value" id="an-eth">—</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">USDT Revenue</div>
+                <div class="stat-value" id="an-usdt">—</div>
+              </div>
+            </div>
+            <div class="charts-row">
+              <div class="chart-card">
+                <div class="chart-title">Orders (Last 30 Days)</div>
+                <div class="chart-wrap">
+                  <canvas id="ch-orders-time"></canvas>
+                </div>
+              </div>
+              <div class="chart-card">
+                <div class="chart-title">Revenue Split</div>
+                <div class="chart-wrap">
+                  <canvas id="ch-rev-split"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="charts-row">
+              <div class="chart-card">
+                <div class="chart-title">Signups (Last 30 Days)</div>
+                <div class="chart-wrap"><canvas id="ch-signups"></canvas></div>
+              </div>
+              <div class="chart-card">
+                <div class="chart-title">Tier Breakdown</div>
+                <div class="chart-wrap"><canvas id="ch-tiers-an"></canvas></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SETTINGS -->
+          <section class="admin-section" id="sec-settings">
+            <div class="page-header"><h1 class="page-title">Settings</h1></div>
+            <div class="admin-card">
+              <div class="admin-card-title">Crypto Wallet Addresses</div>
+              <div class="f-group">
+                <label class="f-label">Bitcoin (BTC)</label
+                ><input class="f-input" id="set-btc" placeholder="bc1q…" />
+              </div>
+              <div class="f-group">
+                <label class="f-label">Ethereum (ETH)</label
+                ><input class="f-input" id="set-eth" placeholder="0x…" />
+              </div>
+              <div class="f-group">
+                <label class="f-label">Tether USDT</label
+                ><input class="f-input" id="set-usdt" placeholder="TJ…" />
+              </div>
+              <button class="btn btn-primary" onclick="saveWallets()">
+                Save Wallet Addresses
+              </button>
+            </div>
+            <div class="admin-card">
+              <div class="admin-card-title">Payment Methods</div>
+              <div class="toggle-row">
+                <div>
+                  <div class="toggle-label">Crypto Payments</div>
+                  <div class="toggle-desc">
+                    BTC / ETH / USDT — primary method
+                  </div>
+                </div>
+                <label class="toggle-sw"
+                  ><input type="checkbox" id="tog-crypto" checked /><span
+                    class="toggle-track"
+                  ></span
+                ></label>
+              </div>
+              <div class="toggle-row">
+                <div>
+                  <div class="toggle-label">Stripe Payments</div>
+                  <div class="toggle-desc">Toggle on when Stripe is ready</div>
+                </div>
+                <label class="toggle-sw"
+                  ><input type="checkbox" id="tog-stripe" /><span
+                    class="toggle-track"
+                  ></span
+                ></label>
+              </div>
+              <div style="margin-top: 16px">
+                <button class="btn btn-primary" onclick="savePaymentToggles()">
+                  Save Payment Settings
+                </button>
+              </div>
+            </div>
+            <div class="admin-card">
+              <div class="admin-card-title">Site Controls</div>
+              <div class="toggle-row">
+                <div>
+                  <div class="toggle-label">Maintenance Mode</div>
+                  <div class="toggle-desc">
+                    Show maintenance notice to visitors
+                  </div>
+                </div>
+                <label class="toggle-sw"
+                  ><input type="checkbox" id="tog-maint" /><span
+                    class="toggle-track"
+                  ></span
+                ></label>
+              </div>
+              <div class="toggle-row">
+                <div>
+                  <div class="toggle-label">Allow New Registrations</div>
+                  <div class="toggle-desc">Let new users sign up</div>
+                </div>
+                <label class="toggle-sw"
+                  ><input type="checkbox" id="tog-reg" checked /><span
+                    class="toggle-track"
+                  ></span
+                ></label>
+              </div>
+              <div style="margin-top: 16px">
+                <button class="btn btn-primary" onclick="saveSiteToggles()">
+                  Save Site Settings
+                </button>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- ═══ MODALS ═══ -->
+    <!-- User edit -->
+    <div class="modal-overlay" id="modal-user">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('modal-user')">
+          &times;
+        </button>
+        <div class="modal-title" id="modal-user-title">Edit User</div>
+        <input type="hidden" id="um-id" />
+        <div class="f-group">
+          <label class="f-label">Meet &amp; Greet Tier</label
+          ><select class="f-select" id="um-tier">
+            <option value="">None</option>
+            <option value="standard">Standard</option>
+            <option value="premium">Premium</option>
+            <option value="vip">VIP</option>
+          </select>
+        </div>
+        <div class="f-group">
+          <label class="f-label">Account Status</label
+          ><select class="f-select" id="um-status">
+            <option value="active">Active</option>
+            <option value="banned">Banned</option>
+          </select>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 6px">
+          <button class="btn btn-primary" onclick="saveUser()">Save</button
+          ><button class="btn btn-outline" onclick="closeModal('modal-user')">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Order review -->
+    <div class="modal-overlay" id="modal-order">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('modal-order')">
+          &times;
+        </button>
+        <div class="modal-title">Review Payment</div>
+        <input type="hidden" id="om-id" />
+        <div
+          style="
+            background: rgba(68, 67, 52, 0.05);
+            border: 1px solid rgba(68, 67, 52, 0.1);
+            padding: 14px;
+            margin-bottom: 18px;
+          "
+        >
+          <div style="font-weight: 600; margin-bottom: 3px" id="om-item"></div>
+          <div style="font-size: 12px; color: #888" id="om-email"></div>
+          <div style="font-size: 13px; margin-top: 6px">
+            Amount: <strong id="om-amount"></strong>
+          </div>
+          <div style="font-size: 12px; color: #666; margin-top: 4px">
+            Method: <strong id="om-method"></strong>
+          </div>
+          <div
+            style="
+              font-size: 12px;
+              color: #666;
+              margin-top: 2px;
+              word-break: break-all;
+            "
+          >
+            Tx Hash: <span id="om-txhash">—</span>
+          </div>
+        </div>
+        <div id="om-receipt-wrap" style="margin-bottom: 18px; display: none">
+          <div class="f-label" style="margin-bottom: 8px">
+            Transaction Receipt
+          </div>
+          <a id="om-receipt-link" href="#" target="_blank"
+            ><img
+              id="om-receipt-img"
+              class="receipt-thumb"
+              style="width: 100%; max-height: 240px; object-fit: contain"
+              src=""
+              alt="Receipt"
+          /></a>
+          <div style="margin-top: 6px">
+            <a
+              id="om-receipt-open"
+              href="#"
+              target="_blank"
+              class="receipt-link"
+              >Open full receipt ↗</a
+            >
+          </div>
+        </div>
+        <div
+          id="om-no-receipt"
+          style="
+            padding: 12px;
+            background: rgba(68, 67, 52, 0.04);
+            border: 1px solid rgba(68, 67, 52, 0.1);
+            font-size: 12px;
+            color: #aaa;
+            text-align: center;
+            margin-bottom: 18px;
+          "
+        >
+          No receipt uploaded by user
+        </div>
+        <div class="f-group">
+          <label class="f-label">Update Status</label
+          ><select class="f-select" id="om-status">
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed ✓</option>
+            <option value="rejected">Rejected ✗</option>
+          </select>
+        </div>
+        <div class="f-group">
+          <label class="f-label">Admin Note (sent to user)</label
+          ><textarea
+            class="f-textarea"
+            id="om-note"
+            placeholder="e.g. Payment verified on blockchain — thank you!"
+          ></textarea>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 6px">
+          <button class="btn btn-success" onclick="saveOrder('confirmed')">
+            ✓ Approve
+          </button>
+          <button class="btn btn-danger" onclick="saveOrder('rejected')">
+            ✗ Reject
+          </button>
+          <button class="btn btn-outline" onclick="closeModal('modal-order')">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Product add/edit -->
+    <div class="modal-overlay" id="modal-product">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('modal-product')">
+          &times;
+        </button>
+        <div class="modal-title" id="modal-product-title">Add Product</div>
+        <input type="hidden" id="pm-id" />
+        <div class="f-grid">
+          <div class="f-group">
+            <label class="f-label">Product Name</label
+            ><input
+              class="f-input"
+              id="pm-name"
+              placeholder="Black Vinyl 3LP"
+            />
+          </div>
+          <div class="f-group">
+            <label class="f-label">Category</label
+            ><select class="f-select" id="pm-cat">
+              <option value="vinyl">Vinyl</option>
+              <option value="cd">CD</option>
+              <option value="digital">Digital</option>
+              <option value="apparel">Apparel</option>
+            </select>
+          </div>
+        </div>
+        <div class="f-grid">
+          <div class="f-group">
+            <label class="f-label">Price (USD)</label
+            ><input
+              class="f-input"
+              id="pm-price"
+              type="number"
+              step="0.01"
+              placeholder="49.99"
+            />
+          </div>
+          <div class="f-group">
+            <label class="f-label">Checkout Key</label
+            ><input class="f-input" id="pm-key" placeholder="vinyl-black" />
+          </div>
+        </div>
+        <div class="f-group">
+          <label class="f-label">Product Image</label>
+          <div
+            class="img-upload-zone"
+            id="pm-upload-zone"
+            ondragover="handleDragOver(event, 'pm-upload-zone')"
+            ondragleave="handleDragLeave('pm-upload-zone')"
+            ondrop="handleDrop(event, 'pm')"
+          >
+            <input
+              type="file"
+              id="pm-img-file"
+              accept="image/*"
+              onchange="handleFileSelect(this, 'pm')"
+            />
+            <div class="img-upload-icon">🖼</div>
+            <div class="img-upload-text">
+              <strong>Click to upload</strong> or drag &amp; drop<br />PNG, JPG,
+              WEBP up to 5MB
+            </div>
+          </div>
+          <div
+            id="pm-img-preview-wrap"
+            class="img-preview-wrap"
+            style="display: none"
+          >
+            <img
+              id="pm-img-preview"
+              class="img-preview"
+              src=""
+              alt="Preview"
+            /><button
+              class="img-preview-remove"
+              onclick="removeImagePreview('pm')"
+              title="Remove"
+            >
+              &times;
+            </button>
+          </div>
+          <div
+            id="pm-current-img-wrap"
+            class="img-current-wrap"
+            style="display: none"
+          >
+            <img id="pm-current-img" class="img-current" src="" alt="" />
+            <div class="img-current-info">
+              <strong>Current image</strong>Upload a new image to replace it
+            </div>
+          </div>
+          <div
+            id="pm-upload-progress"
+            class="img-upload-progress"
+            style="display: none"
+          ></div>
+          <input type="hidden" id="pm-img-url" />
+        </div>
+        <div class="f-group">
+          <label class="f-label">Description</label
+          ><textarea class="f-textarea" id="pm-desc"></textarea>
+        </div>
+        <div style="display: flex; gap: 20px; margin-bottom: 14px">
+          <label
+            style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              font-size: 13px;
+              font-weight: 600;
+              color: #444334;
+              cursor: pointer;
+            "
+            ><input type="checkbox" id="pm-visible" checked /> Visible on
+            marketplace</label
+          >
+          <label
+            style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              font-size: 13px;
+              font-weight: 600;
+              color: #444334;
+              cursor: pointer;
+            "
+            ><input type="checkbox" id="pm-stock" checked /> In Stock</label
+          >
+        </div>
+        <div style="display: flex; gap: 10px">
+          <button
+            class="btn btn-primary"
+            id="pm-save-btn"
+            onclick="saveProduct()"
+          >
+            Save Product</button
+          ><button
+            class="btn btn-outline"
+            onclick="closeModal('modal-product')"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- MG Product add/edit -->
+    <div class="modal-overlay" id="modal-mg-product">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('modal-mg-product')">
+          &times;
+        </button>
+        <div class="modal-title" id="modal-mg-product-title">Add Package</div>
+        <input type="hidden" id="mgp-id" />
+        <div class="f-grid">
+          <div class="f-group">
+            <label class="f-label">Package Name</label
+            ><input
+              class="f-input"
+              id="mgp-name"
+              placeholder="VIP Photo Experience"
+            />
+          </div>
+          <div class="f-group">
+            <label class="f-label">Target Tier</label
+            ><select class="f-select" id="mgp-tier">
+              <option value="all">All Tiers</option>
+              <option value="standard">Standard</option>
+              <option value="premium">Premium</option>
+              <option value="vip">VIP</option>
+            </select>
+          </div>
+        </div>
+        <div class="f-grid">
+          <div class="f-group">
+            <label class="f-label">Price (USD)</label
+            ><input
+              class="f-input"
+              id="mgp-price"
+              type="number"
+              step="0.01"
+              placeholder="199.00"
+            />
+          </div>
+          <div class="f-group">
+            <label class="f-label">Checkout Key</label
+            ><input class="f-input" id="mgp-key" placeholder="mg-vip-photo" />
+          </div>
+        </div>
+        <div class="f-group">
+          <label class="f-label">Package Image</label>
+          <div
+            class="img-upload-zone"
+            id="mgp-upload-zone"
+            ondragover="handleDragOver(event, 'mgp-upload-zone')"
+            ondragleave="handleDragLeave('mgp-upload-zone')"
+            ondrop="handleDrop(event, 'mgp')"
+          >
+            <input
+              type="file"
+              id="mgp-img-file"
+              accept="image/*"
+              onchange="handleFileSelect(this, 'mgp')"
+            />
+            <div class="img-upload-icon">🖼</div>
+            <div class="img-upload-text">
+              <strong>Click to upload</strong> or drag &amp; drop<br />PNG, JPG,
+              WEBP up to 5MB
+            </div>
+          </div>
+          <div
+            id="mgp-img-preview-wrap"
+            class="img-preview-wrap"
+            style="display: none"
+          >
+            <img
+              id="mgp-img-preview"
+              class="img-preview"
+              src=""
+              alt="Preview"
+            /><button
+              class="img-preview-remove"
+              onclick="removeImagePreview('mgp')"
+              title="Remove"
+            >
+              &times;
+            </button>
+          </div>
+          <div
+            id="mgp-current-img-wrap"
+            class="img-current-wrap"
+            style="display: none"
+          >
+            <img id="mgp-current-img" class="img-current" src="" alt="" />
+            <div class="img-current-info">
+              <strong>Current image</strong>Upload a new image to replace it
+            </div>
+          </div>
+          <div
+            id="mgp-upload-progress"
+            class="img-upload-progress"
+            style="display: none"
+          ></div>
+          <input type="hidden" id="mgp-img-url" />
+        </div>
+        <div class="f-group">
+          <label class="f-label">Description</label
+          ><textarea
+            class="f-textarea"
+            id="mgp-desc"
+            placeholder="Describe what's included…"
+          ></textarea>
+        </div>
+        <div style="display: flex; gap: 20px; margin-bottom: 14px">
+          <label
+            style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              font-size: 13px;
+              font-weight: 600;
+              color: #444334;
+              cursor: pointer;
+            "
+            ><input type="checkbox" id="mgp-visible" checked /> Visible on
+            site</label
+          >
+          <label
+            style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              font-size: 13px;
+              font-weight: 600;
+              color: #444334;
+              cursor: pointer;
+            "
+            ><input type="checkbox" id="mgp-available" checked /> Available to
+            purchase</label
+          >
+        </div>
+        <div style="display: flex; gap: 10px">
+          <button
+            class="btn btn-primary"
+            id="mgp-save-btn"
+            onclick="saveMGProduct()"
+          >
+            Save Package</button
+          ><button
+            class="btn btn-outline"
+            onclick="closeModal('modal-mg-product')"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Announcement -->
+    <div class="modal-overlay" id="modal-ann">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('modal-ann')">
+          &times;
+        </button>
+        <div class="modal-title" id="modal-ann-title">New Announcement</div>
+        <input type="hidden" id="ann-id" />
+        <div class="f-group">
+          <label class="f-label">Title</label
+          ><input
+            class="f-input"
+            id="ann-title"
+            placeholder="Tour dates announced!"
+          />
+        </div>
+        <div class="f-group">
+          <label class="f-label">Message</label
+          ><textarea
+            class="f-textarea"
+            id="ann-body"
+            style="min-height: 90px"
+          ></textarea>
+        </div>
+        <div class="f-group">
+          <label class="f-label">Audience</label
+          ><select class="f-select" id="ann-audience">
+            <option value="all">All Users</option>
+            <option value="standard">Standard Members</option>
+            <option value="premium">Premium Members</option>
+            <option value="vip">VIP Members</option>
+          </select>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 6px">
+          <button class="btn btn-primary" onclick="saveAnn()">Publish</button
+          ><button class="btn btn-outline" onclick="closeModal('modal-ann')">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-toast" id="toast"></div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      /* ============================================================
+         admin.js — inline (no jQuery dependency, no $ alias conflict)
+         ============================================================ */
+      "use strict";
+
+      var SURL = "https://gzzqpiwufbvoygqfxbrf.supabase.co";
+      var SANON =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6enFwaXd1ZmJ2b3lncWZ4YnJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNjA2MTcsImV4cCI6MjA4ODYzNjYxN30.OUY4ktBGKSvnO56fpLfkP13da5T_fOLBEDX7aBW7PU4";
+
+      var db = supabase.createClient(SURL, SANON, {
+        auth: {
+          autoRefreshToken: true,
+          persistSession: true,
+          detectSessionInUrl: false,
+        },
+      });
+      window.supabaseClient = db;
+
+      var adminUser = null,
+        allUsers = [],
+        allOrders = [],
+        charts = {};
+      var activeChatUserId = null,
+        chatChannel = null;
+      var pendingFiles = {};
+
+      /* ── Element helper (named 'gel' to avoid ANY conflict with jQuery $) ── */
+      function gel(id) {
+        return document.getElementById(id);
+      }
+
+      function toast(msg, type) {
+        var t = gel("toast");
+        t.textContent = msg;
+        t.className = "admin-toast" + (type ? " " + type : "");
+        t.style.display = "block";
+        clearTimeout(t._t);
+        t._t = setTimeout(function () {
+          t.style.display = "none";
+        }, 3500);
+      }
+      function openModal(id) {
+        gel(id).classList.add("open");
+      }
+      function closeModal(id) {
+        gel(id).classList.remove("open");
+      }
+
+      function fmtD(d) {
+        if (!d) return "—";
+        return new Date(d).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        });
+      }
+      function fmtUSD(n) {
+        return "$" + Number(n || 0).toFixed(2);
+      }
+      function badge(text, cls) {
+        return '<span class="badge b-' + cls + '">' + text + "</span>";
+      }
+      function tierBadge(t) {
+        return t
+          ? badge(t.toUpperCase(), t.toLowerCase())
+          : '<span style="color:#ccc;font-size:11px">—</span>';
+      }
+      function statusBadge(s) {
+        return badge(s || "pending", s || "pending");
+      }
+      function esc(s) {
+        return String(s || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+      function destroyChart(k) {
+        if (charts[k]) {
+          charts[k].destroy();
+          delete charts[k];
+        }
+      }
+
+      /* ── Image upload ── */
+      function handleFileSelect(input, prefix) {
+        var file = input.files[0];
+        if (!file) return;
+        if (file.size > 5 * 1024 * 1024) {
+          toast("Image too large — max 5MB", "err");
+          return;
+        }
+        pendingFiles[prefix] = file;
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          gel(prefix + "-img-preview").src = e.target.result;
+          gel(prefix + "-img-preview-wrap").style.display = "inline-block";
+          gel(prefix + "-current-img-wrap").style.display = "none";
+        };
+        reader.readAsDataURL(file);
+      }
+      function handleDragOver(e, zoneId) {
+        e.preventDefault();
+        gel(zoneId).classList.add("drag-over");
+      }
+      function handleDragLeave(zoneId) {
+        gel(zoneId).classList.remove("drag-over");
+      }
+      function handleDrop(e, prefix) {
+        e.preventDefault();
+        gel(prefix + "-upload-zone").classList.remove("drag-over");
+        var file = e.dataTransfer.files[0];
+        if (!file || !file.type.startsWith("image/")) {
+          toast("Please drop an image file", "err");
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          toast("Image too large — max 5MB", "err");
+          return;
+        }
+        pendingFiles[prefix] = file;
+        var reader = new FileReader();
+        reader.onload = function (ev) {
+          gel(prefix + "-img-preview").src = ev.target.result;
+          gel(prefix + "-img-preview-wrap").style.display = "inline-block";
+          gel(prefix + "-current-img-wrap").style.display = "none";
+        };
+        reader.readAsDataURL(file);
+      }
+      function removeImagePreview(prefix) {
+        pendingFiles[prefix] = null;
+        gel(prefix + "-img-preview-wrap").style.display = "none";
+        gel(prefix + "-img-file").value = "";
+        var cur = gel(prefix + "-current-img");
+        if (cur && cur.src && !cur.src.endsWith("/"))
+          gel(prefix + "-current-img-wrap").style.display = "flex";
+      }
+      async function uploadImage(prefix, bucket) {
+        var file = pendingFiles[prefix];
+        if (!file) return gel(prefix + "-img-url").value || null;
+        var ext = file.name.split(".").pop();
+        var path =
+          "products/" +
+          Date.now() +
+          "-" +
+          Math.random().toString(36).slice(2) +
+          "." +
+          ext;
+        var prog = gel(prefix + "-upload-progress");
+        prog.style.display = "block";
+        prog.textContent = "Uploading image…";
+        var r = await db.storage
+          .from(bucket)
+          .upload(path, file, { cacheControl: "3600", upsert: false });
+        if (r.error) {
+          prog.textContent = "Upload failed: " + r.error.message;
+          prog.style.color = "#b0321e";
+          return null;
+        }
+        var urlData = db.storage.from(bucket).getPublicUrl(path);
+        prog.style.display = "none";
+        pendingFiles[prefix] = null;
+        return urlData.data.publicUrl;
+      }
+      function resetUploadZone(prefix) {
+        pendingFiles[prefix] = null;
+        gel(prefix + "-img-file").value = "";
+        gel(prefix + "-img-preview-wrap").style.display = "none";
+        gel(prefix + "-current-img-wrap").style.display = "none";
+        gel(prefix + "-img-url").value = "";
+        gel(prefix + "-upload-progress").style.display = "none";
+        gel(prefix + "-upload-progress").style.color = "#a9683a";
+      }
+
+      /* ── MG Tabs ── */
+      function switchMGTab(tabId, btn) {
+        document.querySelectorAll(".tab-content").forEach(function (el) {
+          el.classList.remove("active");
+        });
+        document.querySelectorAll(".tab-btn").forEach(function (el) {
+          el.classList.remove("active");
+        });
+        gel("mgtab-" + tabId).classList.add("active");
+        if (btn) btn.classList.add("active");
+        if (tabId === "members") loadMemberships();
+        if (tabId === "mg-products") loadMGProducts();
+        if (tabId === "prices") loadMembershipPricesOnly();
+      }
+
+      /* ── LOGIN ── */
+      async function adminLogin() {
+        var em = gel("adm-email").value.trim(),
+          pw = gel("adm-pass").value,
+          msg = gel("adm-msg"),
+          btn = gel("adm-btn");
+        if (!em || !pw) {
+          msg.textContent = "Fill in both fields.";
+          return;
+        }
+        btn.disabled = true;
+        btn.textContent = "Signing in…";
+        msg.textContent = "";
+        var r = await db.auth.signInWithPassword({ email: em, password: pw });
+        if (r.error) {
+          msg.textContent = r.error.message;
+          btn.disabled = false;
+          btn.textContent = "Sign In";
+          return;
+        }
+        var p = await db
+          .from("profiles")
+          .select("is_admin,first_name,last_name")
+          .eq("id", r.data.user.id)
+          .single();
+        if (!p.data || !p.data.is_admin) {
+          msg.textContent = "Access denied — not an admin account.";
+          await db.auth.signOut();
+          btn.disabled = false;
+          btn.textContent = "Sign In";
+          return;
+        }
+        adminUser = r.data.user;
+        launchAdmin((p.data.first_name || "") + " " + (p.data.last_name || ""));
+      }
+      gel("adm-pass").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") adminLogin();
+      });
+
+      async function launchAdmin(name) {
+        gel("admin-name-display").textContent = name.trim() || adminUser.email;
+        gel("login-gate").style.display = "none";
+        gel("admin-shell").style.display = "block";
+        loadDashboard();
+        loadUsers();
+        loadOrders();
+        loadProducts();
+        loadMembershipPricesOnly();
+        loadMembershipPerks();
+        loadAnnouncements();
+        loadSettings();
+        loadChatUsers();
+        subscribeChatRealtime();
+      }
+
+      /* Auto-restore session on page reload */
+      (async function () {
+        var r = await db.auth.getSession().catch(function () {
+          return null;
+        });
+        if (!r || !r.data || !r.data.session) return;
+        var p = await db
+          .from("profiles")
+          .select("is_admin,first_name,last_name")
+          .eq("id", r.data.session.user.id)
+          .single();
+        if (!p.data || !p.data.is_admin) return;
+        adminUser = r.data.session.user;
+        launchAdmin((p.data.first_name || "") + " " + (p.data.last_name || ""));
+      })();
+
+      async function adminSignOut() {
+        await db.auth.signOut().catch(function () {});
+        window.location.href = "signup.html";
+      }
+
+      /* ── Section nav ── */
+      function showSection(id, btn) {
+        document.querySelectorAll(".admin-section").forEach(function (s) {
+          s.classList.remove("active");
+        });
+        document.querySelectorAll(".sidebar-link").forEach(function (l) {
+          l.classList.remove("active");
+        });
+        gel("sec-" + id).classList.add("active");
+        if (btn) btn.classList.add("active");
+        if (id === "analytics") renderAnalytics();
+      }
+
+      /* ── DASHBOARD ── */
+      async function loadDashboard() {
+        var r1 = await db
+          .from("profiles")
+          .select("id", { count: "exact", head: true });
+        var r2 = await db
+          .from("profiles")
+          .select("id", { count: "exact", head: true })
+          .not("membership_tier", "is", null);
+        var r3 = await db
+          .from("orders")
+          .select("id", { count: "exact", head: true })
+          .eq("status", "pending");
+        var r4 = await db
+          .from("orders")
+          .select("amount_usd")
+          .eq("status", "confirmed");
+        gel("s-users").textContent = r1.count ?? "—";
+        gel("s-members").textContent = r2.count ?? "—";
+        gel("s-pending").textContent = r3.count ?? "—";
+        var rev = (r4.data || []).reduce(function (s, o) {
+          return s + (o.amount_usd || 0);
+        }, 0);
+        gel("s-revenue").textContent = "$" + rev.toFixed(0);
+        var oR = await db
+          .from("orders")
+          .select("*,profiles(email)")
+          .order("created_at", { ascending: false })
+          .limit(8);
+        renderDashOrders(oR.data || []);
+        renderCryptoChart(oR.data || []);
+        renderTiersChartDash();
+      }
+      function renderDashOrders(orders) {
+        gel("dash-orders").innerHTML = orders.length
+          ? orders
+              .map(function (o) {
+                var rHtml = o.receipt_url
+                  ? '<a href="' +
+                    o.receipt_url +
+                    '" target="_blank"><img src="' +
+                    o.receipt_url +
+                    '" class="receipt-thumb" style="width:36px;height:36px"></a>'
+                  : '<span class="no-receipt">None</span>';
+                return (
+                  "<tr><td>" +
+                  (o.profiles ? esc(o.profiles.email) : "—") +
+                  "</td><td>" +
+                  esc(o.item_name || "—") +
+                  "</td><td>" +
+                  fmtUSD(o.amount_usd) +
+                  "</td><td>" +
+                  badge(
+                    (o.crypto_method || "").toUpperCase(),
+                    (o.crypto_method || "btc").toLowerCase(),
+                  ) +
+                  "</td><td>" +
+                  rHtml +
+                  "</td><td>" +
+                  statusBadge(o.status) +
+                  "</td><td>" +
+                  fmtD(o.created_at) +
+                  "</td></tr>"
+                );
+              })
+              .join("")
+          : '<tr><td colspan="7" style="text-align:center;color:#aaa;padding:20px">No orders yet</td></tr>';
+      }
+      function renderCryptoChart(orders) {
+        destroyChart("crypto");
+        var c = { BTC: 0, ETH: 0, USDT: 0 };
+        orders.forEach(function (o) {
+          if (o.crypto_method)
+            c[o.crypto_method.toUpperCase()] =
+              (c[o.crypto_method.toUpperCase()] || 0) + 1;
+        });
+        charts["crypto"] = new Chart(gel("ch-crypto").getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["BTC", "ETH", "USDT"],
+            datasets: [
+              {
+                data: [c.BTC, c.ETH, c.USDT],
+                backgroundColor: ["#f7931a", "#627eea", "#26a17b"],
+                borderWidth: 0,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "bottom",
+                labels: { font: { family: "Poppins", size: 11 } },
+              },
+            },
+          },
+        });
+      }
+      async function renderTiersChartDash() {
+        destroyChart("tiers");
+        var r = await db
+          .from("profiles")
+          .select("membership_tier")
+          .not("membership_tier", "is", null);
+        var c = { standard: 0, premium: 0, vip: 0 };
+        (r.data || []).forEach(function (p) {
+          if (p.membership_tier)
+            c[p.membership_tier] = (c[p.membership_tier] || 0) + 1;
+        });
+        charts["tiers"] = new Chart(gel("ch-tiers").getContext("2d"), {
+          type: "bar",
+          data: {
+            labels: ["Standard", "Premium", "VIP"],
+            datasets: [
+              {
+                data: [c.standard, c.premium, c.vip],
+                backgroundColor: [
+                  "rgba(68,67,52,.6)",
+                  "rgba(169,104,58,.75)",
+                  "#444334",
+                ],
+                borderRadius: 3,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+          },
+        });
+      }
+
+      /* ── USERS ── */
+      async function loadUsers() {
+        var r = await db
+          .from("profiles")
+          .select(
+            "id,first_name,last_name,email,membership_tier,created_at,is_banned",
+          )
+          .order("created_at", { ascending: false });
+        allUsers = r.data || [];
+        renderUsers(allUsers);
+      }
+      function renderUsers(users) {
+        gel("users-tbody").innerHTML = users.length
+          ? users
+              .map(function (u) {
+                var nm =
+                  ((u.first_name || "") + " " + (u.last_name || "")).trim() ||
+                  "—";
+                var st = u.is_banned ? "banned" : "active";
+                return (
+                  "<tr><td><strong>" +
+                  esc(nm) +
+                  "</strong></td><td>" +
+                  esc(u.email || "—") +
+                  "</td><td>" +
+                  tierBadge(u.membership_tier) +
+                  "</td><td>" +
+                  fmtD(u.created_at) +
+                  "</td><td>" +
+                  statusBadge(st) +
+                  '</td><td style="white-space:nowrap"><button class="btn btn-outline btn-sm" onclick="editUser(\'' +
+                  u.id +
+                  "','" +
+                  (u.membership_tier || "") +
+                  "','" +
+                  st +
+                  "','" +
+                  esc(nm) +
+                  '\')">Edit</button> <button class="btn btn-danger btn-sm" onclick="deleteUser(\'' +
+                  u.id +
+                  "')\">Delete</button></td></tr>"
+                );
+              })
+              .join("")
+          : '<tr><td colspan="6" style="text-align:center;color:#aaa;padding:20px">No users</td></tr>';
+      }
+      function filterUsers() {
+        var q = gel("user-search").value.toLowerCase();
+        renderUsers(
+          allUsers.filter(function (u) {
+            return (
+              (u.email || "").toLowerCase().includes(q) ||
+              ((u.first_name || "") + " " + (u.last_name || ""))
+                .toLowerCase()
+                .includes(q)
+            );
+          }),
+        );
+      }
+      function editUser(id, tier, status, name) {
+        gel("um-id").value = id;
+        gel("um-tier").value = tier;
+        gel("um-status").value = status;
+        gel("modal-user-title").textContent = "Edit: " + name;
+        openModal("modal-user");
+      }
+      async function saveUser() {
+        var id = gel("um-id").value;
+        var r = await db
+          .from("profiles")
+          .update({
+            membership_tier: gel("um-tier").value || null,
+            is_banned: gel("um-status").value === "banned",
+          })
+          .eq("id", id);
+        if (r.error) {
+          toast("Error: " + r.error.message, "err");
+          return;
+        }
+        toast("User updated", "ok");
+        closeModal("modal-user");
+        loadUsers();
+      }
+      async function deleteUser(id) {
+        if (!confirm("Permanently delete this user? Cannot be undone.")) return;
+        var r = await db.from("profiles").delete().eq("id", id);
+        if (r.error) {
+          toast("Error: " + r.error.message, "err");
+          return;
+        }
+        toast("User deleted", "ok");
+        loadUsers();
+      }
+
+      /* ── ORDERS ── */
+      async function loadOrders() {
+        var q = db
+          .from("orders")
+          .select("*,profiles(email,first_name,last_name)")
+          .order("created_at", { ascending: false });
+        var f = gel("order-status-filter").value;
+        if (f) q = q.eq("status", f);
+        var r = await q;
+        allOrders = r.data || [];
+        renderOrders(allOrders);
+      }
+      function renderOrders(orders) {
+        gel("orders-tbody").innerHTML = orders.length
+          ? orders
+              .map(function (o) {
+                var email = o.profiles ? esc(o.profiles.email) : "—";
+                var rHtml = o.receipt_url
+                  ? '<a href="' +
+                    o.receipt_url +
+                    '" target="_blank"><img src="' +
+                    o.receipt_url +
+                    '" class="receipt-thumb" style="width:36px;height:36px"></a>'
+                  : '<span class="no-receipt">None</span>';
+                var txHtml = o.tx_hash
+                  ? '<span style="font-family:monospace;font-size:10px;color:#888">' +
+                    esc(o.tx_hash).slice(0, 12) +
+                    "…</span>"
+                  : '<span class="no-receipt">—</span>';
+                var oData = JSON.stringify({
+                  id: o.id,
+                  status: o.status || "pending",
+                  item: esc(o.item_name || "—"),
+                  email: email,
+                  amount: fmtUSD(o.amount_usd),
+                  method: (o.crypto_method || "").toUpperCase(),
+                  txhash: esc(o.tx_hash || ""),
+                  receipt: o.receipt_url || "",
+                });
+                return (
+                  '<tr><td style="font-size:10px;color:#aaa;font-family:monospace">' +
+                  (o.id || "").slice(0, 8) +
+                  "</td><td>" +
+                  email +
+                  "</td><td>" +
+                  esc(o.item_name || "—") +
+                  "</td><td>" +
+                  fmtUSD(o.amount_usd) +
+                  "</td><td>" +
+                  badge(
+                    (o.crypto_method || "").toUpperCase(),
+                    (o.crypto_method || "btc").toLowerCase(),
+                  ) +
+                  "</td><td>" +
+                  txHtml +
+                  "</td><td>" +
+                  rHtml +
+                  "</td><td>" +
+                  statusBadge(o.status) +
+                  "</td><td>" +
+                  fmtD(o.created_at) +
+                  '</td><td><button class="btn btn-outline btn-sm" onclick=\'reviewOrder(' +
+                  oData +
+                  ")'>Review</button></td></tr>"
+                );
+              })
+              .join("")
+          : '<tr><td colspan="10" style="text-align:center;color:#aaa;padding:20px">No orders</td></tr>';
+      }
+      function filterOrders() {
+        var q = gel("order-search").value.toLowerCase();
+        renderOrders(
+          allOrders.filter(function (o) {
+            return (
+              esc(o.item_name || "")
+                .toLowerCase()
+                .includes(q) ||
+              (o.profiles && (o.profiles.email || "").toLowerCase().includes(q))
+            );
+          }),
+        );
+      }
+      function reviewOrder(o) {
+        gel("om-id").value = o.id;
+        gel("om-status").value = o.status;
+        gel("om-item").textContent = o.item;
+        gel("om-email").textContent = o.email;
+        gel("om-amount").textContent = o.amount;
+        gel("om-method").textContent = o.method;
+        gel("om-txhash").textContent = o.txhash || "—";
+        gel("om-note").value = "";
+        var hasReceipt = !!o.receipt;
+        gel("om-receipt-wrap").style.display = hasReceipt ? "block" : "none";
+        gel("om-no-receipt").style.display = hasReceipt ? "none" : "block";
+        if (hasReceipt) {
+          var isPdf = o.receipt.toLowerCase().endsWith(".pdf");
+          gel("om-receipt-img").src = isPdf ? "" : o.receipt;
+          gel("om-receipt-img").style.display = isPdf ? "none" : "block";
+          gel("om-receipt-link").href = o.receipt;
+          gel("om-receipt-open").href = o.receipt;
+        }
+        openModal("modal-order");
+      }
+      async function saveOrder(forceStatus) {
+        var id = gel("om-id").value,
+          status = forceStatus || gel("om-status").value,
+          note = gel("om-note").value;
+        gel("om-status").value = status;
+        var r = await db
+          .from("orders")
+          .update({ status: status, admin_note: note })
+          .eq("id", id);
+        if (r.error) {
+          toast("Error: " + r.error.message, "err");
+          return;
+        }
+        /* Auto-grant membership on confirm */
+        if (status === "confirmed") {
+          var order = allOrders.find(function (o) {
+            return o.id === id;
+          });
+          if (order && order.item_type === "membership" && order.user_id) {
+            var tier = order.item_key
+              ? order.item_key.replace("membership-", "")
+              : "";
+            if (tier)
+              await db
+                .from("profiles")
+                .update({
+                  membership_tier: tier,
+                  membership_since: new Date().toISOString(),
+                })
+                .eq("id", order.user_id);
+          }
+          if (order && order.user_id)
+            await db.from("chat_messages").insert({
+              user_id: order.user_id,
+              sender_role: "admin",
+              message:
+                '✅ Your payment for "' +
+                order.item_name +
+                '" has been confirmed! Thank you. ' +
+                (note ? note : ""),
+            });
+        }
+        if (status === "rejected") {
+          var order = allOrders.find(function (o) {
+            return o.id === id;
+          });
+          if (order && order.user_id)
+            await db.from("chat_messages").insert({
+              user_id: order.user_id,
+              sender_role: "admin",
+              message:
+                '❌ Your payment for "' +
+                order.item_name +
+                '" could not be verified. ' +
+                (note ? note : "Please contact support."),
+            });
+        }
+        toast("Order updated to " + status, "ok");
+        closeModal("modal-order");
+        loadOrders();
+        loadDashboard();
+      }
+
+      /* ── PRODUCTS ── */
+      async function loadProducts() {
+        var r = await db
+          .from("products")
+          .select("*")
+          .order("created_at", { ascending: false });
+        var rows = r.data || [];
+        gel("products-tbody").innerHTML = rows.length
+          ? rows
+              .map(function (p) {
+                var imgH = p.image_path
+                  ? '<img class="product-img-thumb" src="' +
+                    esc(p.image_path) +
+                    '" alt="">'
+                  : '<div class="no-img">No<br>img</div>';
+                var vis = p.visible
+                  ? '<span style="color:#2a7a4b;font-weight:600;font-size:12px">Yes</span>'
+                  : '<span style="color:#aaa;font-size:12px">Hidden</span>';
+                var stock = p.in_stock
+                  ? badge("In Stock", "instock")
+                  : badge("Out of Stock", "outofstock");
+                return (
+                  "<tr><td>" +
+                  imgH +
+                  "</td><td><strong>" +
+                  esc(p.name || "—") +
+                  '</strong><br><span style="font-size:11px;color:#888">' +
+                  esc(p.item_key || "") +
+                  "</span></td><td>" +
+                  badge(p.category || "—", "standard") +
+                  "</td><td>" +
+                  fmtUSD(p.price) +
+                  "</td><td>" +
+                  stock +
+                  "</td><td>" +
+                  vis +
+                  '</td><td style="white-space:nowrap"><button class="btn btn-outline btn-sm" onclick=\'editProduct(' +
+                  JSON.stringify(p) +
+                  ')\'>Edit</button> <button class="btn btn-danger btn-sm" onclick="deleteProduct(\'' +
+                  p.id +
+                  "')\">Delete</button></td></tr>"
+                );
+              })
+              .join("")
+          : '<tr><td colspan="7" style="text-align:center;color:#aaa;padding:20px">No products. Add your first one!</td></tr>';
+      }
+      function openProductModal() {
+        gel("modal-product-title").textContent = "Add Product";
+        gel("pm-id").value = "";
+        gel("pm-name").value = "";
+        gel("pm-cat").value = "vinyl";
+        gel("pm-price").value = "";
+        gel("pm-key").value = "";
+        gel("pm-desc").value = "";
+        gel("pm-visible").checked = true;
+        gel("pm-stock").checked = true;
+        gel("pm-save-btn").disabled = false;
+        gel("pm-save-btn").textContent = "Save Product";
+        resetUploadZone("pm");
+        openModal("modal-product");
+      }
+      function editProduct(p) {
+        gel("modal-product-title").textContent = "Edit Product";
+        gel("pm-id").value = p.id;
+        gel("pm-name").value = p.name || "";
+        gel("pm-cat").value = p.category || "vinyl";
+        gel("pm-price").value = p.price || "";
+        gel("pm-key").value = p.item_key || "";
+        gel("pm-desc").value = p.description || "";
+        gel("pm-visible").checked = !!p.visible;
+        gel("pm-stock").checked = p.in_stock !== false;
+        gel("pm-save-btn").disabled = false;
+        gel("pm-save-btn").textContent = "Save Product";
+        resetUploadZone("pm");
+        openModal("modal-product");
+      }
+      async function saveProduct() {
+        var btn = gel("pm-save-btn");
+        btn.disabled = true;
+        btn.innerHTML = 'Saving…<span class="spin"></span>';
+        var imgUrl = await uploadImage("pm", "product-images");
+        if (imgUrl === null && pendingFiles["pm"]) {
+          btn.disabled = false;
+          btn.textContent = "Save Product";
+          return;
+        }
+        var obj = {
+          name: gel("pm-name").value.trim(),
+          category: gel("pm-cat").value,
+          price: parseFloat(gel("pm-price").value) || 0,
+          item_key: gel("pm-key").value.trim(),
+          description: gel("pm-desc").value.trim(),
+          visible: gel("pm-visible").checked,
+          in_stock: gel("pm-stock").checked,
+        };
+        if (imgUrl) obj.image_path = imgUrl;
+        if (!obj.name) {
+          toast("Name required", "err");
+          btn.disabled = false;
+          btn.textContent = "Save Product";
+          return;
+        }
+        var id = gel("pm-id").value;
+        var r = id
+          ? await db.from("products").update(obj).eq("id", id)
+          : await db.from("products").insert(obj);
+        if (r.error) {
+          toast("Error: " + r.error.message, "err");
+          btn.disabled = false;
+          btn.textContent = "Save Product";
+          return;
+        }
+        toast("Product saved!", "ok");
+        closeModal("modal-product");
+        loadProducts();
+        btn.disabled = false;
+        btn.textContent = "Save Product";
+      }
+      async function deleteProduct(id) {
+        if (!confirm("Delete this product?")) return;
+        var r = await db.from("products").delete().eq("id", id);
+        if (r.error) {
+          toast("Error: " + r.error.message, "err");
+          return;
+        }
+        toast("Deleted", "ok");
+        loadProducts();
+      }
+
+      /* ── MEMBERSHIP PRICING ── */
+      async function loadMembershipPricesOnly() {
+        var pr = await db.from("membership_prices").select("tier,price");
+        if (pr.data)
+          pr.data.forEach(function (r) {
+            var el = gel("price-" + r.tier);
+            if (el) el.value = r.price;
+          });
+      }
+      async function saveMembershipPrices() {
+        var btn = gel("save-prices-btn");
+        btn.disabled = true;
+        btn.innerHTML = 'Saving…<span class="spin"></span>';
+        var ops = ["standard", "premium", "vip"].map(function (t) {
+          return db
+            .from("membership_prices")
+            .upsert(
+              { tier: t, price: parseFloat(gel("price-" + t).value) || 0 },
+              { onConflict: "tier" },
+            );
+        });
+        var results = await Promise.all(ops);
+        var err = results.find(function (r) {
+          return r.error;
+        });
+        btn.disabled = false;
+        btn.textContent = "Save Prices — Updates Live on Site";
+        if (err) {
+          toast("Error: " + err.error.message, "err");
+          return;
+        }
+        toast("Prices updated — live on site immediately!", "ok");
+      }
+
+      /* ── MG PRODUCTS ── */
+      async function loadMGProducts() {
+        var r = await db
+          .from("mg_products")
+          .select("*")
+          .order("created_at", { ascending: false })
+          .catch(function () {
+            return { data: [] };
+          });
+        var items = r.data || [];
+        var container = gel("mg-products-list");
+        if (!items.length) {
+          container.innerHTML =
+            '<div style="padding:30px;text-align:center;color:#aaa;font-size:13px">No packages yet. Add your first one!</div>';
+          return;
+        }
+        container.innerHTML = items
+          .map(function (p) {
+            var imgHtml = p.image_path
+              ? '<img src="' + esc(p.image_path) + '" />'
+              : '<div style="width:72px;height:72px;background:rgba(68,67,52,.06);display:flex;align-items:center;justify-content:center;font-size:10px;color:#ccc;">No img</div>';
+            var visBadge = p.visible
+              ? '<span style="color:#2a7a4b;font-size:11px;font-weight:600">● Visible</span>'
+              : '<span style="color:#ccc;font-size:11px">● Hidden</span>';
+            var availBadge =
+              p.available !== false
+                ? badge("Available", "instock")
+                : badge("Unavailable", "outofstock");
+            var tierLabel =
+              p.tier_target && p.tier_target !== "all"
+                ? tierBadge(p.tier_target)
+                : '<span style="font-size:11px;color:#888">All Tiers</span>';
+            return (
+              '<div class="mg-product-card"><div class="mg-product-img">' +
+              imgHtml +
+              '</div><div class="mg-product-info"><div class="mg-product-name">' +
+              esc(p.name || "—") +
+              '</div><div class="mg-product-desc">' +
+              esc(p.description || "") +
+              '</div><div class="mg-product-meta"><span class="mg-product-price">' +
+              fmtUSD(p.price) +
+              "</span>" +
+              tierLabel +
+              availBadge +
+              visBadge +
+              '</div></div><div class="mg-product-actions"><button class="btn btn-outline btn-sm" onclick=\'editMGProduct(' +
+              JSON.stringify(p) +
+              ')\'>Edit</button><button class="btn btn-danger btn-sm" onclick="deleteMGProduct(\'' +
+              p.id +
+              "')\">Delete</button></div></div>"
+            );
+          })
+          .join("");
+      }
+      function openMGProductModal() {
+        gel("modal-mg-product-title").textContent = "Add Package";
+        gel("mgp-id").value = "";
+        gel("mgp-name").value = "";
+        gel("mgp-tier").value = "all";
+        gel("mgp-price").value = "";
+        gel("mgp-key").value = "";
+        gel("mgp-desc").value = "";
+        gel("mgp-visible").checked = true;
+        gel("mgp-available").checked = true;
+        gel("mgp-save-btn").disabled = false;
+        gel("mgp-save-btn").textContent = "Save Package";
+        resetUploadZone("mgp");
+        openModal("modal-mg-product");
+      }
+      function editMGProduct(p) {
+        gel("modal-mg-product-title").textContent = "Edit Package";
+        gel("mgp-id").value = p.id;
+        gel("mgp-name").value = p.name || "";
+        gel("mgp-tier").value = p.tier_target || "all";
+        gel("mgp-price").value = p.price || "";
+        gel("mgp-key").value = p.item_key || "";
+        gel("mgp-desc").value = p.description || "";
+        gel("mgp-visible").checked = !!p.visible;
+        gel("mgp-available").checked = p.available !== false;
+        gel("mgp-save-btn").disabled = false;
+        gel("mgp-save-btn").textContent = "Save Package";
+        resetUploadZone("mgp");
+        openModal("modal-mg-product");
+      }
+      async function saveMGProduct() {
+        var btn = gel("mgp-save-btn");
+        btn.disabled = true;
+        btn.innerHTML = 'Saving…<span class="spin"></span>';
+        var imgUrl = await uploadImage("mgp", "mg-product-images");
+        if (imgUrl === null && pendingFiles["mgp"]) {
+          btn.disabled = false;
+          btn.textContent = "Save Package";
+          return;
+        }
+        var obj = {
+          name: gel("mgp-name").value.trim(),
+          tier_target: gel("mgp-tier").value,
+          price: parseFloat(gel("mgp-price").value) || 0,
+          item_key: gel("mgp-key").value.trim(),
+          description: gel("mgp-desc").value.trim(),
+          visible: gel("mgp-visible").checked,
+          available: gel("mgp-available").checked,
+        };
+        if (imgUrl) obj.image_path = imgUrl;
+        if (!obj.name) {
+          toast("Name required", "err");
+          btn.disabled = false;
+          btn.textContent = "Save Package";
+          return;
+        }
+        var id = gel("mgp-id").value;
+        var r = id
+          ? await db.from("mg_products").update(obj).eq("id", id)
+          : await db.from("mg_products").insert(obj);
+        if (r.error) {
+          toast("Error: " + r.error.message, "err");
+          btn.disabled = false;
+          btn.textContent = "Save Package";
+          return;
+        }
+        toast("Package saved!", "ok");
+        closeModal("modal-mg-product");
+        loadMGProducts();
+        btn.disabled = false;
+        btn.textContent = "Save Package";
+      }
+      async function deleteMGProduct(id) {
+        if (!confirm("Delete this package?")) return;
+        var r = await db.from("mg_products").delete().eq("id", id);
+        if (r.error) {
+          toast("Error: " + r.error.message, "err");
+          return;
+        }
+        toast("Deleted", "ok");
+        loadMGProducts();
+      }
+
+      /* ── MEMBERSHIPS (active members tab) ── */
+      async function loadMemberships() {
+        var q = db
+          .from("profiles")
+          .select(
+            "id,first_name,last_name,email,membership_tier,membership_since",
+          )
+          .not("membership_tier", "is", null)
+          .order("membership_since", { ascending: false });
+        var f = gel("mem-filter").value;
+        if (f) q = q.eq("membership_tier", f);
+        var r = await q;
+        var rows = r.data || [];
+        gel("mem-tbody").innerHTML = rows.length
+          ? rows
+              .map(function (u) {
+                var nm =
+                  ((u.first_name || "") + " " + (u.last_name || "")).trim() ||
+                  "—";
+                return (
+                  "<tr><td><strong>" +
+                  esc(nm) +
+                  "</strong></td><td>" +
+                  esc(u.email || "—") +
+                  "</td><td>" +
+                  tierBadge(u.membership_tier) +
+                  "</td><td>" +
+                  fmtD(u.membership_since) +
+                  '</td><td><button class="btn btn-danger btn-sm" onclick="revokeMembership(\'' +
+                  u.id +
+                  "')\">Revoke</button></td></tr>"
+                );
+              })
+              .join("")
+          : '<tr><td colspan="5" style="text-align:center;color:#aaa;padding:20px">No members</td></tr>';
+      }
+      async function revokeMembership(id) {
+        if (!confirm("Revoke this membership?")) return;
+        var r = await db
+          .from("profiles")
+          .update({ membership_tier: null, membership_since: null })
+          .eq("id", id);
+        if (r.error) {
+          toast("Error: " + r.error.message, "err");
+          return;
+        }
+        toast("Membership revoked", "ok");
+        loadMemberships();
+        loadDashboard();
+      }
+
+      /* ── PERKS ── */
+      var TIERS = ["standard", "premium", "vip"];
+      function renderPerkRows(tier, perks) {
+        var container = gel("perks-list-" + tier);
+        container.innerHTML = "";
+        (perks || []).forEach(function (perk, idx) {
+          container.appendChild(buildPerkRow(tier, perk, idx));
+        });
+      }
+      function buildPerkRow(tier, value, idx) {
+        var row = document.createElement("div");
+        row.className = "perk-row";
+        row.dataset.tier = tier;
+        row.dataset.idx = idx;
+        row.innerHTML =
+          '<span class="perk-handle" title="Drag to reorder">&#9776;</span><input type="text" value="' +
+          esc(value || "") +
+          '" placeholder="Enter perk…"/><button class="perk-remove" title="Remove" onclick="removePerkRow(this)">&#x2715;</button>';
+        return row;
+      }
+      function addPerkRow(tier) {
+        var container = gel("perks-list-" + tier);
+        container.appendChild(
+          buildPerkRow(tier, "", container.children.length),
+        );
+      }
+      function removePerkRow(btn) {
+        btn.closest(".perk-row").remove();
+      }
+      function collectPerks(tier) {
+        return Array.from(gel("perks-list-" + tier).querySelectorAll("input"))
+          .map(function (i) {
+            return i.value.trim();
+          })
+          .filter(Boolean);
+      }
+      async function loadMembershipPerks() {
+        var r = await db
+          .from("membership_perks")
+          .select("tier,perk,sort_order")
+          .order("sort_order")
+          .catch(function () {
+            return { data: [] };
+          });
+        var grouped = { standard: [], premium: [], vip: [] };
+        (r.data || []).forEach(function (row) {
+          if (grouped[row.tier]) grouped[row.tier].push(row.perk);
+        });
+        TIERS.forEach(function (t) {
+          renderPerkRows(t, grouped[t]);
+        });
+      }
+      async function saveMembershipPerks() {
+        var del = await db.from("membership_perks").delete().in("tier", TIERS);
+        if (del.error) {
+          toast("Error: " + del.error.message, "err");
+          return;
+        }
+        var rows = [];
+        TIERS.forEach(function (tier) {
+          collectPerks(tier).forEach(function (perk, i) {
+            rows.push({ tier: tier, perk: perk, sort_order: i });
+          });
+        });
+        if (rows.length) {
+          var ins = await db.from("membership_perks").insert(rows);
+          if (ins.error) {
+            toast("Error: " + ins.error.message, "err");
+            return;
+          }
+        }
+        toast("Perks updated — live on site immediately!", "ok");
+      }
+
+      /* ── CHAT ── */
+      async function loadChatUsers() {
+        var r = await db
+          .from("chat_messages")
+          .select(
+            "user_id,message,created_at,sender_role,profiles(first_name,last_name,email)",
+          )
+          .order("created_at", { ascending: false });
+        var seen = {},
+          users = [];
+        (r.data || []).forEach(function (m) {
+          if (!seen[m.user_id]) {
+            seen[m.user_id] = {
+              user_id: m.user_id,
+              last_msg: m.message,
+              last_ts: m.created_at,
+              unread: 0,
+              profile: m.profiles,
+            };
+            users.push(seen[m.user_id]);
+          }
+          if (m.sender_role === "user" && !m.read_by_admin)
+            seen[m.user_id].unread++;
+        });
+        var totalUnread = users.reduce(function (s, u) {
+          return s + u.unread;
+        }, 0);
+        var ub = gel("chat-unread-total");
+        if (totalUnread > 0) {
+          ub.style.display = "inline";
+          ub.textContent = totalUnread > 99 ? "99+" : totalUnread;
+        } else {
+          ub.style.display = "none";
+        }
+        var ul = gel("chat-user-list");
+        ul.innerHTML = users.length
+          ? users
+              .map(function (u) {
+                var p = u.profile || {};
+                var nm =
+                  ((p.first_name || "") + " " + (p.last_name || "")).trim() ||
+                  p.email ||
+                  u.user_id.slice(0, 8);
+                var initials =
+                  nm
+                    .split(" ")
+                    .map(function (w) {
+                      return w[0];
+                    })
+                    .join("")
+                    .toUpperCase()
+                    .slice(0, 2) || "?";
+                var unreadHtml =
+                  u.unread > 0
+                    ? '<span class="chat-user-unread">' + u.unread + "</span>"
+                    : "";
+                return (
+                  '<div class="chat-user-item" id="cui-' +
+                  u.user_id +
+                  '" onclick="openChatUser(\'' +
+                  u.user_id +
+                  "','" +
+                  esc(nm) +
+                  "','" +
+                  esc(p.email || "") +
+                  '\')"><div class="chat-user-avatar">' +
+                  initials +
+                  '</div><div style="min-width:0"><div class="chat-user-name">' +
+                  esc(nm) +
+                  '</div><div class="chat-user-preview">' +
+                  esc(u.last_msg || "") +
+                  "</div></div>" +
+                  unreadHtml +
+                  "</div>"
+                );
+              })
+              .join("")
+          : '<div style="padding:16px;color:#aaa;font-size:13px">No conversations yet</div>';
+      }
+      async function openChatUser(userId, name, email) {
+        activeChatUserId = userId;
+        document.querySelectorAll(".chat-user-item").forEach(function (el) {
+          el.classList.remove("active");
+        });
+        var cui = gel("cui-" + userId);
+        if (cui) cui.classList.add("active");
+        var unread = cui ? cui.querySelector(".chat-user-unread") : null;
+        if (unread) unread.remove();
+        var r = await db
+          .from("chat_messages")
+          .select("*")
+          .eq("user_id", userId)
+          .order("created_at", { ascending: true })
+          .limit(100);
+        var msgs = r.data || [];
+        gel("chat-main-area").innerHTML =
+          '<div class="chat-main-header"><div><div class="chat-main-name">' +
+          esc(name) +
+          '</div><div class="chat-main-email">' +
+          esc(email) +
+          "</div></div></div>" +
+          '<div class="chat-msgs" id="chat-msgs-box">' +
+          (msgs.length
+            ? msgs
+                .map(function (m) {
+                  return (
+                    '<div class="chat-msg-bubble ' +
+                    (m.sender_role === "admin" ? "admin" : "user") +
+                    '">' +
+                    esc(m.message) +
+                    '<div class="chat-ts">' +
+                    new Date(m.created_at).toLocaleTimeString("en-US", {
+                      hour: "numeric",
+                      minute: "2-digit",
+                    }) +
+                    "</div></div>"
+                  );
+                })
+                .join("")
+            : '<div style="text-align:center;color:#bbb;font-size:13px;padding:20px">No messages yet</div>') +
+          "</div>" +
+          '<div class="chat-reply-row"><input type="text" class="chat-reply-input" id="admin-chat-input" placeholder="Reply to ' +
+          esc(name) +
+          '…" onkeydown="if(event.key===\'Enter\')adminSendChat()"><button class="chat-reply-send" onclick="adminSendChat()">Send</button></div>';
+        var box = gel("chat-msgs-box");
+        if (box)
+          setTimeout(function () {
+            box.scrollTop = box.scrollHeight;
+          }, 50);
+        await db
+          .from("chat_messages")
+          .update({ read_by_admin: true })
+          .eq("user_id", userId)
+          .eq("sender_role", "user");
+      }
+      async function adminSendChat() {
+        var input = gel("admin-chat-input");
+        if (!input || !activeChatUserId) return;
+        var msg = input.value.trim();
+        if (!msg) return;
+        input.value = "";
+        var box = gel("chat-msgs-box");
+        if (box) {
+          var div = document.createElement("div");
+          div.className = "chat-msg-bubble admin";
+          div.innerHTML =
+            esc(msg) +
+            '<div class="chat-ts">' +
+            new Date().toLocaleTimeString("en-US", {
+              hour: "numeric",
+              minute: "2-digit",
+            }) +
+            "</div>";
+          box.appendChild(div);
+          box.scrollTop = box.scrollHeight;
+        }
+        await db.from("chat_messages").insert({
+          user_id: activeChatUserId,
+          sender_role: "admin",
+          message: msg,
+        });
+      }
+      function subscribeChatRealtime() {
+        chatChannel = db
+          .channel("admin-chat-global")
+          .on(
+            "postgres_changes",
+            { event: "INSERT", schema: "public", table: "chat_messages" },
+            function (payload) {
+              var m = payload.new;
+              if (m.sender_role === "user") {
+                if (m.user_id === activeChatUserId) {
+                  var box = gel("chat-msgs-box");
+                  if (box) {
+                    var div = document.createElement("div");
+                    div.className = "chat-msg-bubble user";
+                    div.innerHTML =
+                      esc(m.message) +
+                      '<div class="chat-ts">' +
+                      new Date(m.created_at).toLocaleTimeString("en-US", {
+                        hour: "numeric",
+                        minute: "2-digit",
+                      }) +
+                      "</div>";
+                    box.appendChild(div);
+                    box.scrollTop = box.scrollHeight;
+                  }
+                  db.from("chat_messages")
+                    .update({ read_by_admin: true })
+                    .eq("id", m.id);
+                }
+                loadChatUsers();
+              }
+            },
+          )
+          .subscribe();
+      }
+
+      /* ── ANNOUNCEMENTS ── */
+      async function loadAnnouncements() {
+        var r = await db
+          .from("announcements")
+          .select("*")
+          .order("created_at", { ascending: false });
+        var items = r.data || [];
+        gel("ann-list").innerHTML = items.length
+          ? items
+              .map(function (a) {
+                return (
+                  '<div class="admin-card" style="margin-bottom:14px;padding:16px 20px"><div style="display:flex;align-items:flex-start;gap:16px"><div style="flex:1"><div style="font-weight:700;font-size:15px;color:#444334;margin-bottom:4px">' +
+                  esc(a.title || "Untitled") +
+                  '</div><div style="font-size:13px;color:#666;line-height:1.5;margin-bottom:6px">' +
+                  esc(a.body || "") +
+                  '</div><div style="font-size:11px;color:#aaa">' +
+                  fmtD(a.created_at) +
+                  " · Audience: " +
+                  esc(a.audience || "all") +
+                  '</div></div><div style="display:flex;gap:8px;flex-shrink:0"><button class="btn btn-outline btn-sm" onclick=\'editAnn(' +
+                  JSON.stringify(a) +
+                  ')\'>Edit</button><button class="btn btn-danger btn-sm" onclick="deleteAnn(\'' +
+                  a.id +
+                  "')\">Delete</button></div></div></div>"
+                );
+              })
+              .join("")
+          : '<div style="padding:24px;color:#aaa;font-size:13px;text-align:center">No announcements yet.</div>';
+      }
+      function openAnnModal() {
+        gel("modal-ann-title").textContent = "New Announcement";
+        gel("ann-id").value = "";
+        gel("ann-title").value = "";
+        gel("ann-body").value = "";
+        gel("ann-audience").value = "all";
+        openModal("modal-ann");
+      }
+      function editAnn(a) {
+        gel("modal-ann-title").textContent = "Edit Announcement";
+        gel("ann-id").value = a.id;
+        gel("ann-title").value = a.title || "";
+        gel("ann-body").value = a.body || "";
+        gel("ann-audience").value = a.audience || "all";
+        openModal("modal-ann");
+      }
+      async function saveAnn() {
+        var id = gel("ann-id").value,
+          obj = {
+            title: gel("ann-title").value.trim(),
+            body: gel("ann-body").value.trim(),
+            audience: gel("ann-audience").value,
+          };
+        if (!obj.title) {
+          toast("Title required", "err");
+          return;
+        }
+        var r = id
+          ? await db.from("announcements").update(obj).eq("id", id)
+          : await db.from("announcements").insert(obj);
+        if (r.error) {
+          toast("Error: " + r.error.message, "err");
+          return;
+        }
+        toast("Published!", "ok");
+        closeModal("modal-ann");
+        loadAnnouncements();
+      }
+      async function deleteAnn(id) {
+        if (!confirm("Delete?")) return;
+        await db.from("announcements").delete().eq("id", id);
+        toast("Deleted", "ok");
+        loadAnnouncements();
+      }
+
+      /* ── ANALYTICS ── */
+      async function renderAnalytics() {
+        var r = await db
+          .from("orders")
+          .select("amount_usd,crypto_method,item_type,created_at")
+          .eq("status", "confirmed");
+        var data = r.data || [];
+        var total = data.reduce(function (s, o) {
+          return s + (o.amount_usd || 0);
+        }, 0);
+        var byC = { btc: 0, eth: 0, usdt: 0 };
+        data.forEach(function (o) {
+          if (o.crypto_method)
+            byC[o.crypto_method.toLowerCase()] =
+              (byC[o.crypto_method.toLowerCase()] || 0) + (o.amount_usd || 0);
+        });
+        gel("an-total").textContent = "$" + total.toFixed(0);
+        gel("an-btc").textContent = "$" + byC.btc.toFixed(0);
+        gel("an-eth").textContent = "$" + byC.eth.toFixed(0);
+        gel("an-usdt").textContent = "$" + byC.usdt.toFixed(0);
+        var labels = [],
+          counts = [];
+        for (var i = 29; i >= 0; i--) {
+          var d = new Date();
+          d.setDate(d.getDate() - i);
+          labels.push(
+            d.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
+          );
+          counts.push(0);
+        }
+        var ot = await db
+          .from("orders")
+          .select("created_at")
+          .gte("created_at", new Date(Date.now() - 30 * 864e5).toISOString());
+        (ot.data || []).forEach(function (o) {
+          var diff = Math.floor((Date.now() - new Date(o.created_at)) / 864e5);
+          var idx = 29 - diff;
+          if (idx >= 0) counts[idx]++;
+        });
+        destroyChart("ot");
+        charts["ot"] = new Chart(gel("ch-orders-time").getContext("2d"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Orders",
+                data: counts,
+                borderColor: "#a9683a",
+                backgroundColor: "rgba(169,104,58,.1)",
+                fill: true,
+                tension: 0.4,
+                pointRadius: 2,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+          },
+        });
+        var memR = data
+          .filter(function (o) {
+            return o.item_type === "membership";
+          })
+          .reduce(function (s, o) {
+            return s + (o.amount_usd || 0);
+          }, 0);
+        var mktR = data
+          .filter(function (o) {
+            return o.item_type === "product";
+          })
+          .reduce(function (s, o) {
+            return s + (o.amount_usd || 0);
+          }, 0);
+        destroyChart("rs");
+        charts["rs"] = new Chart(gel("ch-rev-split").getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Meet & Greet", "Private Meet Up"],
+            datasets: [
+              {
+                data: [memR, mktR],
+                backgroundColor: ["#444334", "#a9683a"],
+                borderWidth: 0,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "bottom",
+                labels: { font: { family: "Poppins", size: 11 } },
+              },
+            },
+          },
+        });
+        var sc = new Array(30).fill(0);
+        var sr = await db
+          .from("profiles")
+          .select("created_at")
+          .gte("created_at", new Date(Date.now() - 30 * 864e5).toISOString());
+        (sr.data || []).forEach(function (p) {
+          var diff = Math.floor((Date.now() - new Date(p.created_at)) / 864e5);
+          var idx = 29 - diff;
+          if (idx >= 0) sc[idx]++;
+        });
+        destroyChart("sg");
+        charts["sg"] = new Chart(gel("ch-signups").getContext("2d"), {
+          type: "bar",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Signups",
+                data: sc,
+                backgroundColor: "rgba(68,67,52,.6)",
+                borderRadius: 2,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+          },
+        });
+        var tr = await db
+          .from("profiles")
+          .select("membership_tier")
+          .not("membership_tier", "is", null);
+        var tc = { standard: 0, premium: 0, vip: 0 };
+        (tr.data || []).forEach(function (p) {
+          if (p.membership_tier)
+            tc[p.membership_tier] = (tc[p.membership_tier] || 0) + 1;
+        });
+        destroyChart("ta");
+        charts["ta"] = new Chart(gel("ch-tiers-an").getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Standard", "Premium", "VIP"],
+            datasets: [
+              {
+                data: [tc.standard, tc.premium, tc.vip],
+                backgroundColor: [
+                  "rgba(68,67,52,.55)",
+                  "rgba(169,104,58,.8)",
+                  "#444334",
+                ],
+                borderWidth: 0,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "bottom",
+                labels: { font: { family: "Poppins", size: 11 } },
+              },
+            },
+          },
+        });
+      }
+
+      /* ── SETTINGS ── */
+      async function loadSettings() {
+        var r = await db.from("site_settings").select("key,value");
+        var m = {};
+        (r.data || []).forEach(function (row) {
+          m[row.key] = row.value;
+        });
+        if (m.wallet_btc) gel("set-btc").value = m.wallet_btc;
+        if (m.wallet_eth) gel("set-eth").value = m.wallet_eth;
+        if (m.wallet_usdt) gel("set-usdt").value = m.wallet_usdt;
+        gel("tog-crypto").checked = m.payment_crypto !== "false";
+        gel("tog-stripe").checked = m.payment_stripe === "true";
+        gel("tog-maint").checked = m.maintenance_mode === "true";
+        gel("tog-reg").checked = m.allow_registrations !== "false";
+      }
+      async function upsert(key, value) {
+        return db
+          .from("site_settings")
+          .upsert({ key: key, value: value }, { onConflict: "key" });
+      }
+      async function saveWallets() {
+        await Promise.all([
+          upsert("wallet_btc", gel("set-btc").value.trim()),
+          upsert("wallet_eth", gel("set-eth").value.trim()),
+          upsert("wallet_usdt", gel("set-usdt").value.trim()),
+        ]);
+        toast("Wallet addresses saved!", "ok");
+      }
+      async function savePaymentToggles() {
+        await Promise.all([
+          upsert(
+            "payment_crypto",
+            gel("tog-crypto").checked ? "true" : "false",
+          ),
+          upsert(
+            "payment_stripe",
+            gel("tog-stripe").checked ? "true" : "false",
+          ),
+        ]);
+        toast("Payment settings saved!", "ok");
+      }
+      async function saveSiteToggles() {
+        await Promise.all([
+          upsert(
+            "maintenance_mode",
+            gel("tog-maint").checked ? "true" : "false",
+          ),
+          upsert(
+            "allow_registrations",
+            gel("tog-reg").checked ? "true" : "false",
+          ),
+        ]);
+        toast("Site settings saved!", "ok");
+      }
+
+      /* ── MODAL BACKDROP CLOSE ── */
+      document.querySelectorAll(".modal-overlay").forEach(function (el) {
+        el.addEventListener("click", function (e) {
+          if (e.target === el) el.classList.remove("open");
+        });
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape")
+          document
+            .querySelectorAll(".modal-overlay.open")
+            .forEach(function (el) {
+              el.classList.remove("open");
+            });
+      });
+    </script>
+  </body>
+</html>

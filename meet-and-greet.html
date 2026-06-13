@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meet &amp; Greet | Morgan Wallen</title>
+    <meta
+      name="description"
+      content="Choose your Meet &amp; Greet package for an exclusive experience with Morgan Wallen."
+    />
+    <link rel="icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/responsive.css" />
+
+    <style>
+      body {
+        background-color: #f0ede6;
+        background-image: url("images/bg.jpg");
+        background-attachment: fixed;
+        background-position: top center;
+        background-repeat: repeat;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      /* Fade in page content */
+      #container,
+      header,
+      main {
+        animation: pageIn 0.4s ease-in-out;
+      }
+      @keyframes pageIn {
+        from {
+          opacity: 0.95;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <div class="header-wrapper">
+      <header>
+        <div id="logo">
+          <a href="index.html"
+            ><img src="images/logo.svg" alt="Morgan Wallen"
+          /></a>
+        </div>
+        <nav id="main">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="meet-and-greet.html">Meet & Greet</a></li>
+            <li><a href="private-meetup.html">Private Meet Up</a></li>
+            <li id="nav-auth-item">
+              <a href="signup.html" id="nav-login-btn">Login</a>
+            </li>
+          </ul>
+        </nav>
+        <div id="socials">
+          <ul>
+            <li>
+              <a
+                href="https://facebook.com/morgancwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-facebook"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-instagram"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://tiktok.com/@morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-tiktok"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/channel/UCzIyoPv6j1MAZpDHKLGP_eA"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-youtube"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://music.amazon.com/artists/B00QNUADXK/morgan-wallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-amazon"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://geo.music.apple.com/us/artist/morgan-wallen/829142092"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-apple"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-spotify"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </header>
+      <div id="nav-trigger" aria-label="Toggle navigation"></div>
+    </div>
+
+    <!-- MOBILE NAV -->
+    <div id="mobile-nav">
+      <ul id="nav-mob">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="meet-and-greet.html">Meet & Greet</a></li>
+        <li><a href="private-meetup.html">Private Meet Up</a></li>
+        <li id="nav-auth-item">
+          <a href="signup.html" id="nav-login-btn">Login</a>
+        </li>
+        <div id="mobile-nav-socials">
+          <ul>
+            <li>
+              <a
+                href="https://facebook.com/morgancwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-facebook"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-instagram"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://tiktok.com/@morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-tiktok"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/morganwallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/channel/UCzIyoPv6j1MAZpDHKLGP_eA"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-youtube"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://music.amazon.com/artists/B00QNUADXK/morgan-wallen"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-amazon"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://geo.music.apple.com/us/artist/morgan-wallen/829142092"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-apple"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://open.spotify.com/artist/4oUHIQIBe0LHzYfvXNW4QM"
+                target="_blank"
+                rel="noopener"
+                ><i class="socicon-spotify"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </ul>
+    </div>
+    <div id="container" class="page">
+      <h2 class="page-title">Meet &amp; Greet</h2>
+
+      <p class="membership-intro">
+        Secure your exclusive Meet &amp; Greet experience. Choose a package for
+        personal time with Morgan — including photo opportunities, exclusive
+        merch, and VIP backstage access.
+      </p>
+
+      <div class="member-gate" id="member-gate" style="display: none">
+        You need to be signed in to book a Meet &amp; Greet package. &nbsp;<a
+          href="signup.html?redirect=meet-and-greet"
+          >Sign in or create a free account &rarr;</a
+        >
+      </div>
+
+      <div class="tiers-grid">
+        <div class="tier-card">
+          <div class="tier-name">Standard</div>
+          <div class="tier-price" id="price-standard">$299</div>
+          <div class="tier-price-sub" id="billing-standard">one-time</div>
+          <ul class="tier-perks" id="perks-standard">
+            <li>Newsletter &amp; updates</li>
+            <li>Early access announcements</li>
+            <li>Member community access</li>
+          </ul>
+          <a href="checkout.html?item=meet-greet-standard" class="tier-btn"
+            >Book Standard</a
+          >
+        </div>
+
+        <div class="tier-card">
+          <div class="tier-name">Premium</div>
+          <div class="tier-price" id="price-premium">$499</div>
+          <div class="tier-price-sub" id="billing-premium">per month</div>
+          <ul class="tier-perks" id="perks-premium">
+            <li>Everything in Standard</li>
+            <li>Priority merch access</li>
+            <li>Exclusive digital content</li>
+            <li>Member-only live streams</li>
+          </ul>
+          <a href="checkout.html?item=meet-greet-premium" class="tier-btn"
+            >Book Premium</a
+          >
+        </div>
+
+        <div class="tier-card featured">
+          <div class="tier-badge">Most Popular</div>
+          <div class="tier-name">VIP</div>
+          <div class="tier-price" id="price-vip">$699</div>
+          <div class="tier-price-sub" id="billing-vip">per month</div>
+          <ul class="tier-perks" id="perks-vip">
+            <li>Everything in Premium</li>
+            <li>Ticket presale access</li>
+            <li>Exclusive merch drops</li>
+            <li>Behind-the-scenes content</li>
+            <li>Monthly digital download</li>
+          </ul>
+          <a href="checkout.html?item=meet-greet-vip" class="tier-btn"
+            >Book VIP</a
+          >
+        </div>
+      </div>
+
+      <p class="membership-note">
+        All packages include a personal photo with Morgan. Availability is
+        limited — book early to secure your spot.
+      </p>
+    </div>
+
+    <!-- User Auth Dialog -->
+    <div
+      id="user-dialog-overlay"
+      class="udialog-overlay"
+      style="display: none"
+      onclick="closeUserDialog()"
+    ></div>
+    <div id="user-dialog" class="udialog" style="display: none">
+      <button
+        class="udialog-close"
+        onclick="closeUserDialog()"
+        aria-label="Close"
+      >
+        &times;
+      </button>
+      <div class="udialog-avatar">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="15" r="7" fill="#a9683a" />
+          <path
+            d="M4 36c0-8.837 7.163-14 16-14s16 5.163 16 14"
+            stroke="#a9683a"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <div class="udialog-name" id="udialog-name"></div>
+      <div class="udialog-email" id="udialog-email"></div>
+      <div class="udialog-divider"></div>
+      <a
+        href="meet-and-greet.html"
+        class="udialog-link"
+        onclick="closeUserDialog()"
+        ><svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+          />
+        </svg>
+        Meet &amp; Greet Packages</a
+      >
+      <a href="signup.html" class="udialog-link" onclick="closeUserDialog()"
+        ><svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+        Account Settings</a
+      >
+      <button class="udialog-signout" id="udialog-signout-btn">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <polyline points="16 17 21 12 16 7" />
+          <line x1="21" y1="12" x2="9" y2="12" />
+        </svg>
+        Sign Out
+      </button>
+    </div>
+    <footer>
+      <span style="font-family: Arial">&copy;</span> 2026 Morgan Wallen. All
+      rights reserved. <a href="privacy.html">Privacy Policy</a> &nbsp;|&nbsp;
+      Website by: <a href="#">Stephen Craven</a>
+    </footer>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/nav-auth.js"></script>
+    <script src="js/chat.js"></script>
+    <script>
+      (async function () {
+        var SURL = "https://gzzqpiwufbvoygqfxbrf.supabase.co";
+        var SANON =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6enFwaXd1ZmJ2b3lncWZ4YnJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNjA2MTcsImV4cCI6MjA4ODYzNjYxN30.OUY4ktBGKSvnO56fpLfkP13da5T_fOLBEDX7aBW7PU4";
+
+        /* Wait for supabase-js to be available (loaded async) */
+        var attempts = 0;
+        while (typeof supabase === "undefined" && attempts++ < 20) {
+          await new Promise(function (r) {
+            setTimeout(r, 100);
+          });
+        }
+        if (typeof supabase === "undefined") {
+          console.error("Membership: supabase-js did not load");
+          return;
+        }
+
+        var db =
+          window.supabaseClient ||
+          supabase.createClient(SURL, SANON, {
+            auth: { autoRefreshToken: true, persistSession: true },
+          });
+        window.supabaseClient = db;
+
+        /* ── Prices ── */
+        try {
+          var pr = await db
+            .from("membership_prices")
+            .select("tier,price,billing_label");
+          if (pr.error) {
+            console.error("Prices error:", pr.error.message, pr.error.code);
+          } else if (pr.data) {
+            pr.data.forEach(function (row) {
+              var priceEl = document.getElementById("price-" + row.tier);
+              var subEl = document.getElementById("billing-" + row.tier);
+              if (priceEl)
+                priceEl.textContent = "$" + parseFloat(row.price).toFixed(0);
+              if (subEl && row.billing_label)
+                subEl.textContent = row.billing_label;
+            });
+            console.log("Prices loaded:", pr.data.length, "rows");
+          }
+        } catch (e) {
+          console.error("Prices exception:", e.message);
+        }
+
+        /* ── Perks ── */
+        try {
+          var pk = await db
+            .from("membership_perks")
+            .select("tier,perk,sort_order")
+            .order("sort_order");
+          if (pk.error) {
+            console.error("Perks error:", pk.error.message, pk.error.code);
+          } else if (pk.data && pk.data.length) {
+            var grouped = { standard: [], premium: [], vip: [] };
+            pk.data.forEach(function (row) {
+              if (grouped[row.tier]) grouped[row.tier].push(row.perk);
+            });
+            ["standard", "premium", "vip"].forEach(function (tier) {
+              var ul = document.getElementById("perks-" + tier);
+              if (!ul || !grouped[tier].length) return;
+              ul.innerHTML = grouped[tier]
+                .map(function (p) {
+                  return (
+                    "<li>" +
+                    p.replace(/&/g, "&amp;").replace(/</g, "&lt;") +
+                    "</li>"
+                  );
+                })
+                .join("");
+            });
+            console.log("Perks loaded:", pk.data.length, "rows");
+          } else {
+            console.warn(
+              "Perks: no rows returned — check RLS policies allow anon select",
+            );
+          }
+        } catch (e) {
+          console.error("Perks exception:", e.message);
+        }
+
+        /* ── Auth gate ── */
+        try {
+          var s = await db.auth.getSession();
+          if (!s.data || !s.data.session) {
+            var gate = document.getElementById("member-gate");
+            if (gate) gate.style.display = "block";
+          }
+        } catch (e) {
+          console.error("Auth gate exception:", e.message);
+        }
+      })();
+    </script>
+  </body>
+</html>
