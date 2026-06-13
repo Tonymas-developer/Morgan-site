@@ -13,6 +13,7 @@
     setTimeout(function () {
       var s = document.createElement("script");
       s.src = "/js/nav-auth.js";
+      document.body.appendChild(s); 
     }, 200);
     return;
   }
@@ -43,6 +44,13 @@
       return (firstName[0] + lastName[0]).toUpperCase();
     if (firstName) return firstName[0].toUpperCase();
     return email ? email[0].toUpperCase() : "?";
+  }
+
+  function revealAuthSlots() {
+    var navItem = el("nav-auth-item");
+    var mobItem = el("mob-auth-item");
+    if (navItem) navItem.classList.add("auth-ready");
+    if (mobItem) mobItem.classList.add("auth-ready");
   }
 
   /* ── Build the nav user widget (replaces Login link) ── */
@@ -84,11 +92,10 @@
       navItem.appendChild(widget);
     }
 
-    /* ── Mobile nav row ── */
     var mobItem = el("mob-auth-item");
     if (mobItem) {
       mobItem.innerHTML =
-        '<div class="mob-user-row" onclick="toggleUserDialog()" role="button" tabindex="0">' +
+        '<div class="mob-user-row auth-ready" onclick="toggleUserDialog()" role="button" tabindex="0">' +
         '<div class="nav-user-avatar nav-user-avatar--sm">' +
         initials +
         "</div>" +
@@ -164,8 +171,11 @@
   async function init() {
     try {
       var res = await db.auth.getSession();
-      if (!res.data || !res.data.session)
-        return; /* Not logged in — keep Login link */
+      if (!res.data || !res.data.session) {
+        /* Not logged in — keep "Sign In" / "Login" link, just reveal it */
+        revealAuthSlots();
+        return;
+      }
 
       var user = res.data.session.user;
 
@@ -183,8 +193,12 @@
       }
 
       buildNavWidget(user, profile);
+      revealAuthSlots();
     } catch (e) {
       console.warn("nav-auth init failed:", e.message);
+      /* FIX: even on error, reveal the slots so "Sign In" doesn't
+         stay permanently hidden */
+      revealAuthSlots();
     }
   }
 

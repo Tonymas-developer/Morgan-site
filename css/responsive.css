@@ -277,3 +277,27 @@ body {
     display: none !important;
   }
 }
+
+ @media (max-width: 480px) {
+        #container,
+        #container.page {
+          width: 100% !important;
+          max-width: 100% !important;
+          margin: 0 auto !important;
+          left: auto !important;
+          right: auto !important;
+          transform: none !important;
+          padding-left: 15px !important;
+          padding-right: 15px !important;
+          box-sizing: border-box;
+          
+        }
+
+        .page-title,
+        .contact-intro,
+        .contact-grid {
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+
+      }
