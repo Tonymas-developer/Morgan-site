@@ -279,7 +279,7 @@ create policy "settings_public_read" on public.site_settings
   for select using (
     key in (
       'wallet_btc', 'wallet_eth', 'wallet_usdt',
-      'payment_crypto', 'payment_stripe', 'maintenance_mode'
+      'payment_crypto', 'payment_stripe', 'maintenance_mode', 'allow_registrations'
     )
   );
 

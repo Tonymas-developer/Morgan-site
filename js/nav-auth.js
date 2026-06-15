@@ -13,14 +13,17 @@
     setTimeout(function () {
       var s = document.createElement("script");
       s.src = "/js/nav-auth.js";
-      document.body.appendChild(s); 
+      document.body.appendChild(s);
     }, 200);
     return;
   }
 
-  var SUPABASE_URL = "https://gzzqpiwufbvoygqfxbrf.supabase.co";
+  // var SUPABASE_URL = "https://gzzqpiwufbvoygqfxbrf.supabase.co";
+  var SUPABASE_URL = "https://lfnshkrvyoiikvxjmowy.supabase.co";
+  // var SUPABASE_ANON =
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6enFwaXd1ZmJ2b3lncWZ4YnJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNjA2MTcsImV4cCI6MjA4ODYzNjYxN30.OUY4ktBGKSvnO56fpLfkP13da5T_fOLBEDX7aBW7PU4";
   var SUPABASE_ANON =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6enFwaXd1ZmJ2b3lncWZ4YnJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNjA2MTcsImV4cCI6MjA4ODYzNjYxN30.OUY4ktBGKSvnO56fpLfkP13da5T_fOLBEDX7aBW7PU4";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxmbnNoa3J2eW9paWt2eGptb3d5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1NTYxNzIsImV4cCI6MjA5NzEzMjE3Mn0.fr14v46Uby7ne-a1nZcOOifL4WlfO5TAgfHe0F4tsfw";
 
   /* Re-use existing client if another script already created one */
   var db =
