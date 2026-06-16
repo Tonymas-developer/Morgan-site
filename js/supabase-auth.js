@@ -174,10 +174,19 @@
         return;
       }
 
+      /* Build the redirect URL — works on any host (localhost or live) */
+      var siteBase =
+        window.location.origin +
+        window.location.pathname.replace(/\/[^/]*$/, "/");
+      var redirectTo = siteBase + "signup.html?verified=1";
+
       var res = await db.auth.signUp({
         email: email,
         password: pass,
-        options: { data: { first_name: firstName, last_name: lastName } },
+        options: {
+          data: { first_name: firstName, last_name: lastName },
+          emailRedirectTo: redirectTo,
+        },
       });
 
       if (res.error) {
@@ -230,8 +239,44 @@
     window.location.reload();
   };
 
+  /* ── Handle email verification redirect ──
+     Supabase appends #access_token=...&type=signup to the redirectTo URL.
+     We also accept ?verified=1 as a fallback signal.
+     Either way: sign the user out (don't auto-login), show success, open Sign In tab.
+  */
+  function handleVerificationRedirect() {
+    var hash = window.location.hash || "";
+    var params = new URLSearchParams(window.location.search);
+    var isVerified =
+      params.get("verified") === "1" ||
+      (hash.includes("access_token") && hash.includes("type=signup"));
+    if (!isVerified) return false;
+
+    /* Strip the hash/query so a refresh doesn't re-trigger */
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+
+    /* Sign out any auto-session Supabase may have created from the token */
+    db.auth.signOut().catch(function () {});
+
+    /* Show auth forms, switch to Sign In tab, display success banner */
+    showAuthForms();
+    switchTab("signin");
+
+    var msg = el("signin-msg");
+    if (msg) {
+      msg.textContent = "✓ Email verified! You can now sign in below.";
+      msg.className = "auth-msg success";
+    }
+    return true;
+  }
+
   /* ── Page init: check existing session ── */
   async function init() {
+    /* Handle email verification redirect FIRST */
+    if (handleVerificationRedirect()) return;
+
     try {
       var res = await db.auth.getSession();
       if (!res.data || !res.data.session) {

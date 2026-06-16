@@ -593,50 +593,59 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/nav-auth.js"></script>
     <script src="js/chat.js"></script>
-    <script type="module">
-      import { supabase } from "./js/supabase-config.js";
-
+    <script>
       window.sendContact = async function () {
-        var name = document.getElementById("c-name").value.trim();
-        var email = document.getElementById("c-email").value.trim();
+        var name    = document.getElementById("c-name").value.trim();
+        var email   = document.getElementById("c-email").value.trim();
         var subject = document.getElementById("c-subject").value.trim();
         var message = document.getElementById("c-message").value.trim();
-        var msgEl = document.getElementById("contact-msg");
-        var btn = document.getElementById("contact-btn");
+        var msgEl   = document.getElementById("contact-msg");
+        var btn     = document.getElementById("contact-btn");
 
         if (!name || !email || !message) {
-          msgEl.textContent = "Please fill in all required fields.";
+          msgEl.textContent = "Please fill in your name, email and message.";
+          msgEl.className = "contact-msg error";
+          return;
+        }
+
+        /* Wait for supabaseClient (set by nav-auth.js) */
+        var db = window.supabaseClient;
+        if (!db) {
+          msgEl.textContent = "Still loading — please try again in a moment.";
           msgEl.className = "contact-msg error";
           return;
         }
 
         btn.disabled = true;
-        msgEl.textContent = "Sending…";
+        btn.textContent = "Sending…";
+        msgEl.textContent = "";
         msgEl.className = "contact-msg";
 
         try {
-          const { error } = await supabase.from("contact_messages").insert([
-            {
-              name,
-              email,
-              subject,
-              message,
-              created_at: new Date().toISOString(),
-            },
-          ]);
-          if (error) throw error;
+          var result = await db.from("contact_messages").insert([{
+            name: name,
+            email: email,
+            subject: subject || null,
+            message: message,
+          }]);
+
+          if (result.error) throw result.error;
+
           msgEl.textContent = "✓ Message sent! We'll be in touch soon.";
           msgEl.className = "contact-msg success";
-          document.getElementById("c-name").value = "";
-          document.getElementById("c-email").value = "";
+
+          /* Clear the form */
+          document.getElementById("c-name").value    = "";
+          document.getElementById("c-email").value   = "";
           document.getElementById("c-subject").value = "";
           document.getElementById("c-message").value = "";
         } catch (e) {
-          msgEl.textContent =
-            e.message || "Something went wrong. Please try again.";
+          msgEl.textContent = e.message || "Something went wrong. Please try again.";
           msgEl.className = "contact-msg error";
         }
+
         btn.disabled = false;
+        btn.textContent = "Send Message";
       };
     </script>
   </body>
