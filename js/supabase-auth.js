@@ -7,11 +7,11 @@
   "use strict";
 
   // var SUPABASE_URL = "https://gzzqpiwufbvoygqfxbrf.supabase.co";
-  var SUPABASE_URL = "https://lfnshkrvyoiikvxjmowy.supabase.co";
+  var SUPABASE_URL = "https://fubydicgzvpirtnzmerx.supabase.co";
   // var SUPABASE_ANON =
   //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6enFwaXd1ZmJ2b3lncWZ4YnJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNjA2MTcsImV4cCI6MjA4ODYzNjYxN30.OUY4ktBGKSvnO56fpLfkP13da5T_fOLBEDX7aBW7PU4";
   var SUPABASE_ANON =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxmbnNoa3J2eW9paWt2eGptb3d5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1NTYxNzIsImV4cCI6MjA5NzEzMjE3Mn0.fr14v46Uby7ne-a1nZcOOifL4WlfO5TAgfHe0F4tsfw";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1YnlkaWNnenZwaXJ0bnptZXJ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3MDc1ODcsImV4cCI6MjA5NzI4MzU4N30.kUPjMDrYp9qARnHstlndhX1MJfsOa5rWiUCx05haRsE";
 
   var db = null; // set once CDN is confirmed ready
 
