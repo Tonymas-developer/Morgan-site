@@ -1,13 +1,17 @@
--- -- ═══════════════════════════════════════════════════════════
--- --  MORGAN WALLEN SITE — SUPABASE FULL SETUP v3
--- --  Supabase Dashboard → SQL Editor → New Query → Run All
--- --  Fix: removed "IF NOT EXISTS" from CREATE POLICY (unsupported)
--- -- ═══════════════════════════════════════════════════════════
+-- ═══════════════════════════════════════════════════════════
+--  MORGAN WALLEN SITE — SUPABASE FULL SETUP v4
+--  Supabase Dashboard → SQL Editor → New Query → Run All
+--
+--  FIX v4: Resolves "infinite recursion detected in policy for
+--  relation profiles" by introducing a SECURITY DEFINER helper
+--  function (is_admin()) that checks admin status without
+--  triggering RLS on the profiles table, breaking the loop.
+-- ═══════════════════════════════════════════════════════════
 
 
--- -- ─────────────────────────────────────────────
--- -- 1. PROFILES
--- -- ─────────────────────────────────────────────
+-- ─────────────────────────────────────────────
+-- 1. PROFILES
+-- ─────────────────────────────────────────────
 create table if not exists public.profiles (
   id               uuid primary key references auth.users(id) on delete cascade,
   first_name       text,
@@ -152,20 +156,60 @@ on conflict (key) do nothing;
 
 
 -- ─────────────────────────────────────────────
--- 8. ENABLE ROW LEVEL SECURITY
+-- 8. CONTACT MESSAGES
 -- ─────────────────────────────────────────────
-alter table public.profiles        enable row level security;
-alter table public.orders          enable row level security;
-alter table public.products        enable row level security;
+create table if not exists public.contact_messages (
+  id         uuid primary key default gen_random_uuid(),
+  name       text not null,
+  email      text not null,
+  subject    text,
+  message    text not null,
+  read       boolean default false,
+  created_at timestamptz default now()
+);
+
+
+-- ─────────────────────────────────────────────
+-- 9. ENABLE ROW LEVEL SECURITY
+-- ─────────────────────────────────────────────
+alter table public.profiles          enable row level security;
+alter table public.orders            enable row level security;
+alter table public.products          enable row level security;
 alter table public.membership_prices enable row level security;
-alter table public.chat_messages   enable row level security;
-alter table public.announcements   enable row level security;
-alter table public.site_settings   enable row level security;
+alter table public.chat_messages     enable row level security;
+alter table public.announcements     enable row level security;
+alter table public.site_settings     enable row level security;
+alter table public.contact_messages  enable row level security;
 
 
 -- ─────────────────────────────────────────────
--- 9. RLS POLICIES
---    DROP first so re-running this file is safe
+-- 10. ADMIN HELPER FUNCTION
+--
+--  This is the KEY fix. SECURITY DEFINER makes the function
+--  run as the function owner (superuser), bypassing RLS on
+--  the profiles table entirely. All admin checks in every
+--  policy now call this function instead of doing an inline
+--  subquery on profiles — that inline subquery was what caused
+--  the "infinite recursion" error.
+-- ─────────────────────────────────────────────
+create or replace function public.is_admin()
+returns boolean
+language sql
+security definer
+stable
+as $$
+  select coalesce(
+    (select is_admin from public.profiles where id = auth.uid() limit 1),
+    false
+  );
+$$;
+
+
+-- ─────────────────────────────────────────────
+-- 11. RLS POLICIES
+--     DROP first so re-running this file is safe.
+--     All admin checks now use public.is_admin()
+--     instead of an inline subquery on profiles.
 -- ─────────────────────────────────────────────
 
 -- ── profiles ──
@@ -179,13 +223,10 @@ create policy "profiles_own_select" on public.profiles
 create policy "profiles_own_update" on public.profiles
   for update using (auth.uid() = id);
 
+-- Admin policy on profiles now uses is_admin() — no more self-referencing subquery
 create policy "profiles_admin_all" on public.profiles
-  for all using (
-    exists (
-      select 1 from public.profiles p
-      where p.id = auth.uid() and p.is_admin = true
-    )
-  );
+  for all using (public.is_admin());
+
 
 -- ── orders ──
 drop policy if exists "orders_user_select" on public.orders;
@@ -199,12 +240,8 @@ create policy "orders_user_insert" on public.orders
   for insert with check (auth.uid() = user_id);
 
 create policy "orders_admin_all" on public.orders
-  for all using (
-    exists (
-      select 1 from public.profiles p
-      where p.id = auth.uid() and p.is_admin = true
-    )
-  );
+  for all using (public.is_admin());
+
 
 -- ── products ──
 drop policy if exists "products_public_select" on public.products;
@@ -214,12 +251,8 @@ create policy "products_public_select" on public.products
   for select using (visible = true);
 
 create policy "products_admin_all" on public.products
-  for all using (
-    exists (
-      select 1 from public.profiles p
-      where p.id = auth.uid() and p.is_admin = true
-    )
-  );
+  for all using (public.is_admin());
+
 
 -- ── membership_prices (public read so live prices show on site) ──
 drop policy if exists "prices_public_select" on public.membership_prices;
@@ -229,12 +262,8 @@ create policy "prices_public_select" on public.membership_prices
   for select using (true);
 
 create policy "prices_admin_all" on public.membership_prices
-  for all using (
-    exists (
-      select 1 from public.profiles p
-      where p.id = auth.uid() and p.is_admin = true
-    )
-  );
+  for all using (public.is_admin());
+
 
 -- ── chat_messages ──
 drop policy if exists "chat_user_select" on public.chat_messages;
@@ -248,12 +277,8 @@ create policy "chat_user_insert" on public.chat_messages
   for insert with check (auth.uid() = user_id);
 
 create policy "chat_admin_all" on public.chat_messages
-  for all using (
-    exists (
-      select 1 from public.profiles p
-      where p.id = auth.uid() and p.is_admin = true
-    )
-  );
+  for all using (public.is_admin());
+
 
 -- ── announcements ──
 drop policy if exists "ann_public_select" on public.announcements;
@@ -263,12 +288,8 @@ create policy "ann_public_select" on public.announcements
   for select using (true);
 
 create policy "ann_admin_all" on public.announcements
-  for all using (
-    exists (
-      select 1 from public.profiles p
-      where p.id = auth.uid() and p.is_admin = true
-    )
-  );
+  for all using (public.is_admin());
+
 
 -- ── site_settings ──
 drop policy if exists "settings_public_read" on public.site_settings;
@@ -284,21 +305,25 @@ create policy "settings_public_read" on public.site_settings
   );
 
 create policy "settings_admin_all" on public.site_settings
-  for all using (
-    exists (
-      select 1 from public.profiles p
-      where p.id = auth.uid() and p.is_admin = true
-    )
-  );
+  for all using (public.is_admin());
+
+
+-- ── contact_messages ──
+drop policy if exists "contact_public_insert" on public.contact_messages;
+drop policy if exists "contact_admin_all"      on public.contact_messages;
+
+-- Anyone (including guests with no session) can submit a contact message
+create policy "contact_public_insert" on public.contact_messages
+  for insert with check (true);
+
+-- Only admins can read/manage messages
+create policy "contact_admin_all" on public.contact_messages
+  for all using (public.is_admin());
 
 
 -- ─────────────────────────────────────────────
--- 10. ENABLE REALTIME
---     (run if not already enabled)
+-- 12. ENABLE REALTIME
 -- ─────────────────────────────────────────────
--- alter publication supabase_realtime add table public.chat_messages;
--- alter publication supabase_realtime add table public.orders;
-
 do $$
 begin
   if not exists (
@@ -315,36 +340,3 @@ begin
     alter publication supabase_realtime add table public.orders;
   end if;
 end $$;
-
-
--- ─────────────────────────────────────────────
--- CONTACT MESSAGES TABLE
--- Run in: Supabase Dashboard → SQL Editor
--- ─────────────────────────────────────────────
-
-create table if not exists public.contact_messages (
-  id         uuid primary key default gen_random_uuid(),
-  name       text not null,
-  email      text not null,
-  subject    text,
-  message    text not null,
-  read       boolean default false,
-  created_at timestamptz default now()
-);
-
--- alter table public.contact_messages enable row level security;
-
--- Anyone (including guests) can submit a contact message
-drop policy if exists "contact_public_insert" on public.contact_messages;
-create policy "contact_public_insert" on public.contact_messages
-  for insert with check (true);
-
--- Only admins can read/manage messages
-drop policy if exists "contact_admin_all" on public.contact_messages;
-create policy "contact_admin_all" on public.contact_messages
-  for all using (
-    exists (
-      select 1 from public.profiles p
-      where p.id = auth.uid() and p.is_admin = true
-    )
-  );
