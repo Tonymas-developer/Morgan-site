@@ -309,16 +309,29 @@ create policy "settings_admin_all" on public.site_settings
 
 
 -- ── contact_messages ──
-drop policy if exists "contact_public_insert" on public.contact_messages;
-drop policy if exists "contact_admin_all"      on public.contact_messages;
+drop policy if exists "contact_public_insert"  on public.contact_messages;
+drop policy if exists "contact_admin_all"       on public.contact_messages;
+drop policy if exists "contact_admin_select"    on public.contact_messages;
+drop policy if exists "contact_admin_update"    on public.contact_messages;
+drop policy if exists "contact_admin_delete"    on public.contact_messages;
 
--- Anyone (including guests with no session) can submit a contact message
+-- Anyone (including guests with no session) can submit a contact message.
+-- This policy is INSERT-only so Supabase never evaluates the admin check
+-- (which queries profiles) during a public insert — preventing infinite recursion.
 create policy "contact_public_insert" on public.contact_messages
   for insert with check (true);
 
--- Only admins can read/manage messages
-create policy "contact_admin_all" on public.contact_messages
-  for all using (public.is_admin());
+-- Admins can read, update, and delete messages.
+-- These are intentionally split into separate non-INSERT policies so they are
+-- never triggered during a guest insert, avoiding the profiles RLS recursion.
+create policy "contact_admin_select" on public.contact_messages
+  for select using (public.is_admin());
+
+create policy "contact_admin_update" on public.contact_messages
+  for update using (public.is_admin());
+
+create policy "contact_admin_delete" on public.contact_messages
+  for delete using (public.is_admin());
 
 
 -- ─────────────────────────────────────────────
