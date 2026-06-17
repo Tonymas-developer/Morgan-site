@@ -40,20 +40,6 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute procedure public.handle_new_user();
 
--- Security-definer helper: checks is_admin without triggering RLS
--- (prevents infinite recursion in admin policies that query profiles)
-create or replace function public.is_admin()
-returns boolean
-language sql
-security definer
-stable
-as $$
-  select coalesce(
-    (select is_admin from public.profiles where id = auth.uid()),
-    false
-  );
-$$;
-
 
 -- ─────────────────────────────────────────────
 -- 2. ORDERS
@@ -194,7 +180,12 @@ create policy "profiles_own_update" on public.profiles
   for update using (auth.uid() = id);
 
 create policy "profiles_admin_all" on public.profiles
-  for all using (public.is_admin());
+  for all using (
+    exists (
+      select 1 from public.profiles p
+      where p.id = auth.uid() and p.is_admin = true
+    )
+  );
 
 -- ── orders ──
 drop policy if exists "orders_user_select" on public.orders;
@@ -208,7 +199,12 @@ create policy "orders_user_insert" on public.orders
   for insert with check (auth.uid() = user_id);
 
 create policy "orders_admin_all" on public.orders
-  for all using (public.is_admin());
+  for all using (
+    exists (
+      select 1 from public.profiles p
+      where p.id = auth.uid() and p.is_admin = true
+    )
+  );
 
 -- ── products ──
 drop policy if exists "products_public_select" on public.products;
@@ -218,7 +214,12 @@ create policy "products_public_select" on public.products
   for select using (visible = true);
 
 create policy "products_admin_all" on public.products
-  for all using (public.is_admin());
+  for all using (
+    exists (
+      select 1 from public.profiles p
+      where p.id = auth.uid() and p.is_admin = true
+    )
+  );
 
 -- ── membership_prices (public read so live prices show on site) ──
 drop policy if exists "prices_public_select" on public.membership_prices;
@@ -228,7 +229,12 @@ create policy "prices_public_select" on public.membership_prices
   for select using (true);
 
 create policy "prices_admin_all" on public.membership_prices
-  for all using (public.is_admin());
+  for all using (
+    exists (
+      select 1 from public.profiles p
+      where p.id = auth.uid() and p.is_admin = true
+    )
+  );
 
 -- ── chat_messages ──
 drop policy if exists "chat_user_select" on public.chat_messages;
@@ -242,7 +248,12 @@ create policy "chat_user_insert" on public.chat_messages
   for insert with check (auth.uid() = user_id);
 
 create policy "chat_admin_all" on public.chat_messages
-  for all using (public.is_admin());
+  for all using (
+    exists (
+      select 1 from public.profiles p
+      where p.id = auth.uid() and p.is_admin = true
+    )
+  );
 
 -- ── announcements ──
 drop policy if exists "ann_public_select" on public.announcements;
@@ -252,7 +263,12 @@ create policy "ann_public_select" on public.announcements
   for select using (true);
 
 create policy "ann_admin_all" on public.announcements
-  for all using (public.is_admin());
+  for all using (
+    exists (
+      select 1 from public.profiles p
+      where p.id = auth.uid() and p.is_admin = true
+    )
+  );
 
 -- ── site_settings ──
 drop policy if exists "settings_public_read" on public.site_settings;
@@ -268,7 +284,12 @@ create policy "settings_public_read" on public.site_settings
   );
 
 create policy "settings_admin_all" on public.site_settings
-  for all using (public.is_admin());
+  for all using (
+    exists (
+      select 1 from public.profiles p
+      where p.id = auth.uid() and p.is_admin = true
+    )
+  );
 
 
 -- ─────────────────────────────────────────────
@@ -321,4 +342,9 @@ create policy "contact_public_insert" on public.contact_messages
 -- Only admins can read/manage messages
 drop policy if exists "contact_admin_all" on public.contact_messages;
 create policy "contact_admin_all" on public.contact_messages
-  for all using (public.is_admin());
+  for all using (
+    exists (
+      select 1 from public.profiles p
+      where p.id = auth.uid() and p.is_admin = true
+    )
+  );
